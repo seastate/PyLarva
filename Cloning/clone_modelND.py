@@ -262,7 +262,6 @@ def ClonePDE(params):
         # Main loop for simulations
         count = 0
         for irun in runs:
-            #print('irun=',irun)
             PFsol=odeint(dPFdt, PF0, t, args=(t_off[irun],),atol=params.abserr,rtol=params.relerr,hmax=params.max_step)
             Psol=ds*PFsol[:,0:params.ns]
             Fsol=PFsol[:,params.ns]
@@ -270,7 +269,6 @@ def ClonePDE(params):
             if count==0:
                 result_sum=[params.c_0,params.s_0,params.s_1,params.s_egg,params.n_env,params.g_pars[0]['g0'],
                             params.m_pars[0]['m0'],params.alpha,Fsol[-1]]
-                #result_sum=[params.c_0,params.s_0,params.s_1,Fsol.sum(axis=1)[-1]]
                 result_P=np.copy(Psol)
                 result_F=np.copy(Fsol)
             else:
@@ -280,64 +278,35 @@ def ClonePDE(params):
             count += 1
         result_P/=float(len(runs))
         result_F/=float(len(runs))
-
-        if params.auto_plot:  # Generate graphical output from results
+        # Generate graphical output from results, if requested
+        if params.auto_plot:  
             Pfig=plt.figure()
             Pax = Pfig.add_subplot(111)
-            # Suppress bit flipping when doing long runs
+            # Suppress bit flipping at 0 when doing long runs
             plot_P = np.maximum(0.,result_P)
             plot_F = np.maximum(0.,result_F)
-            #result_P[result_P<0.] = 0.
-            #result_F[result_F<0.] = 0.
-            #for i in range(len(result_P)):
-            #    for j in range(len(result_P[i])):
-            #        result_P[i][j]=max(0.,result_P[i][j])
-            #        result_F[i][j]=max(0.,result_F[i][j])
-            #        #result_F[i][j]=max(0.,result_F[i][j])
-
             # Contour levels for plotting
             levels = np.append([0],np.logspace(-4,0,32)*ds*P0[is_egg]/10.)
-            #levels = np.append([0],np.logspace(-4,0,32)*P0[0]/3.)
-            #levels = np.append(np.append([0],np.logspace(-4,0,32)*P0[0]/3.),[P0[0]])
-            #levels[0]=0.
-            #print levels
-            #plt.figure(1)
-            #Pfig.clf()
-            #CS = plt.contourf(t,S,plot_P.transpose())
             CS = plt.contourf(t,S,plot_P.transpose(),levels)
-            #plt.clabel(CS, inline=1, fontsize=10)
             plt.title('Larval population size structure over time')
             plt.ylabel('Larval size, $s$')
             plt.xlabel('Time, $t$')
             CB = plt.colorbar(CS, shrink=0.8, extend='both')
             Pfig.canvas.draw()
-            #par_str='_{}_{}_{}_{}'.format(params.c_0,params.s_0,params.s_1,irun)
-            #Ppng_name=params.image_dir+'/'+params.filename+'/'+params.filename+'_P_'+par_str+'.png'
-            #Pfig.savefig(Ppng_name)
-
+            #
             Ffig=plt.figure()
             Fax1 = Ffig.add_subplot(211)
             Fax2 = Ffig.add_subplot(212)
-            #plt.figure(2)
-            ##CS2 = plt.contourf(t,S,plot_F.transpose())
-            #Ffig.clf()
             Fax1.cla()
             PLT_F=Fax1.plot(t,plot_F)
-            #PLT_F=Fax1.plot(t,plot_F.sum(axis=1))
             Fax1.set_xlabel('Time, $t$')
             Fax1.set_ylabel('Cum. num. of metamorphs, $F(t)$')
             Ffig.canvas.draw()
             Fax2.cla()
             PLT_P=Fax2.plot(t,plot_P.sum(axis=1))
-            ##plt.clabel(CS, inline=1, fontsize=10)
-            ##plt.title('Simplest default with labels')
-            ##CB2 = plt.colorbar(CS2, shrink=0.8, extend='both')
             Fax2.set_xlabel('Time, $t$')
             Fax2.set_ylabel('Larval population, $P(t)$')
             Ffig.canvas.draw()
-            #Fpng_name=params.image_dir+'/'+params.filename+'/'+params.filename+'_F_'+par_str+'.png'
-            #Ffig.savefig(Fpng_name)
- 
         if params.save_all is True:  # Return full result_P results
             return [result_sum,t,S,result_P,result_F]
         else:                        # Return only summary result_P results
@@ -349,7 +318,8 @@ if __name__ == '__main__':
     # Run simulation with default parameters
     from matplotlib import pyplot as plt
     plt.ion()
-
+    # This is useful mostly as a test; a future version might allow
+    # modified parameters as arguments.
     from clone_modelND import *
     params=Params(auto_plot=True)
     print('Executing a demonstration run with default parameters...')
