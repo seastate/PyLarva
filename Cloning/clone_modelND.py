@@ -23,7 +23,8 @@ class Params:
     """
     Parameters container for larval cloning simulations.
 
-    Supplies default parameters, to be changed for any specific simulation.
+    Supplies default nondimensional parameters, to be changed for any specific 
+    simulation.
 
     Biological parameters (some are environment-specific, where environment 
     is optionally determined by env = 0, 1, ...):
@@ -36,7 +37,7 @@ class Params:
     s_1 : float
         Size of clone (along with a sister of size s_0-s_1)
     s_2 : float
-        Size at metamorphosis; if > s_j, a clone of size 1-s_2 is also produced
+        Size at metamorphosis; if > 1, a clone of size 1-s_2 is also produced
     Smax : float
         A maximum size, for grid specification only
     
