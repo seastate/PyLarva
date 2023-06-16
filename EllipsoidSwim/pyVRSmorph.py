@@ -307,7 +307,8 @@ class Morphology():
  
         """
         super().__init__(**kwargs)
-        base_densities={'seawater':1030.,
+        base_densities={'freshwater':1000.,
+                    'seawater':1030.,
                     'tissue':1070.,
                     'lipid':900.,
                     'calcite':2669.}
@@ -396,6 +397,8 @@ class Morphology():
                 colors = 'gray'
             elif layer.pars.material == 'seawater':
                 colors = np.asarray([0.3,0.3,0.3])
+            elif layer.pars.material == 'freshwater':
+                colors = np.asarray([0.1,0.3,0.3])
             else:
                 print('Unknown layer material in plot_layers; skipping layer {}'.format(i))
             vectors = layer.vectors.copy()

@@ -89,7 +89,7 @@ class semiEllipsoid():
         """Calculate a set of angles, t, measured in radians upwards from
            the xy plane. Tiles are to be distributed as t (translated into 
            the vertical axis, z). Currently the only option is uniform 
-           spacing in t, but this atribute can be modified directly during
+           spacing in t, but this attribute can be modified directly during
            mesh construction.
         """
         if nlevel is not None:
