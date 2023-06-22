@@ -331,11 +331,15 @@ def ClonePDE(params):
             PLT_F=Fax1.plot(t,plot_F)
             Fax1.set_xlabel('Time, $t$')
             Fax1.set_ylabel('Cum. num. of metamorphs, $F(t)$')
+            Fax1.annotate(str(round(plot_F[-1],2)),xy=(t[-1],plot_F[-1]),xycoords='data',
+                          xytext=(-10.,10.),textcoords='offset points')
             #Ffig.canvas.draw()
             Fax2.cla()
             PLT_P=Fax2.plot(t,plot_P.sum(axis=1))
             Fax2.set_xlabel('Time, $t$')
             Fax2.set_ylabel('Larval population, $P(t)$')
+            Fax2.annotate(str(round(plot_P.sum(axis=1)[-1],2)),xy=(t[-1],plot_P.sum(axis=1)[-1]),xycoords='data',
+                          xytext=(-10.,10.),textcoords='offset points')
             Pfig.canvas.draw()
         if params.save_all is True:  # Return full result_P results
             return [result_sum,t,S,result_P,result_F]

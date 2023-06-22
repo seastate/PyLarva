@@ -10,6 +10,7 @@ Replication of the model found in NetLogo:
 """
 
 import mesa
+import numpy as np
 
 from AgentBased3trophic.scheduler import RandomActivationByTypeFiltered
 from AgentBased3trophic.agents import Sheep, Wolf, GrassPatch
@@ -170,3 +171,28 @@ class WolfSheep(mesa.Model):
                 "Final number grass: ",
                 self.schedule.get_type_count(GrassPatch, lambda x: x.fully_grown),
             )
+
+    def count(self):
+
+        self.sheep_counts = np.zeros((self.width, self.height))
+        self.wolf_counts = np.zeros((self.width, self.height))
+        self.grass_counts = np.zeros((self.width, self.height))
+
+        for cell in self.grid.coord_iter():
+            cell_content, x, y = cell
+            sheep = [obj for obj in cell_content if isinstance(obj, Sheep)]
+            sheep_count = len(sheep)
+            self.sheep_counts[x][y] = sheep_count
+            wolf = [obj for obj in cell_content if isinstance(obj, Wolf)]
+            wolf_count = len(wolf)
+            self.wolf_counts[x][y] = wolf_count
+            grass_patch = [obj for obj in cell_content if isinstance(obj, GrassPatch)][0]
+            if grass_patch.fully_grown:
+                grass_count = 1
+                self.grass_counts[x][y] = grass_count
+        
+        tot_sheep = self.sheep_counts.sum()
+        tot_wolves = self.wolf_counts.sum()
+        tot_grass = self.grass_counts.sum()
+
+        return tot_sheep,tot_wolves,tot_grass
