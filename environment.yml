@@ -15,4 +15,5 @@ dependencies:
   - anaconda-navigator
   - mesa
   - jupyter-book
+  - ipympl
 prefix: /home/dg/anaconda3/envs/newPL
