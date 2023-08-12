@@ -9,6 +9,8 @@ from matplotlib.colors import LightSource
 import numpy as np
 import math
 
+#plt.ioff()
+
 from attrdict import AttrDict
 
 from EllipsoidSwim.pyVRSflow import Stokeslet_shape, External_vel3, larval_V, solve_flowVRS, R_Euler
