@@ -1,0 +1,204 @@
+\documentclass[10pt,legalpaper]{article}
+
+\usepackage[a3paper,top=0.75in, bottom=0.75in, left=0.75in, right=0.75in]{geometry}
+
+\usepackage{upquote}
+%\usepackage{textcomp} % to be used with upquote=true in lstset
+
+\usepackage{listings}
+\lstset{basicstyle=\fontsize{10}{13}\ttfamily,breaklines=true,
+	commentstyle=\color{commentsColor}\textit,
+	stringstyle=\color{stringColor},
+	keywordstyle=\color{keywordsColor}\bfseries}
+%\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true}
+
+\usepackage[table]{xcolor}    % loads also »colortbl«
+\definecolor{keywordsColor}{rgb}{0.000000, 0.000000, 0.635294}
+\definecolor{commentsColor}{rgb}{0.497495, 0.497587, 0.497464}
+\definecolor{stringColor}{rgb}{0.558215, 0.000000, 0.135316}
+%\usepackage{colortbl}
+
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[mathscr]{euscript}
+
+%\usepackage{hyperref}
+\usepackage{graphics}
+%\usepackage{color}
+
+\usepackage{url}
+
+\usepackage{xspace}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+
+\usepackage[section]{placeins}
+\usepackage{float}
+\restylefloat{figure}
+
+\usepackage{rotating}
+\usepackage{array}
+%\newcolumntype{L}{>{\centering\arraybackslash}m{6cm}}
+\newcolumntype{L}{>{\arraybackslash}m{6cm}}
+\newcolumntype{I}{>{\arraybackslash}m{5cm}}
+\newcolumntype{S}{>{\arraybackslash}m{2.5cm}}
+
+\usepackage[colorlinks=true, urlcolor=blue, linkcolor=red]{hyperref}
+
+
+\begin{document}
+	
+\begin{sidewaystable}
+	\centering
+	\caption{Roadmap: Summary Table of Models and Topics.} \label{tab:rmap}
+	\vspace{.25cm}
+	\small
+	\rowcolors{2}{gray!10}{white}
+	\begin{tabular}{|l|L|I|S|I|I|I|I|}
+		\hline
+		Name & Description & Organizational level transitions & Currencies (conserved quantities) & Key mechanisms & Parameters & Potential \& realized connections & Modeling technicalities \\
+		\hline
+		ReynoldsSphere2d & Drag \& mass transfer for a sphere in fluid, with various combinations of known \& unknowns & C, M, O $\Leftrightarrow$ P, H & Position, Stoichiometry & B (diffusion, viscosity, gravity) & Diameter, tissue \& fluid density, viscosity, diffusion coefficient & Advective/turbulent transport; physiological constraints; fertilization kinetics & Interpolation of Re vs. Cd, Sh curves using experimental data \& theory (numerical min. \& opt.; ipynb) \\
+		
+		EllipsoidSwim & Displacement \& orientation of swimming blastulae \& gastrulae at low Re & C, M, O $\Leftrightarrow$ H & Morphology, Biomass, Position/Orientation & B (viscosity, gravity, internal \& external mass distribution) & Geometries \& densities of semi-ellipsoid chimeras forming surface \& inclusions & Habitat hydrodynamics; egg size/density tradeoffs; optimization for speed, stability during morphogenesis & Stokes flow solutions using singularity methods (ODE solutions for position, orientation in shear flows; py, ipynb) \\
+		
+		LarvalCloningModel & Demography of larval cohorts w/ alternative cloning strategies & M, O, H $\Leftrightarrow$ P & Biomass, Population & V, D (growth, cloning \& metamorphosis as functions of size) & Egg size, size thresholds for cloning \& metamorphosis as functions of habitat & Evolution of egg size \& other reproductive strategies; responses to climate change \& other habitat variations & Numerical solution of hyperbolic PDE (1st order finite difference; py, ipynb) \\
+		
+		Spirorbis & Parse data lines & & raw measurement data & raw sensor readings \\
+		
+		Croaker & Verify encryption & & raw sensor readings & verified raw sensor readings \\
+		
+		AgentBased3trophic & Pass to MySQL database & & MySQL DB references, verified raw sensor readings & Updated MySQL DB tables \\
+		\hline
+	\end{tabular}
+%	\caption{Decisions and processes in the calibration generation/management flowchart} \label{tab:flw_cal}
+%	\vspace{.25cm}
+%	\small
+%	%	>{\centering\arraybackslash}m{3.7cm}
+%	%	\begin{tabular}{|l|l|l|l|l|}
+%		\begin{tabular}{|l|I|I|L|L|}
+%			\hline
+%			Label & Role & Implementation & Inputs & Outputs \\
+%			\hline
+%			S2.1 & Identify/parse raw sensor timeseries & & MySQL DB references, raw sensor readings & raw sensor value timeseries \\
+%			S2.2 & Identify/parse ground truth timeseries & & MySQL DB references, ground truth sensor readings & ground truth timeseries  \\
+%			V2.1 & Verify raw value/ground truth compatibility & & raw sensor, ground truth timeseries & collated raw/ground truth timeseries \\
+%			S2.3 & Parse data lines & & collated raw/ground truth timeseries & calibration coefficients \\
+%			V2.2 & Verify calibration coeffs, functions & & calibration coeffs, collated raw/ground truth timeseries & verified calibration coeffs \\
+%			S2.4 & Pass to MySQL database & & verified calibration coeffs, instrument/deployment meta-data & updated MySQL DB tables \\
+%			\hline
+%		\end{tabular}
+%		\normalsize
+\end{sidewaystable}
+
+%\newpage	
+%	
+%\begin{table}
+%	\centering
+%	\caption{Fields in the \emph{users} table} \label{tab:snr_usr}
+%	\vspace{.25cm}
+%	\begin{tabular}{|l|c|l|}
+%		\hline
+%		Field & Type & Comment \\
+%		\hline
+%		rec\_id          &   int(11)   & automatically generated when record is created \\
+%		aDB\_user       & varchar(20) &  \\
+%		aDB\_passwd     & varchar(20) & \\
+%		MQTT\_user\label{tab1:m_u}       & \hyperref[tab2:i_i]{varchar(30)} &  \\
+%		MQTT\_passwd     & varchar(30) & \\
+%		instr\_names     & varchar(128)& \\
+%		site\_names      & varchar(128)& \\
+%		rec\_create\_date& timestamp   & automatically generated when record is created  \\
+%		rec\_mod\_date   & timestamp   & automatically updated when record is modified   \\
+%		loc\_names       & varchar(128)& \\
+%		human\_contact   & varchar(128)& \\
+%		affiliation      & varchar(128)& \\
+%		\hline
+%	\end{tabular}
+%\end{table}
+%
+%
+%\newpage
+%
+%
+%\begin{table}
+%	\centering
+%	\caption{Fields in the \emph{instruments} table} \label{tab:inst_conf}
+%	\vspace{.25cm}
+%	\begin{tabular}{|l|c|l|}
+%		\hline
+%		Field & Type & Comment \\
+%		\hline
+%		rec\_id            &    int(11)   & automatically generated when record is created \\
+%		user\_name         & varchar(20)  & \\
+%		instr\_name        & varchar(20)  & \\
+%		instr\_id\label{tab2:i_i}          & \hyperref[tab1:m_u]{varchar(20)}  & \\
+%		description     & varchar(512) & \\
+%		parameters         & varchar(512) & \\
+%		rec\_create\_date  & timestamp    & automatically generated when record is created  \\
+%		rec\_mod\_date     & timestamp    & automatically updated when record is modified   \\
+%		commission\_date   & timestamp    & \\
+%		decommission\_date & timestamp    & \\
+%		sensor\_LUT        & varchar(512) & \\
+%		cable\_length      & float(6,2)   & \\
+%		human\_contact     & varchar(256) & \\
+%		firmware\_version  & varchar(128) & \\
+%		sw\_version        & varchar(128) & \\
+%		encrypt\_version   & varchar(128) & \\
+%		encrypt\_key       & varchar(128) & \\
+%		calibration\_id    & varchar(512) & \\
+%		calibration\_date  & timestamp    & \\
+%		calibration\_info  & varchar(512) & \\
+%		MQTT\_serverIP     & varchar(256) & \\
+%		MQTT\_usr         & varchar(20)  & \\
+%		MQTT\_passwd       & varchar(30)  & \\
+%		MQTT\_datatopic    & varchar(30)  & \\
+%		MQTT\_subtopic     & varchar(20)  & \\
+%		MQTT\_subcode      & varchar(20)  & \\
+%		MQTT\_pubtopic     & varchar(20)  & \\
+%		MQTT\_pubcode      & varchar(20)  & \\
+%		board\_id          & varchar(30)  & \\
+%		sensor\_id         & varchar(128) & \\
+%		upper\_pcb\_id     & varchar(30)  & \\
+%		lower\_pcb\_id     & varchar(30)  & \\
+%		upper\_housing\_id & varchar(30)  & \\
+%		lower\_housing\_id & varchar(30)  & \\
+%		instr\_type        & varchar(30)  & \\
+%		sensor\_type       & varchar(128) & \\
+%		data\_format\_type & varchar(32)  & \\
+%		edata\_format\_type& varchar(32)  & \\
+%		ekey               & varchar(128) & \\
+%		elen               & int(4)      & \\
+%		antenna            & int(4)      & \\
+%		test\_mode         & int(4)      & \\
+%		ap\_flag           & int(4)      & \\
+%		ap\_SSID          & varchar(128) & \\
+%		ap\_PW            & varchar(128) & \\
+%		\hline
+%	\end{tabular}
+%\end{table}
+%
+%%The fields in \verb|deployments| are:
+%\
+%
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}
