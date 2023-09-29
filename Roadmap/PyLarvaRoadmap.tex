@@ -60,7 +60,7 @@
 	\rowcolors{2}{gray!10}{white}
 	\begin{tabular}{|l|L|I|S|I|I|I|I|}
 		\hline
-		Name & Description & Organizational level transitions & Currencies (conserved quantities) & Key mechanisms & Parameters & Potential \& realized connections & Modeling technicalities \\
+		Name & \centering Description & \centering Organizational level transitions & Currencies (conserved quantities) & \centering Key mechanisms & \centering Parameters & \centering Realized \& potential connections & ~~~~~~~Modeling technicalities \\
 		\hline
 		ReynoldsSphere2d & Drag \& mass transfer for a sphere in fluid, with various combinations of known \& unknowns & C, M, O $\Leftrightarrow$ P, H & Position, Stoichiometry & B (diffusion, viscosity, gravity) & Diameter, tissue \& fluid density, viscosity, diffusion coefficient & Advective/turbulent transport; physiological constraints; fertilization kinetics & Interpolation of Re vs. Cd, Sh curves using experimental data \& theory (numerical min. \& opt.; ipynb) \\
 		
@@ -68,11 +68,11 @@
 		
 		LarvalCloningModel & Demography of larval cohorts w/ alternative cloning strategies & M, O, H $\Leftrightarrow$ P & Biomass, Population & V, D (growth, cloning \& metamorphosis as functions of size) & Egg size, size thresholds for cloning \& metamorphosis as functions of habitat & Evolution of egg size \& other reproductive strategies; responses to climate change \& other habitat variations & Numerical solution of hyperbolic PDE (1st order finite difference; py, ipynb) \\
 		
-		Spirorbis & Parse data lines & & raw measurement data & raw sensor readings \\
+		Spirorbis & Coexistence/competitive exclusion of polychaetes with substrate-specific settlement behavior  & O $\Leftrightarrow$ H, I & Population & D (reproduction, mortality \& dispersal) & Habitat-specific reproduction, mortality \& dispersal rates & Settlement behavior (including pop. gen. basis); habitat choice \& climate shifts; epibenthic/fouling communities & Discrete-time, continuous population (py, ipynb) \\
 		
-		Croaker & Verify encryption & & raw sensor readings & verified raw sensor readings \\
+		Croaker & Stage- \& age-specific demography of Atlantic Croaker with region-specific life history parameters & P, I $\Leftrightarrow$ H, I & Biomass, Population & D (age-specific reproduction, mortality, fecundity) & Region-specific development, fecundity \& mortality rates & Fisheries management sensitivity analyses; evolution of egg size \& other life history traits & Stage-within-age discrete-time matrix model, with an (optional) underlying ODE egg size/development time tradeoff model (py, ipynb) \\
 		
-		AgentBased3trophic & Pass to MySQL database & & MySQL DB references, verified raw sensor readings & Updated MySQL DB tables \\
+		AgentBased3trophic & Abstract agent-based model for scaling analysis of coexistence, extinction \& spatio-temporal pattern formation  & O $\Leftrightarrow$ I & Energy, Position, Population & D (reproduction, predation, dispersal) & Energy transfer \& movement behaviors & Demonstrates application of dimensional analysis to demographic mechanisms; minimum habitat size; spatial pattern formation & Discrete-time individual-based model on a grid adapted to Mesa from NetLogo (py, ipynb) \\
 		\hline
 	\end{tabular}
 %	\caption{Decisions and processes in the calibration generation/management flowchart} \label{tab:flw_cal}
