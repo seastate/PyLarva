@@ -62,7 +62,7 @@
 		\hline
 		Name & \centering Description & \centering Organizational level transitions & Currencies (conserved quantities) & \centering Key mechanisms & \centering Parameters & \centering Realized \& potential connections & ~~~~~~~Modeling technicalities \\
 		\hline
-		ReynoldsSphere2d & Drag \& mass transfer for a sphere in fluid, with various combinations of known \& unknowns & C, M, O $\Leftrightarrow$ P, H & Position, Stoichiometry & B (diffusion, viscosity, gravity) & Diameter, tissue \& fluid density, viscosity, diffusion coefficient & Advective/turbulent transport; physiological constraints; fertilization kinetics & Interpolation of Re vs. Cd, Sh curves using experimental data \& theory (numerical min. \& opt.; ipynb) \\
+		ReynoldsSphere2d & Drag \& mass transfer for spheres in fluids, with various combinations of known \& unknowns & C, M, O $\Leftrightarrow$ P, H & Position, Stoichiometry & B (diffusion, viscosity, gravity) & Diameter, tissue \& fluid density, viscosity, diffusion coefficient & Advective/turbulent transport; physiological constraints; fertilization kinetics & Interpolation of Re vs. Cd, Sh curves using experimental data \& theory (numerical min. \& opt.; ipynb) \\
 		
 		EllipsoidSwim & Displacement \& orientation of swimming blastulae \& gastrulae at low Re & C, M, O $\Leftrightarrow$ H & Morphology, Biomass, Position/Orientation & B (viscosity, gravity, internal \& external mass distribution) & Geometries \& densities of semi-ellipsoid chimeras forming surface \& inclusions & Habitat hydrodynamics; egg size/density tradeoffs; optimization for speed, stability during morphogenesis & Stokes flow solutions using singularity methods (ODE solutions for position, orientation in shear flows; py, ipynb) \\
 		
