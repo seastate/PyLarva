@@ -5,8 +5,8 @@ from matplotlib.colors import LightSource
 import numpy as np
 from math import *
 
-plt.ion()
-
+#plt.ion()
+#plt.ioff()
 Exy = lambda t_,a_,b_: (a_*cos(t_),b_*sin(t_))
 
 class chimeraEllipsoid():
@@ -43,8 +43,8 @@ class chimeraEllipsoid():
          
     def plot_tiles(self,cla=True,axes=None):
         if axes is None:
-            figure = plt.figure()
-            axes = figure.add_subplot(projection='3d')
+            figureC = plt.figure()
+            axes = figureC.add_subplot(projection='3d')
         if cla:
             axes.cla()
         axes.add_collection3d(mplot3d.art3d.Poly3DCollection(self.vectors,edgecolors='blue',alpha=0.5))
@@ -210,8 +210,8 @@ class semiEllipsoid():
 
     def plot_tiles(self,cla=True,axes=None):
         if axes is None:
-            figure = plt.figure()
-            axes = figure.add_subplot(projection='3d')
+            figureE = plt.figure()
+            axes = figureE.add_subplot(projection='3d')
         if cla:
             axes.cla()
         axes.add_collection3d(mplot3d.art3d.Poly3DCollection(self.vectors,edgecolors='blue',alpha=0.5))

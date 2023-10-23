@@ -1,0 +1,19 @@
+name: newPL
+channels:
+  - defaults
+dependencies:
+  - python=3.11
+  - notebook
+  - jupyterlab
+  - qtconsole
+  - ipywidgets
+  - pillow
+  - scipy
+  - matplotlib
+  - numpy
+  - attrdict3
+  - anaconda-navigator
+  - mesa
+  - jupyter-book
+  - ipympl
+prefix: /home/dg/anaconda3/envs/newPL
