@@ -24,6 +24,7 @@
 \def\non{\nonumber}
 \def\p{\partial}
 \def\o{\over}
+\def\etc{\emph{etc}.\xspace}
 
 
 
@@ -32,8 +33,12 @@
 
 \begin{document}
 \maketitle
-This document summarizes one approach to nondimensionalizing the equatioins, code and parameter space underlying the semi-spheroid chimera model of embryo swimming, as implemented in pyVRS. 
-The fundamental shapes in this model are chimeras constructed from two attached semi-spheroids, matched in radius but usually differing in height. 
+This document summarizes one approach to nondimensionalizing the equations, code and parameter space underlying the semi-spheroid chimera model of embryo swimming, as implemented in pyVRS. 
+One goal of this nondimensionalization is to reduce the parameter space characterizing morphology and environmental conditions. 
+This facilitates understanding (and factoring out) the primary effects on swimming performance of embryo size, fluid medium density and viscosity, \etc, to simplify assessing the roles of embryo shape.
+An additional goal is to derive a concise summary of performance across parameter space, and discuss morphological optimization and environmental constraints on successful embryo swimming.
+
+The fundamental shapes in this model are chimeras constructed from two attached semi-spheroids. These semi-spheroids are matched in radius, but usually differ in height. 
 We refer to a chimera of this type as a ``constitutive chimera''.
 
 One instance of a constitutive chimera represents the surface of the embryo.
@@ -55,7 +60,7 @@ We also restrict our analysis to embryo shapes that are overall radially symmetr
 This is in part to avoid a proliferation of parameter space, but mostly because the observed larval shapes approximate our focal class of morphologies. 
 We note, though, that it is an interesting open question why early stage embryos are typically radially symmetrical\footnote{One hypothesis is that most or all such asymmetries would decrease initial stability.}. 
 
-\section{Basic geometry of a semi-spheroid chimera}
+\section{Basic geometry of a semi-spheroid chimera}\label{GeomSect}
 
 \begin{figure}[t] 
 	\begin{center}
@@ -146,7 +151,7 @@ Because $D_{sph}^*$ is defined to match volumes, this also ensures that the nond
 As a result, the body forces (excluding effects of inclusions) are also normalized to remove the primary effects of size.
 
 
-\section{Rotational movement of a sphere}
+\section{Rotational movement of a sphere}\label{RotSect}
 The rotation rate of a sphere of diameter $D_{sph}^*$ in a fluid of viscosity $\mu$ is 
 \begin{equation}\label{rot1}
 	\omega^* = \frac{T^*}{\pi \mu {D^*}^3} = \frac{T^*}{6 \mu V_{sph}^*},	
@@ -180,33 +185,59 @@ Equation \ref{tau2} reflects the fundamental proportional dependence of the rota
 
 
 \section{Non-dimensionalized Stokes Equations}
+The dimensional form of the Stokes equations can be written as
+\begin{eqnarray}\label{Stokes1}
+	0 = \mu \left( \frac{\p^2 u^*}{\p {x^*}^2}+\frac{\p^2 u^*}{\p {y^*}^2}+\frac{\p^2 u^*}{\p {z^*}^2} \right) - \frac{\p p^*}{\p {x^*}} + f_x^*, \non \\
+	0 = \mu \left( \frac{\p^2 v^*}{\p {x^*}^2}+\frac{\p^2 v^*}{\p {y^*}^2}+\frac{\p^2 v^*}{\p {z^*}^2} \right) - \frac{\p p^*}{\p {y^*}} + f_y^*, \non \\
+	0 = \mu \left( \frac{\p^2 w^*}{\p {x^*}^2}+\frac{\p^2 w^*}{\p {y^*}^2}+\frac{\p^2 w^*}{\p {z^*}^2} \right) - \frac{\p p^*}{\p {z^*}} + f_z^*, \non \\
+	0 =  \frac{\p u^*}{\p {x^*}}+\frac{\p v^*}{\p {y^*}}+\frac{\p w^*}{\p {z^*}} 
+\end{eqnarray}
+In Equations \ref{Stokes1}, the first three equations enforces conservation of momentum in the $x$, $y$ and $z$ directions in the $Re \rightarrow 0$ limit, and the last equation represents enforces incompressibility.
 
-\begin{equation}\label{Stokes1}
-	0 = \mu \left( \frac{\p^2 u^*}{\p {x^*}^2}+\frac{\p^2 v^*}{\p {y^*}^2}+\frac{\p^2 w^*}{\p {z^*}^2} \right) - \frac{\p p^*}{\p {x^*}} + f_x^*
-\end{equation}
-
-Take:
+To nondimensionalize, we define nondimensional parameters $x$, $u$, $f_x$ :
 \begin{itemize}
-	\item $x^* = D_{sph} x$, $x = \frac{x^*}{D_{sph}}$
-	\item $u^* = \frac{D_{sph}}{\tau_{rot}} u$, $u = \frac{\tau_{rot}}{D_{sph}} u^*$
-	\item $f_x^* = \frac{\mu}{\tau_{rot} D_{sph}} f_x$, $f_x = \frac{\tau_{rot} D_{sph}}{\mu} f_x^*$
-	\item $p^* = \frac{\mu}{\tau_{rot}} p$, $p = \frac{\tau_{rot}}{\mu} p^*$
+	\item $x^* = D_{sph}^* x$, $x = \frac{x^*}{D_{sph}^*}$
+	\item $u^* = \frac{D_{sph}^*}{\tau_{rot}^*} u$, $u = \frac{\tau_{rot}^*}{D_{sph}^*} u^*$
+	\item $f_q^* = \frac{\mu}{\tau_{rot}^* D_{sph}^*} f_q$, $f_q = \frac{\tau_{rot}^* D_{sph}^*}{\mu} f_q^*$, for each of $q = x, y, z$
+	\item $p^* = \frac{\mu}{\tau_{rot}^*} p$, $p = \frac{\tau_{rot}^*}{\mu} p^*$
 \end{itemize}
-
-
-\begin{equation}\label{blah3}
-	u = 6 \frac{\mu}{\rho^* g } u^*
-\end{equation}
-\begin{equation}\label{blah}
-	f_x = \frac{D_{sph}}{\mu} 6 \frac{\mu}{\rho^* g D_{sph}^*} f_x^* = \frac{6}{\rho g} f_x^*
-\end{equation}
-\begin{equation}\label{blah2}
+The scaling parameters $D_{sph}^*$ and $\tau_{rot}^*$ are as derived above in Sections \ref{GeomSect} and \ref{RotSect}.
+Substituting the expression for the rotation timescale,
+\begin{eqnarray}\label{NDpars}
+	u = 6 \frac{\mu}{\rho^* g } u^* \non \\
+	f_q = \frac{D_{sph}}{\mu} 6 \frac{\mu}{\rho^* g D_{sph}^*} f_q^* = \frac{6}{\rho g} f_q^*, q = x, y, z \non \\
 	p = \frac{1}{\mu} 6 \frac{\mu}{\rho^* g D_{sph}^*} p^* = \frac{6}{\rho g D_{sph}^*} p^*
-\end{equation}
+\end{eqnarray}
+Expressing the dimensional quantities in Equations \ref{Stokes1} in terms of the nondimensional parameters in \ref{NDpars}, 
+\begin{eqnarray}\label{Stokes2}
+	0 = \left( \frac{\p^2 u}{\p x^2}+\frac{\p^2 u}{\p y^2}+\frac{\p^2 u}{\p z^2} \right) - \frac{\p p}{\p x} + f_x \non \\
+	0 = \left( \frac{\p^2 v}{\p x^2}+\frac{\p^2 v}{\p y^2}+\frac{\p^2 v}{\p z^2} \right) - \frac{\p p}{\p y} + f_y \non \\
+	0 = \left( \frac{\p^2 w}{\p x^2}+\frac{\p^2 w}{\p y^2}+\frac{\p^2 w}{\p z^2} \right) - \frac{\p p}{\p z} + f_z , \non \\
+	0 =  \frac{\p u}{\p {x}}+\frac{\p v}{\p {y}}+\frac{\p w}{\p {z}}
+\end{eqnarray}
+Equations \ref{Stokes2} are the nondimensional form of the Stokes equations, which are rescaled such that the primary effects of embryo size, and of medium viscosity and density, are scaled out.  
 
-\begin{equation}\label{Stokes2}
-	0 = \left( \frac{\p^2 u}{\p x^2}+\frac{\p^2 v}{\p y^2}+\frac{\p^2 w}{\p z^2} \right) - \frac{\p p}{\p x} + f_x
-\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 %\vspace{10cm}
 %\begin{tikzpicture}
@@ -217,17 +248,5 @@ Take:
 %	\node[right=9cm of A] (B) [draw,fill=corn,shape=rounded rectangle,minimum width=4cm ]{B};
 %	\path[->] (A) edge[line width=0.742mm] node[ fill=white, anchor=center, pos=0.5,font=\bfseries] {\Huge +} (B);
 %\end{tikzpicture}
-
-
-
-
-
-
-
-
-
-
-
-
 
 \end{document}
