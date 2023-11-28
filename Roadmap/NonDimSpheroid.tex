@@ -199,17 +199,45 @@ In the numerical model implementation, an embryo can be constructed with multipl
 However, to simplify calculations, the numerical model assumes there are no intersections between constitutive chimeras.
 That is, inclusion chimeras must be entirely inside the surface chimera, and entirely inside or outside of other inclusion chimeras.
 
+A composite chimera with one inclusion is characterized by three volumes:
+\begin{itemize}
+	\item $V_s^* = \frac{\pi}{12} \alpha_s {D_s^*}^3$ is the volume enclosed by the outer surface of the composite chimera, with diameter $D_s^*$ and aspect ratio $\alpha_s^*$;
+	\item $V_i^* = \frac{\pi}{12} \alpha_i {D_i^*}^3$ is the volume enclosed by the inclusion constitutive chimera, with diameter $D_i^*$ and aspect ratio $\alpha_i^*$; and,
+	\item $V_t^* = V_s^* - V_i^*$, the volume of tissue, which is enclosed by the outer surface but outside the inclusion. 
+\end{itemize}
+We can define a volume parameter, $\beta$, quantifying the factor by which total embryo volume is increased relative to tissue volume by an inclusion,
+\begin{equation}\label{vol3}
+	\beta = \frac{V_s^*}{V_t^*} = 1 + \frac{V_i^*}{V_t^*}.
+\end{equation}
+In Equation \ref{vol3}, $\beta = 1$ represents an embryo with no inclusion, $\beta = 1.5$ represents an embryo with an inclusion with volume equal to 50\% of the tissue volume, and so on.
+
+If we assume that the embryo increases in size isometrically (that is, for a fixed aspect ratio $\alpha_s$), the change in diameter to maintain a constant tissue volume when an inclusion is added is
+\begin{equation}\label{vol4}
+	V_s^*  = \frac{\pi \alpha_s}{12}{D_s^*}^3 = \beta V_t^* = \frac{\pi \alpha_s \beta}{12}{D_t^*}^3,
+\end{equation} 
+from which 
+\begin{equation}\label{vol5}
+	D_s^* = \sqrt[\uproot{5}3]{\beta} D_t^*.
+\end{equation}
+
+%\begin{equation}\label{equivsphere}
+%	V_{sph}^* = \frac{\pi}{6} {D_{sph}^*}^3
+%\end{equation} 
+
+
+
 \subsection{Nondimensionalization of the surface chimera}
-This convenient fact suggests nondimensionalization based on an equivalent spherical diameter, defined as the diameter of the sphere with volume equal to that of the surface (tissue) constitutive chimera:
+\textbf{THIS SECTION NEEDS TO BE CHECKED!!!}
+
+The relationships above suggest a nondimensionalization using an equivalent spherical diameter, defined as the diameter of the sphere with volume equal to that of the tissue, as a length scale:
 \begin{equation}\label{equivsphere}
-	V_{sph}^* = \frac{\pi}{6} {D_{sph}^*}^3
+	V_{sph}^* = \frac{\pi}{6} {D_{sph}^*}^3 = V_t^*
 \end{equation} 
 Equating the spherical volume to the right hand side of Equation \ref{vol2} simplifies to
 \begin{equation}\label{equivD}
-	D_{sph}^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{2}} ~ D_S^*
+	D_{sph}^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{2}} ~ D_t^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{2 \beta}} ~ D_s^*
 \end{equation} 
-Here, we adopt $D_s^*$ and $\alpha_s$ as notation for the equatorial diameter and aspect ratio of the surface chimera (to distinguish it from chimeras representing inclusions).
-
+%Here, we adopt $D_s^*$ and $\alpha_s$ as notation for the equatorial diameter and aspect ratio of the surface chimera (to distinguish it from chimeras representing inclusions).
 We adopt $D_{sph}^*$ as the characteristic length for nondimensionalizing embryo morphology.
 For example, a nondimensionalized chimera diameter is
 \begin{equation}\label{ndD}
@@ -220,12 +248,13 @@ where the dropped asterisk implies a nondimensional quantity.
 Because $D_{sph}^*$ is defined to match volumes, this also ensures that the nondimensional volume of the tissue is equal to 1.
 As a result, the body forces (excluding effects of inclusions) are also normalized to remove the primary effects of size.
 
+
 From Equations \ref{equivD} and \ref{ndD},
 \begin{eqnarray}\label{equivD2}
-	D_s = \sqrt[\uproot{5}3]{\frac{2}{\alpha_s}}, \non \\
-	\alpha_s = \frac{2}{D_s^3},
+	D_t = \sqrt[\uproot{5}3]{\frac{2}{\alpha_s}}, \alpha_s = \frac{2}{D_t^3}, \non \\
+	D_s = \sqrt[\uproot{5}3]{\frac{2 \beta}{\alpha_s}}, \alpha_s = \frac{2 \beta}{D_s^3}.
 \end{eqnarray}
-showing that the nondimensional diameter $D_s$ is fully determined by the aspect ratio $\alpha_s$, and \textit{vice versa}.
+Equations \ref{equivD2} show that the nondimensional diameters $D_t$ and $D_s$ are fully determined by the aspect ratio $\alpha_s$ and volume parameter $\beta$, and \textit{vice versa}.
 
 
 \section{Rotational movement of a sphere}\label{RotSect}
@@ -260,33 +289,33 @@ Substituting this value into Equation \ref{tau1} and simplifying gives
 \end{equation}
 Equation \ref{tau2} reflects the fundamental proportional dependence of the rotation timescale of an equivalent sphere on size (diameter), viscosity, medium density, and gravitational acceleration.
 
-\subsection{Nondimensionalization of inclusion chimeras}
-This convenient fact suggests nondimensionalization based on an equivalent spherical diameter, defined as the diameter of the sphere with volume equal to that of the surface (tissue) constitutive chimera:
-\begin{equation}\label{equivsphere}
-	V_{sph}^* = \frac{\pi}{6} {D_{sph}^*}^3
-\end{equation} 
-Equating the spherical volume to the right hand side of Equation \ref{vol2} simplifies to
-\begin{equation}\label{equivD}
-	D_{sph}^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{2}} ~ D_S^*
-\end{equation} 
-Here, we adopt $D_s^*$ and $\alpha_s$ as notation for the equatorial diameter and aspect ratio of the surface chimera (to distinguish it from chimeras representing inclusions).
-
-We adopt $D_{sph}^*$ as the characteristic length for nondimensionalizing embryo morphology.
-For example, a nondimensionalized chimera diameter is
-\begin{equation}\label{ndD}
-	D_s = \frac{D_s^*}{D_{sph}^*}
-\end{equation} 
-where the dropped asterisk implies a nondimensional quantity.
-
-Because $D_{sph}^*$ is defined to match volumes, this also ensures that the nondimensional volume of the tissue is equal to 1.
-As a result, the body forces (excluding effects of inclusions) are also normalized to remove the primary effects of size.
-
-From Equations \ref{equivD} and \ref{ndD},
-\begin{eqnarray}\label{equivD2}
-	D_s = \sqrt[\uproot{5}3]{\frac{2}{\alpha_s}}, \non \\
-	\alpha_s = \frac{2}{D_s^3},
-\end{eqnarray}
-showing that the nondimensional diameter $D_s$ is fully determined by the aspect ratio $\alpha_s$, and \textit{vice versa}.
+%\subsection{Nondimensionalization of inclusion chimeras}
+%This convenient fact suggests nondimensionalization based on an equivalent spherical diameter, defined as the diameter of the sphere with volume equal to that of the surface (tissue) constitutive chimera:
+%\begin{equation}\label{equivsphere}
+%	V_{sph}^* = \frac{\pi}{6} {D_{sph}^*}^3
+%\end{equation} 
+%Equating the spherical volume to the right hand side of Equation \ref{vol2} simplifies to
+%\begin{equation}\label{equivD}
+%	D_{sph}^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{2}} ~ D_S^*
+%\end{equation} 
+%Here, we adopt $D_s^*$ and $\alpha_s$ as notation for the equatorial diameter and aspect ratio of the surface chimera (to distinguish it from chimeras representing inclusions).
+%
+%We adopt $D_{sph}^*$ as the characteristic length for nondimensionalizing embryo morphology.
+%For example, a nondimensionalized chimera diameter is
+%\begin{equation}\label{ndD}
+%	D_s = \frac{D_s^*}{D_{sph}^*}
+%\end{equation} 
+%where the dropped asterisk implies a nondimensional quantity.
+%
+%Because $D_{sph}^*$ is defined to match volumes, this also ensures that the nondimensional volume of the tissue is equal to 1.
+%As a result, the body forces (excluding effects of inclusions) are also normalized to remove the primary effects of size.
+%
+%From Equations \ref{equivD} and \ref{ndD},
+%\begin{eqnarray}\label{equivD2}
+%	D_s = \sqrt[\uproot{5}3]{\frac{2}{\alpha_s}}, \non \\
+%	\alpha_s = \frac{2}{D_s^3},
+%\end{eqnarray}
+%showing that the nondimensional diameter $D_s$ is fully determined by the aspect ratio $\alpha_s$, and \textit{vice versa}.
 
 
 \section{Non-dimensionalized Stokes Equations}\label{NDStokesSect}
