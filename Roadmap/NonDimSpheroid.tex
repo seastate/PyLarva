@@ -33,7 +33,7 @@
 
 \begin{document}
 \maketitle
-This document summarizes one approach to nondimensionalizing the equations, code and parameter space underlying the semi-spheroid chimera model of embryo swimming, as implemented in pyVRS. 
+This document summarizes an approach to nondimensionalizing the equations, code and parameter space underlying the semi-spheroid chimera model of embryo swimming, as implemented in pyVRS. 
 One goal of this nondimensionalization is to reduce the parameter space characterizing morphology and environmental conditions. 
 This facilitates understanding (and factoring out) the primary effects on swimming performance of embryo size, fluid medium density and viscosity, \etc, to simplify assessing the roles of embryo shape.
 An additional goal is to derive a concise summary of performance across parameter space, and discuss morphological optimization and environmental constraints on successful embryo swimming.
@@ -67,19 +67,14 @@ We note, though, that it is an interesting open question why early stage embryos
 		\resizebox{6.5cm}{!}{
 			
 			\begin{tikzpicture}
-				%\draw (0,0) ellipse (2cm and 1cm);
-				%\draw (0,3) ellipse (2cm and 1cm);
-				%\draw (-3,1.5) +(60:1cm and 2cm) arc (60:-240:1cm and 2cm);
-				%\draw (0,0) +(180:1cm and 2cm) arc (90:270:1cm and 2cm);
-				% Arc operation
-				\draw[blue] (2,0) arc
+				\filldraw[blue][fill=gray!20!white,line width=0.742mm] (2,0) arc
 				[
 				start angle=0,
 				end angle=180,
 				x radius=2cm,
 				y radius =4cm
 				] ;
-				\draw[green] (2,0) arc
+				\filldraw[green][fill=gray!20!white,line width=0.742mm] (2,0) arc
 				[
 				start angle=0,
 				end angle=-180,
@@ -94,21 +89,17 @@ We note, though, that it is an interesting open question why early stage embryos
 				\coordinate []  (B2) at (4,-1.5) ;		
 				\coordinate []  (equator) at (3,0) ;
 				\coordinate []  (equator2) at (4,0) ;
-				%		\coordinate [label=-90:$A$]  (A) at (-2,0)  ;
-				%		\coordinate [label=90:$B$ ]  (B) at (2,0) ;
-				%\node (A) [draw=black,fill=emerald,double=white,double distance=2pt,shape=rounded rectangle,minimum width=4cm ]{A}; 
-				%\node[right=9cm of A] (B) [draw,fill=corn,shape=rounded rectangle,minimum width=4cm ]{B};
-				\path[<->] (A) edge[line width=0.742mm] node[ fill=white, anchor=center, pos=0.5,font=\bfseries] {\large $D^*$} (B);
-				\path[<->] (equator) edge[line width=0.742mm] node[ fill=white, anchor=center, pos=0.5,font=\bfseries] {\large $L_1^*$} (A1);
-				\path[<->] (equator) edge[line width=0.742mm] node[ fill=white, anchor=center, pos=0.5,font=\bfseries] {\large $L_2^*$} (B1);
-				\path[<->] (A2) edge[line width=0.742mm] node[ fill=white, anchor=center, pos=0.5,font=\bfseries] {\large $L_0^*$} (B2);
+				\path[<->] (A) edge[line width=0.371mm] node[ fill=white, anchor=center, pos=0.5,font=\bfseries] {\large $D^*$} (B);
+				\path[<->] (equator) edge[line width=0.371mm] node[ fill=white, anchor=center, pos=0.5,font=\bfseries] {\large $L_1^*$} (A1);
+				\path[<->] (equator) edge[line width=0.371mm] node[ fill=white, anchor=center, pos=0.5,font=\bfseries] {\large $L_2^*$} (B1);
+				\path[<->] (A2) edge[line width=0.371mm] node[ fill=white, anchor=center, pos=0.5,font=\bfseries] {\large $L_0^*$} (B2);
 			\end{tikzpicture}
 		}
 	\end{center}
-	\caption{Layout of a constitutive chimera, in profile view. The view represents a vertical cross-section of a shape that is radially symmetrical about the vertical axis. The upper semi-spheroid, with diameter $D$ and height $L_1$, is shown in blue. The lower semi-spheroid, with diameter $D$ and height $L_2$, is shown in green. } \label{chimera1}
+	\caption{Layout of a constitutive chimera, in profile view. The view represents a vertical cross-section of a shape that is radially symmetrical about the vertical axis. The upper semi-spheroid, with diameter $D^*$ and height $L_1^*$, is shown in blue. The lower semi-spheroid, with diameter $D^*$ and height $L^*_2$, is shown in green. } \label{chimera1}
 \end{figure}
 \noindent
-Figure \ref{chimera1} presents a schematic of a constitutive chimera.
+Figure \ref{chimera1} is a schematic showing the basic geometry of a constitutive chimera.
 A constitutive chimera is parameterized by:
 \begin{itemize}
 	\item $D^*$, the shared diameter of its upper and lower semi-spheroids;
@@ -130,6 +121,83 @@ The volume can also be expressed in terms of the aspect ratio,
 	V^* = \frac{\pi}{12} \alpha {D^*}^3
 \end{equation} 
 From a morphological perspective, this implies that an embryo of fixed height $L_0^*$ can develop into a constitutive chimera with any aspect ratio, without a change in tissue volume. 
+
+\subsection{Embryos as composites of constitutive chimeras}
+
+\begin{figure}[t] 
+	\begin{center}
+		\resizebox{6.5cm}{!}{
+			
+			\begin{tikzpicture}
+				% Outer (surface) chimera
+				\filldraw[blue][fill=gray!20!white,line width=0.742mm] (2,0) arc
+				[
+				start angle=0,
+				end angle=180,
+				x radius=2cm,
+				y radius =4cm
+				] ;
+				\filldraw[green][fill=gray!20!white,line width=0.742mm] (2,0) arc
+				[
+				start angle=0,
+				end angle=-180,
+				x radius=2cm,
+				y radius =1.5cm
+				] ;
+				\coordinate []  (A) at (-2,0)  ;
+				\coordinate []  (B) at (2,0) ;
+				\coordinate []  (A1) at (3,4)  ;
+				\coordinate []  (B1) at (3,-1.5) ;		
+				\coordinate []  (A2) at (4,4)  ;
+				\coordinate []  (B2) at (4,-1.5) ;		
+				\coordinate []  (equator) at (3,0) ;
+				\path[<->] (A) edge[line width=0.371mm] node[ fill=white, anchor=center, pos=0.5,font=\bfseries] {\large $D_s^*$} (B);
+				\path[<->] (equator) edge[line width=0.371mm] node[ fill=white, anchor=center, pos=0.5,font=\bfseries] {\large $L_{s_1}^*$} (A1);
+				\path[<->] (equator) edge[line width=0.371mm] node[ fill=white, anchor=center, pos=0.5,font=\bfseries] {\large $L_{s_2}^*$} (B1);
+				\path[<->] (A2) edge[line width=0.371mm] node[ fill=white, anchor=center, pos=0.5,font=\bfseries] {\large $L_{s_0}^*$} (B2);
+				\filldraw[blue][fill=gray!10!white] (1,1.5) arc
+				% Inner chimera
+				[
+				start angle=0,
+				end angle=180,
+				x radius=1cm,
+				y radius =2cm
+				] ;
+				\draw[green][fill=gray!10!white] (1,1.5) arc
+				[
+				start angle=0,
+				end angle=-180,
+				x radius=1cm,
+				y radius = 0.5cm
+				] ;
+				\coordinate []  (A3) at (-1,1.5)  ;
+				\coordinate []  (B3) at (1,1.5) ;
+				\coordinate []  (A4) at (6,3.5)  ;
+				\coordinate []  (B4) at (6,1) ;		
+				\coordinate []  (A5) at (5,3.5)  ;
+				\coordinate []  (B5) at (5,1) ;		
+				\coordinate []  (equator2) at (6,1.5) ;
+				\coordinate []  (h0) at (1.5,0) ;
+				\coordinate []  (h1) at (1.5,1.5) ;
+				\path[<->] (A3) edge[line width=0.371mm] node[ fill=white, anchor=center, pos=0.5,font=\bfseries] {\large $D_i^*$} (B3);
+				\path[<->] (equator2) edge[line width=0.371mm] node[anchor=west, pos=0.5,font=\bfseries] {\large $L_{i_1}^*$} (A4);
+				\path[<->] (equator2) edge[line width=0.371mm] node[anchor=west, pos=0.6,font=\bfseries] {\large $L_{i_2}^*$} (B4);
+				\path[<->] (A5) edge[line width=0.371mm] node[ fill=white, anchor=center, pos=0.5,font=\bfseries] {\large $L_{i_0}^*$} (B5);
+				\path[<->] (h0) edge[line width=0.371mm] node[ fill=white, anchor=center, pos=0.5,font=\bfseries] {\large $h_i^*$} (h1);
+			\end{tikzpicture}
+		}
+	\end{center}
+	\caption{Layout of a composite chimera, in profile view, with a constitutive chimera representing the exterior surface (parameterized by $D_s^*$, $L^*_{s_0}$, \etc) and a nested constitutive chimera representing an inclusion (parameterized by $D_i^*$, $L^*_{i_0}$, \etc). 
+	$h_i$ is the height by which the equator of the inclusion chimera is elevated relative to the equator of the surface chimera (which may be negative). 
+	%The schematic shows the inclusion chimera being co-axial with the surface chimera. 
+	%In the numerical implementation, inclusions may be offset horizontally, as long as no chimera surfaces intersect.
+	} \label{chimera2}
+\end{figure}
+\noindent
+Figure \ref{chimera2} is a schematic showing the geometry of a composite chimera, comprising an external constitutive chimera, representing the surface of embryo tissue in contact with the fluid medium, and an internal constitutive chimera representing an inclusion such as lipid, seawater or calcium carbonate.
+In the numerical model implementation, an embryo can be constructed with multiple inclusions, e.g. a ``light'' inclusion containing lipids and a ``heavy'' inclusion containing calcium carbonate.
+However, to simplify calculations, the numerical model assumes there are no intersections between constitutive chimeras.
+That is, inclusion chimeras must be entirely inside the surface chimera, and entirely inside or outside of other inclusion chimeras.
 
 \subsection{Nondimensionalization of the surface chimera}
 This convenient fact suggests nondimensionalization based on an equivalent spherical diameter, defined as the diameter of the sphere with volume equal to that of the surface (tissue) constitutive chimera:
@@ -191,6 +259,34 @@ Substituting this value into Equation \ref{tau1} and simplifying gives
 	\tau_{rot}^* = \frac{6 \mu}{\rho^* g D_{sph}^*}
 \end{equation}
 Equation \ref{tau2} reflects the fundamental proportional dependence of the rotation timescale of an equivalent sphere on size (diameter), viscosity, medium density, and gravitational acceleration.
+
+\subsection{Nondimensionalization of inclusion chimeras}
+This convenient fact suggests nondimensionalization based on an equivalent spherical diameter, defined as the diameter of the sphere with volume equal to that of the surface (tissue) constitutive chimera:
+\begin{equation}\label{equivsphere}
+	V_{sph}^* = \frac{\pi}{6} {D_{sph}^*}^3
+\end{equation} 
+Equating the spherical volume to the right hand side of Equation \ref{vol2} simplifies to
+\begin{equation}\label{equivD}
+	D_{sph}^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{2}} ~ D_S^*
+\end{equation} 
+Here, we adopt $D_s^*$ and $\alpha_s$ as notation for the equatorial diameter and aspect ratio of the surface chimera (to distinguish it from chimeras representing inclusions).
+
+We adopt $D_{sph}^*$ as the characteristic length for nondimensionalizing embryo morphology.
+For example, a nondimensionalized chimera diameter is
+\begin{equation}\label{ndD}
+	D_s = \frac{D_s^*}{D_{sph}^*}
+\end{equation} 
+where the dropped asterisk implies a nondimensional quantity.
+
+Because $D_{sph}^*$ is defined to match volumes, this also ensures that the nondimensional volume of the tissue is equal to 1.
+As a result, the body forces (excluding effects of inclusions) are also normalized to remove the primary effects of size.
+
+From Equations \ref{equivD} and \ref{ndD},
+\begin{eqnarray}\label{equivD2}
+	D_s = \sqrt[\uproot{5}3]{\frac{2}{\alpha_s}}, \non \\
+	\alpha_s = \frac{2}{D_s^3},
+\end{eqnarray}
+showing that the nondimensional diameter $D_s$ is fully determined by the aspect ratio $\alpha_s$, and \textit{vice versa}.
 
 
 \section{Non-dimensionalized Stokes Equations}\label{NDStokesSect}
