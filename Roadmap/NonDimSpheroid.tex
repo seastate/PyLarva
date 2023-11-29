@@ -11,6 +11,16 @@
 \usepackage{float}
 \restylefloat{figure}
 
+\usepackage{rotating}
+\usepackage{array}
+\newcolumntype{L}{>{\centering\arraybackslash}m{4.5cm}}
+\newcolumntype{I}{>{\centering\arraybackslash}m{2.5cm}}
+\newcolumntype{S}{>{\centering\arraybackslash}m{1cm}}
+
+\usepackage[table]{xcolor}    % loads also »colortbl«
+\definecolor{keywordsColor}{rgb}{0.000000, 0.000000, 0.635294}
+\definecolor{commentsColor}{rgb}{0.497495, 0.497587, 0.497464}
+\definecolor{stringColor}{rgb}{0.558215, 0.000000, 0.135316}
 
 
 \usepackage{tikz}
@@ -96,10 +106,10 @@ We note, though, that it is an interesting open question why early stage embryos
 			\end{tikzpicture}
 		}
 	\end{center}
-	\caption{Layout of a constitutive chimera, in profile view. The view represents a vertical cross-section of a shape that is radially symmetrical about the vertical axis. The upper semi-spheroid, with diameter $D^*$ and height $L_1^*$, is shown in blue. The lower semi-spheroid, with diameter $D^*$ and height $L^*_2$, is shown in green. } \label{chimera1}
+	\caption{Layout of a constitutive chimera, in profile view. The view represents a vertical cross-section of a shape that is radially symmetrical about the vertical axis. The upper semi-spheroid, with diameter $D^*$ and height $L_1^*$, is shown in blue. The lower semi-spheroid, with diameter $D^*$ and height $L^*_2$, is shown in green. } \label{fig:chimera1}
 \end{figure}
 \noindent
-Figure \ref{chimera1} is a schematic showing the basic geometry of a constitutive chimera.
+Figure \ref{fig:chimera1} is a schematic showing the basic geometry of a constitutive chimera.
 A constitutive chimera is parameterized by:
 \begin{itemize}
 	\item $D^*$, the shared diameter of its upper and lower semi-spheroids;
@@ -108,7 +118,7 @@ A constitutive chimera is parameterized by:
 	\item $L_0^* \equiv L_1^* + L_2^*$, the total height of the chimera; and,
 	\item $\alpha \equiv \frac{L_0^*}{D^*}$, an aspect ratio parameter.
 \end{itemize}
-We refer to the junction between the upper and lower semi-spheroids (indicated by $D$ in Figure \ref{chimera1}) as the ``equator''.
+We refer to the junction between the upper and lower semi-spheroids (indicated by $D$ in Figure \ref{fig:chimera1}) as the ``equator''.
 The asterisks imply dimensional quantities.
 
 From the formula for the volume of an spheroid, applied to each semi-spheroid and summed, the total volume of a constitutive chimera is
@@ -191,13 +201,13 @@ From a morphological perspective, this implies that an embryo of fixed height $L
 	$h_i$ is the height by which the equator of the inclusion chimera is elevated relative to the equator of the surface chimera (which may be negative). 
 	%The schematic shows the inclusion chimera being co-axial with the surface chimera. 
 	%In the numerical implementation, inclusions may be offset horizontally, as long as no chimera surfaces intersect.
-	} \label{chimera2}
+	} \label{fig:chimera2}
 \end{figure}
 \noindent
-Figure \ref{chimera2} is a schematic showing the geometry of a composite chimera, comprising an external constitutive chimera, representing the surface of embryo tissue in contact with the fluid medium, and an internal constitutive chimera representing an inclusion such as lipid, seawater or calcium carbonate.
+Figure \ref{fig:chimera2} is a schematic showing the geometry of a composite chimera, comprising an external constitutive chimera, representing the surface of embryo tissue in contact with the fluid medium, and an internal constitutive chimera representing an inclusion such as lipid, seawater or calcium carbonate.
 In the numerical model implementation, an embryo can be constructed with multiple inclusions, e.g. a ``light'' inclusion containing lipids and a ``heavy'' inclusion containing calcium carbonate.
 However, to simplify calculations, the numerical model assumes there are no intersections between constitutive chimeras.
-That is, inclusion chimeras must be entirely inside the surface chimera, and entirely inside or outside of other inclusion chimeras.
+That is, \textbf{inclusion chimeras must be entirely inside the surface chimera, and entirely inside or outside of other inclusion chimeras}.
 
 A composite chimera with one inclusion is characterized by three volumes:
 \begin{itemize}
@@ -210,6 +220,16 @@ We can define a volume parameter, $\beta$, quantifying the factor by which total
 	\beta = \frac{V_s^*}{V_t^*} = 1 + \frac{V_i^*}{V_t^*}.
 \end{equation}
 In Equation \ref{vol3}, $\beta = 1$ represents an embryo with no inclusion, $\beta = 1.5$ represents an embryo with an inclusion with volume equal to 50\% of the tissue volume, and so on.
+
+If there are multiple inclusions, we distinguish between \textit{exposed} and \textit{contained} inclusions. 
+Exposed inclusions are in contact with tissue; therefore, they displace tissue and increase volume within the embryo surface.  
+If there are multiple exposed inclusions, then 
+\begin{equation}\label{eqn:expincl}
+	V_i^* = \sum_{j \in E} V^*_{i_j},
+\end{equation}
+in  Equation \ref{vol3}, where $E$ is the set of exposed inclusions.
+Contained inclusions lie entirely within another inclusion; these do not displace tissue and so do not increase embryo volume.
+
 
 If we assume that the embryo increases in size isometrically (that is, for a fixed aspect ratio $\alpha_s$), the change in diameter to maintain a constant tissue volume when an inclusion is added is
 \begin{equation}\label{vol4}
@@ -230,9 +250,10 @@ from which
 \textbf{THIS SECTION NEEDS TO BE CHECKED!!!}
 
 The relationships above suggest a nondimensionalization using an equivalent spherical diameter, defined as the diameter of the sphere with volume equal to that of the tissue, as a length scale:
-\begin{equation}\label{equivsphere}
-	V_{sph}^* = \frac{\pi}{6} {D_{sph}^*}^3 = V_t^*
-\end{equation} 
+\begin{eqnarray}\label{equivsphere}
+	V_{sph}^* = \frac{\pi}{6} {D_{sph}^*}^3 = V_t^*, \non \\
+	D_{sph}^* = \sqrt[\uproot{5}3]{\frac{6}{\pi} V_t^*}
+\end{eqnarray} 
 Equating the spherical volume to the right hand side of Equation \ref{vol2} simplifies to
 \begin{equation}\label{equivD}
 	D_{sph}^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{2}} ~ D_t^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{2 \beta}} ~ D_s^*
@@ -251,8 +272,8 @@ As a result, the body forces (excluding effects of inclusions) are also normaliz
 
 From Equations \ref{equivD} and \ref{ndD},
 \begin{eqnarray}\label{equivD2}
-	D_t = \sqrt[\uproot{5}3]{\frac{2}{\alpha_s}}, \alpha_s = \frac{2}{D_t^3}, \non \\
-	D_s = \sqrt[\uproot{5}3]{\frac{2 \beta}{\alpha_s}}, \alpha_s = \frac{2 \beta}{D_s^3}.
+	D_t = \sqrt[\uproot{5}3]{\frac{2}{\alpha_s}}, ~ \alpha_s = \frac{2}{D_t^3}, \non \\
+	D_s = \sqrt[\uproot{5}3]{\frac{2 \beta}{\alpha_s}}, ~ \alpha_s = \frac{2 \beta}{D_s^3}.
 \end{eqnarray}
 Equations \ref{equivD2} show that the nondimensional diameters $D_t$ and $D_s$ are fully determined by the aspect ratio $\alpha_s$ and volume parameter $\beta$, and \textit{vice versa}.
 
@@ -285,7 +306,7 @@ Nonetheless, this torque is likely to scale in a similar way with embryo size, a
 
 Substituting this value into Equation \ref{tau1} and simplifying gives
 \begin{equation}\label{tau2}
-	\tau_{rot}^* = \frac{6 \mu}{\rho^* g D_{sph}^*}
+	\tau_{rot}^* = \frac{6 \mu}{\rho^*_{med} ~ g ~ D_{sph}^*}
 \end{equation}
 Equation \ref{tau2} reflects the fundamental proportional dependence of the rotation timescale of an equivalent sphere on size (diameter), viscosity, medium density, and gravitational acceleration.
 
@@ -331,7 +352,8 @@ The dimensional form of the Stokes equations can be written as
 	0 = \mu \left( \frac{\p^2 w^*}{\p {x^*}^2}+\frac{\p^2 w^*}{\p {y^*}^2}+\frac{\p^2 w^*}{\p {z^*}^2} \right) - \frac{\p p^*}{\p {z^*}} + f_z^*, \non \\
 	0 =  \frac{\p u^*}{\p {x^*}}+\frac{\p v^*}{\p {y^*}}+\frac{\p w^*}{\p {z^*}} 
 \end{eqnarray}
-In Equations \ref{Stokes1}, the first three equations enforces conservation of momentum in the $x$, $y$ and $z$ directions in the $Re \rightarrow 0$ limit, and the last equation represents enforces incompressibility.
+In Equations \ref{Stokes1}, the first three equations enforces conservation of momentum in the $x$, $y$ and $z$ directions in the $Re \rightarrow 0$ limit.
+The last equation enforces incompressibility.
 
 To nondimensionalize, we define nondimensional parameters $x$, $u$, $f_x$ :
 \begin{itemize}
@@ -343,9 +365,9 @@ To nondimensionalize, we define nondimensional parameters $x$, $u$, $f_x$ :
 The scaling parameters $D_{sph}^*$ and $\tau_{rot}^*$ are as derived above in Sections \ref{GeomSect} and \ref{RotSect}.
 Substituting the expression for the rotation timescale,
 \begin{eqnarray}\label{NDpars}
-	u = 6 \frac{\mu}{\rho^* g } u^* \non \\
-	f_q = \frac{D_{sph}}{\mu} 6 \frac{\mu}{\rho^* g D_{sph}^*} f_q^* = \frac{6}{\rho g} f_q^*, q = x, y, z \non \\
-	p = \frac{1}{\mu} 6 \frac{\mu}{\rho^* g D_{sph}^*} p^* = \frac{6}{\rho g D_{sph}^*} p^*
+	u = 6 \frac{\mu}{\rho^*_{med} ~ g } u^* \non \\
+	f_q = \frac{D_{sph}}{\mu} 6 \frac{\mu}{\rho^*_{med} ~ g ~ D_{sph}^*} f_q^* = \frac{6}{\rho^*_{med}~  g} f_q^*, ~ q = x, y, z \non \\
+	p = \frac{1}{\mu} 6 \frac{\mu}{\rho^*_{med} ~ g ~ D_{sph}^*} p^* = \frac{6}{\rho^*_{med} ~ g ~ D_{sph}^*} p^*
 \end{eqnarray}
 Expressing the dimensional quantities in Equations \ref{Stokes1} in terms of the nondimensional parameters in \ref{NDpars}, 
 \begin{eqnarray}\label{Stokes2}
@@ -357,7 +379,55 @@ Expressing the dimensional quantities in Equations \ref{Stokes1} in terms of the
 Equations \ref{Stokes2} are the nondimensional form of the Stokes equations, in which space and time are rescaled such that the primary effects of embryo size, and of medium viscosity and density, are factored out.  
 
 \section{Parameterization of the non-dimensional embryo swimming problem}\label{NDparsSect}
-This section provides examples of the procedure to convert dimensional parameters from a scenario of embryo swimming into their nondimensional parameter analogs, and to reconvert nondimensional results into their corresponding dimensional quantities.
+This section summarizes the procedure to convert dimensional parameters from a scenario of embryo swimming into their nondimensional parameter analogs, and to reconvert nondimensional results into their corresponding dimensional quantities.
+
+The embryo parameters in the swimming embryo scenario are:
+\begin{itemize}
+	\item Material density, $\rho_m$, where $m$ is either tissue or an inclusion material such as seawater, lipid or calcium carbonate;
+	\item Tissue volume, $V^*_t$, used to calculate $D_{sph}^*$;
+	\item Surface geometry parameter (aspect ratio), $\alpha_s$ (already nondimensional);
+	\item Inclusion volume, $V^*_{i_m}$ for inclusion material(s) $m$;
+	\item Inclusion geometry parameter (aspect ratio), $\alpha_{i_m}$ for inclusion material(s) $m$ (already nondimensional);
+	\item Inclusion offset height parameter, $h_{i_m}$ for inclusion material(s) $m$;
+	\item Ciliary velocity, $v^*_{cil}$
+\end{itemize}
+The environmental parameters in the swimming embryo scenario are:
+\begin{itemize}
+	\item Fluid density, $\rho$, and viscosity, $\mu$, used with $D_{sph}^*$ to calculate $\tau_{rot}$; 
+	\item Shear: $\frac{\p u^*}{\p z^*}$ and $\frac{\p w^*}{\p x^*}$; and,
+	\item Time, $t^*$.
+\end{itemize}
+
+
+\begin{table}[h]
+	\centering
+	\caption{Summary of dimensional-nondimensional transformations for the swimming embryo problem. In the left column, $\sim$ is followed by the SI units of the dimensional parameter. Among dimensional-nondimensional parameter pairs, the dimensional form is labeled with an $^*$. The diameter of the equivalent sphere, $D_{sph}^*$, is given in Equation \ref{equivsphere} . The rotation timescale, $\tau^*_{rot}$, is given in Equation \ref{tau2} .} \label{tab:d2nd}
+	\vspace{.25cm}
+	\small
+	\rowcolors{2}{gray!10}{white}
+	\begin{tabular}{|I|L|lL|}
+		\hline
+		Dimen. param. & Conversion formula \& result & \hspace{1cm} Interpretation \\
+		\hline
+		$\rho_t^* \sim \mathsf{\frac{kg}{m^3}}$ & $\rho_t = \frac{1}{\rho_{med}^*} \rho_t^* $  & Density of tissue \\
+		$V^*_t \sim \mathsf{m^3}$ & $V_t = \frac{1}{{D_{sph}^*}^3} V^*_t $  & Volume of tissue \\
+		$\alpha_s \sim \mathsf{1}$ &    & Aspect ratio of embryo surface \\
+		$\rho_m^* \sim \mathsf{\frac{kg}{m^3}}$ & $\rho_m = \frac{1}{\rho_{med}^*} \rho_m^* $  & Density of embryo material $m$ \\
+		$V^*_{i_m} \sim \mathsf{m^3}$ & $V_{i_m} = \frac{1}{{D_{sph}^*}^3} V^*_{i_m} $  & Volume of inclusion $m$ \\
+		$\alpha_{i_m} \sim \mathsf{1}$ &    & Aspect ratio of inclusion $m$ \\
+		$h^*_{i_m} \sim \mathsf{m}$ & $h_{i_m} = \frac{1}{{D_{sph}^*}} h^*_{i_m} $  & Vertical position of inclusion $m$ \\
+		$v^*_{cil} \sim \mathsf{\frac{m}{s}}$ & $v_{cil} = \frac{D_{sph}^*}{{\tau_{rot}}}  v^*_{cil}  $  & Ciliary velocity \\
+		%$v^*_{cil} \sim \mathsf{\frac{m}{s}}$ & $v_{cil} = \frac{D_{sph}^*}{{\tau_{rot}}}  v^*_{cil}  = 6 \frac{\mu}{{\rho_{med}^* g}}  v^*_{cil} $  & Ciliary velocity \\
+		\hline
+		\vspace{0.1cm}
+		$\frac{\p w^*}{\p x^*} \sim \mathsf{\frac{1}{s}}$ & $\frac{\p w}{\p x} = \tau_{rot} \frac{\p w^*}{\p x^*}  $  & Vertical shear velocity \\
+		\vspace{0.1cm}
+		$\frac{\p u^*}{\p z^*} \sim \mathsf{\frac{1}{s}}$ & $\frac{\p u}{\p z} = \tau_{rot} \frac{\p u^*}{\p z^*}  $  & Horizontal shear velocity \\
+		\vspace{0.1cm}
+		$t^* \sim \mathsf{s}$ & $t =  \frac{t^*}{\tau_{rot}}  $  & Time \\
+		\hline
+	\end{tabular}
+\end{table}
 
 
 
@@ -376,19 +446,5 @@ This section provides examples of the procedure to convert dimensional parameter
 
 
 
-
-
-
-
-
-%\vspace{10cm}
-%\begin{tikzpicture}
-%	\draw (0,0) ellipse (2cm and 1cm);
-%	\draw (0,3) ellipse (2cm and 1cm);
-%	\draw (-3,1.5) +(60:1cm and 2cm) arc (60:-240:1cm and 2cm);
-%	\node (A) [draw=black,fill=emerald,double=white,double distance=2pt,shape=rounded rectangle,minimum width=4cm ]{A}; 
-%	\node[right=9cm of A] (B) [draw,fill=corn,shape=rounded rectangle,minimum width=4cm ]{B};
-%	\path[->] (A) edge[line width=0.742mm] node[ fill=white, anchor=center, pos=0.5,font=\bfseries] {\Huge +} (B);
-%\end{tikzpicture}
 
 \end{document}
