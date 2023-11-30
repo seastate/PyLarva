@@ -115,10 +115,12 @@ A constitutive chimera is parameterized by:
 	\item $D^*$, the shared diameter of its upper and lower semi-spheroids;
 	\item $L_1^*$, the height of its upper semi-spheroid;
 	\item $L_2^*$, the height of its  lower semi-spheroid; 
-	\item $L_0^* \equiv L_1^* + L_2^*$, the total height of the chimera; and,
-	\item $\alpha \equiv \frac{L_0^*}{D^*}$, an aspect ratio parameter.
+	\item $L_0^* \equiv L_1^* + L_2^*$, the total height of the chimera;
+	\item $\alpha \equiv \frac{L_0^*}{D^*}$, an aspect ratio parameter; and,
+	\item $\lambda_{eq} \equiv \frac{L_2^*}{L_0^*}$, the fractional height of the lower semi-spheroid.
 \end{itemize}
 We refer to the junction between the upper and lower semi-spheroids (indicated by $D$ in Figure \ref{fig:chimera1}) as the ``equator''.
+$\lambda_{eq}$ is the height of the equator, as a fraction of embryo length (\textit{e.g.}, $\lambda_{eq} = 0.5$ implies a sphere, $\lambda_{eq} = 0.1$ implies a chimera with a long pointy top and a short, blunt bottom, \etc).
 The asterisks imply dimensional quantities.
 
 From the formula for the volume of an spheroid, applied to each semi-spheroid and summed, the total volume of a constitutive chimera is
@@ -310,34 +312,6 @@ Substituting this value into Equation \ref{tau1} and simplifying gives
 \end{equation}
 Equation \ref{tau2} reflects the fundamental proportional dependence of the rotation timescale of an equivalent sphere on size (diameter), viscosity, medium density, and gravitational acceleration.
 
-%\subsection{Nondimensionalization of inclusion chimeras}
-%This convenient fact suggests nondimensionalization based on an equivalent spherical diameter, defined as the diameter of the sphere with volume equal to that of the surface (tissue) constitutive chimera:
-%\begin{equation}\label{equivsphere}
-%	V_{sph}^* = \frac{\pi}{6} {D_{sph}^*}^3
-%\end{equation} 
-%Equating the spherical volume to the right hand side of Equation \ref{vol2} simplifies to
-%\begin{equation}\label{equivD}
-%	D_{sph}^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{2}} ~ D_S^*
-%\end{equation} 
-%Here, we adopt $D_s^*$ and $\alpha_s$ as notation for the equatorial diameter and aspect ratio of the surface chimera (to distinguish it from chimeras representing inclusions).
-%
-%We adopt $D_{sph}^*$ as the characteristic length for nondimensionalizing embryo morphology.
-%For example, a nondimensionalized chimera diameter is
-%\begin{equation}\label{ndD}
-%	D_s = \frac{D_s^*}{D_{sph}^*}
-%\end{equation} 
-%where the dropped asterisk implies a nondimensional quantity.
-%
-%Because $D_{sph}^*$ is defined to match volumes, this also ensures that the nondimensional volume of the tissue is equal to 1.
-%As a result, the body forces (excluding effects of inclusions) are also normalized to remove the primary effects of size.
-%
-%From Equations \ref{equivD} and \ref{ndD},
-%\begin{eqnarray}\label{equivD2}
-%	D_s = \sqrt[\uproot{5}3]{\frac{2}{\alpha_s}}, \non \\
-%	\alpha_s = \frac{2}{D_s^3},
-%\end{eqnarray}
-%showing that the nondimensional diameter $D_s$ is fully determined by the aspect ratio $\alpha_s$, and \textit{vice versa}.
-
 
 \section{Non-dimensionalized Stokes Equations}\label{NDStokesSect}
 Most embryos of marine invertebrates are small enough and move slowly enough to be characterized by a very small to moderately small Reynolds Number, $Re$. 
@@ -380,15 +354,80 @@ Equations \ref{Stokes2} are the nondimensional form of the Stokes equations, in 
 
 \section{Parameterization of the non-dimensional embryo swimming problem}\label{NDparsSect}
 This section summarizes the procedure to convert dimensional parameters from a scenario of embryo swimming into their nondimensional parameter analogs, and to reconvert nondimensional results into their corresponding dimensional quantities.
+The expectation is that results from directly simulating a dimensional scenario are identical to results from converting that scenario to its nondimensional counterpart, running the simulation, and re-dimensionalizing the results.
+That being established, each nondimensional result is applicable to a range of dimensional scenarios, the reduction in parameter space facilitating an overall analysis of embryo swimming functional morphology.
+
+\subsection{Dimensional to nondimensional conversion}
+A dimensional embryo swimming scenario is prescribed by:
+\begin{itemize}
+	\item Geometrical parameters of the outer surface: $D^*_s$, $L^*_{s_1}$, $L^*_{s_2}$; 
+	\item Geometrical parameters of the inclusion(s): $D^*_{i}$, $L^*_{i_1}$, $L^*_{i_2}$, $h^*_i$; 
+	\item Densities of the tissue and inclusion(s): $\rho^*_t$, $\rho^*_{i}$; 
+	\item Ciliary velocity: $V^*_{cil}$;
+	\item Fluid medium viscosity and density: $\rho^*_{med}$, $\mu$;
+	\item Fluid medium shear, $\frac{\p u^*}{\p z^*}$ and $\frac{\p w^*}{\p x^*}$
+	\item Simulation end time, $t^*_{end}$; and,
+	\item Initial Euler angles, $\phi$, $\theta$ and $\psi$. 
+\end{itemize}
+Geometrical parameters and ciliary velocity are typically measured on micrographs or microvideos (Fig. \ref{fig:chimera2}).
+Densities are estimated from water columns with density gradients (to measure average density) or from known properties of specific materials (seawater, lipids, calcium carbonate, \etc).
+
+From these parameters, the steps to obtain the corresponding nondimensional parameter set are:
+\begin{enumerate}
+	\item Calculate aspect ratio and equatorial height parameters:
+	\begin{eqnarray}\label{d2ndpars1}
+		\alpha_s = \frac{L^*_{s_0}}{D^*_s}, ~ L^*_{s_0} = L^*_{s_1} + L^*_{s_2} \non \\
+		\lambda_s = \frac{L^*_{s_2}}{L^*_{s_0}} \non \\
+		\alpha_{i} = \frac{L^*_{i_0}}{D^*_i}, ~ L^*_{i_0} = L^*_{i_1} + L^*_{i_2} \non \\
+		\lambda_{i} = \frac{L^*_{i_2}}{L^*_{i_0}}
+	\end{eqnarray}
+	\item Calculate volumes:
+	\begin{eqnarray}\label{d2ndpars2}
+		V_s^* = \frac{\pi}{12} \alpha_s {D_s^*}^3 \non \\
+		V_i^* = \frac{\pi}{12} \alpha_i {D_i^*}^3 \non \\
+		V_t^* = V_s^* - V_i^* \non \\
+		\beta = \frac{V_s^*}{V_t^*} \non \\
+		D_t^* = \frac{1}{\sqrt[\uproot{5}3]{\beta}} D_s^* \non \\
+	\end{eqnarray}
+	\item Calculate the equivalent sphere diameter and rotation timescale (the nondimensionalization length and time scales):
+	\begin{eqnarray}\label{d2ndpars3}
+		%D_{sph}^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{2}} ~ D_t^*  \non \\
+		%D_{sph}^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{2 \beta}} ~ D_s^* \non \\
+		D_{sph}^* = \sqrt[\uproot{5}3]{\frac{6}{\pi} V_t^*} \non \\
+		\tau_{rot}^* = \frac{6 \mu}{\rho^*_{med} ~ g ~ D_{sph}^*}
+	\end{eqnarray}
+	\item Calculate the nondimensionalized geometrical parameters:
+	\begin{eqnarray}\label{d2ndpars4}
+		D_s = \sqrt[\uproot{5}3]{\frac{2 \beta}{\alpha_s}} \non \\
+		L_{s_0} = \alpha_s D_s \non \\
+		L_{s_2} = \lambda_s L_{s_0}, L_{s_1} = L_{s_0} - L_{s_2} \non \\
+		L_{i_0} = \frac{L^*_{i_0}}{D_{sph}^*} \non \\
+		L_{i_2} = \lambda_i L_{i_0}, L_{i_1} = L_{i_0} - L_{i_2} \non \\
+		h_i = \frac{h^*_i}{D_{sph}^*}
+		%L_{i_1} = \frac{L^*_{i_1}}{D_{sph}^*}, L_{i_2} = \frac{L^*_{i_2}}{D_{sph}^*}, D_i = \frac{D^*_i}{D_{sph}^*}, h_i = \frac{h^*_i}{D_{sph}^*}
+	\end{eqnarray}
+	\item Calculate the nondimensionalized ciliary velocity, shear and simulation end time:
+	\begin{eqnarray}\label{d2ndpars5}
+		v_{cil} = \frac{{\tau_{rot}}}{D_{sph}^*}  v^*_{cil} \non \\
+		\frac{\p w}{\p x} = \tau_{rot} \frac{\p w^*}{\p x^*} \non \\
+		\frac{\p u}{\p z} = \tau_{rot} \frac{\p u^*}{\p z^*} \non \\
+		t_{end} = \frac{t^*_{end}}{\tau_{rot}}
+	\end{eqnarray}
+\end{enumerate}
+ 
+\subsection{Nondimensional to dimensional conversion}
+
 
 The embryo parameters in the swimming embryo scenario are:
 \begin{itemize}
 	\item Material density, $\rho_m$, where $m$ is either tissue or an inclusion material such as seawater, lipid or calcium carbonate;
 	\item Tissue volume, $V^*_t$, used to calculate $D_{sph}^*$;
-	\item Surface geometry parameter (aspect ratio), $\alpha_s$ (already nondimensional);
+	\item Surface geometry aspect ratio, $\alpha_s$;
+	\item Surface geometry equatorial height, $\lambda_s$;
 	\item Inclusion volume, $V^*_{i_m}$ for inclusion material(s) $m$;
-	\item Inclusion geometry parameter (aspect ratio), $\alpha_{i_m}$ for inclusion material(s) $m$ (already nondimensional);
-	\item Inclusion offset height parameter, $h_{i_m}$ for inclusion material(s) $m$;
+	\item Inclusion aspect ratio, $\alpha_{i_m}$ for inclusion material(s) $m$;
+	\item Inclusion equatorial height, $\lambda_{i_m}$ for inclusion material(s) $m$;
+	\item Inclusion offset height parameter, $h_{i_m}$ for inclusion material(s) $m$; and,
 	\item Ciliary velocity, $v^*_{cil}$
 \end{itemize}
 The environmental parameters in the swimming embryo scenario are:
@@ -412,11 +451,13 @@ The environmental parameters in the swimming embryo scenario are:
 		$\rho_t^* \sim \mathsf{\frac{kg}{m^3}}$ & $\rho_t = \frac{1}{\rho_{med}^*} \rho_t^* $  & Density of tissue \\
 		$V^*_t \sim \mathsf{m^3}$ & $V_t = \frac{1}{{D_{sph}^*}^3} V^*_t $  & Volume of tissue \\
 		$\alpha_s \sim \mathsf{1}$ &    & Aspect ratio of embryo surface \\
+		$\lambda_s \sim \mathsf{1}$ &    & Equatorial height of embryo surface \\
 		$\rho_m^* \sim \mathsf{\frac{kg}{m^3}}$ & $\rho_m = \frac{1}{\rho_{med}^*} \rho_m^* $  & Density of embryo material $m$ \\
 		$V^*_{i_m} \sim \mathsf{m^3}$ & $V_{i_m} = \frac{1}{{D_{sph}^*}^3} V^*_{i_m} $  & Volume of inclusion $m$ \\
 		$\alpha_{i_m} \sim \mathsf{1}$ &    & Aspect ratio of inclusion $m$ \\
+		$\lambda_{i_m} \sim \mathsf{1}$ &    & Equatorial height of inclusion $m$ \\
 		$h^*_{i_m} \sim \mathsf{m}$ & $h_{i_m} = \frac{1}{{D_{sph}^*}} h^*_{i_m} $  & Vertical position of inclusion $m$ \\
-		$v^*_{cil} \sim \mathsf{\frac{m}{s}}$ & $v_{cil} = \frac{D_{sph}^*}{{\tau_{rot}}}  v^*_{cil}  $  & Ciliary velocity \\
+		$v^*_{cil} \sim \mathsf{\frac{m}{s}}$ & $v_{cil} = \frac{{\tau_{rot}}}{D_{sph}^*}  v^*_{cil}  $  & Ciliary velocity \\
 		%$v^*_{cil} \sim \mathsf{\frac{m}{s}}$ & $v_{cil} = \frac{D_{sph}^*}{{\tau_{rot}}}  v^*_{cil}  = 6 \frac{\mu}{{\rho_{med}^* g}}  v^*_{cil} $  & Ciliary velocity \\
 		\hline
 		\vspace{0.1cm}
