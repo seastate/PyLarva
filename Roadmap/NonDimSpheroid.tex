@@ -13,8 +13,8 @@
 
 \usepackage{rotating}
 \usepackage{array}
-\newcolumntype{L}{>{\centering\arraybackslash}m{4.5cm}}
-\newcolumntype{I}{>{\centering\arraybackslash}m{2.5cm}}
+\newcolumntype{L}{>{\centering\arraybackslash}m{4.cm}}
+\newcolumntype{I}{>{\centering\arraybackslash}m{2.25cm}}
 \newcolumntype{S}{>{\centering\arraybackslash}m{1cm}}
 
 \usepackage[table]{xcolor}    % loads also »colortbl«
@@ -52,8 +52,8 @@ The fundamental shapes in this model are chimeras constructed from two attached 
 We refer to a chimera of this type as a ``constitutive chimera''.
 
 One instance of a constitutive chimera represents the surface of the embryo.
-The volume inside this surface is assumed to be (mostly) tissue. 
-Other constitutive chimeras may be used to approximate inclusions, containing material such as seawater or lipid (both less dense than tissue) or calcium carbonate (heavier than tissue).
+The volume inside this surface is assumed to be tissue, except where displaced by inclusions of another material. 
+Constitutive chimeras are also used to approximate inclusions, which contain material such as seawater or lipid (both less dense than tissue) or calcium carbonate (heavier than tissue).
 If the volume of tissue is held constant, inclusions alter the volume enclosed by the surface, and typically shift the center of gravity away from the center of buoyancy.
 A shift of this type results in a preferred orientation, in still water.
 
@@ -117,22 +117,22 @@ A constitutive chimera is parameterized by:
 	\item $L_2^*$, the height of its  lower semi-spheroid; 
 	\item $L_0^* \equiv L_1^* + L_2^*$, the total height of the chimera;
 	\item $\alpha \equiv \frac{L_0^*}{D^*}$, an aspect ratio parameter; and,
-	\item $\lambda_{eq} \equiv \frac{L_2^*}{L_0^*}$, the fractional height of the lower semi-spheroid.
+	\item $\lambda \equiv \frac{L_2^*}{L_0^*}$, the fractional height of the lower semi-spheroid.
 \end{itemize}
 We refer to the junction between the upper and lower semi-spheroids (indicated by $D$ in Figure \ref{fig:chimera1}) as the ``equator''.
-$\lambda_{eq}$ is the height of the equator, as a fraction of embryo length (\textit{e.g.}, $\lambda_{eq} = 0.5$ implies a sphere, $\lambda_{eq} = 0.1$ implies a chimera with a long pointy top and a short, blunt bottom, \etc).
+$\lambda$ is the height of the equator, as a fraction of embryo length (\textit{e.g.}, $\lambda = 0.5$ implies top-bottom symmetry, $\lambda = 0.1$ implies a chimera with a long pointy top and a short, blunt bottom, \etc).
 The asterisks imply dimensional quantities.
 
 From the formula for the volume of an spheroid, applied to each semi-spheroid and summed, the total volume of a constitutive chimera is
 \begin{equation}\label{vol1}
 	V^* = \frac{\pi}{6} {D^*}^2 \left(\frac{L_1^*+L_2^*}{2}\right) = \frac{\pi}{12} {D^*}^2 L_0^*
 \end{equation} 
-Equation \ref{vol1} shows that the volume is a function of diameter and total length, $L_0^*$, regardless of how that length is allocated to the upper or lower semi-spheroids.
+Equation \ref{vol1} shows that the volume is a function of diameter and total length, $L_0^*$, regardless of how that length is allocated to the upper or lower semi-spheroids (that is, the volume is independent of $\lambda$).
 The volume can also be expressed in terms of the aspect ratio,
 \begin{equation}\label{vol2}
 	V^* = \frac{\pi}{12} \alpha {D^*}^3
 \end{equation} 
-From a morphological perspective, this implies that an embryo of fixed height $L_0^*$ can develop into a constitutive chimera with any aspect ratio, without a change in tissue volume. 
+From a morphological perspective, this implies that an embryo of fixed diameter $D^*$ and aspect ratio $\alpha$ can develop into a constitutive chimera with the equator at any fractional height, without a change in tissue volume. 
 
 \subsection{Embryos as composites of constitutive chimeras}
 
@@ -230,7 +230,7 @@ If there are multiple exposed inclusions, then
 	V_i^* = \sum_{j \in E} V^*_{i_j},
 \end{equation}
 in  Equation \ref{vol3}, where $E$ is the set of exposed inclusions.
-Contained inclusions lie entirely within another inclusion; these do not displace tissue and so do not increase embryo volume.
+Contained inclusions lie entirely within another inclusion; these do not displace tissue and so do not increase embryo volume (though they do affect calculations of gravity forces, centers of mass, \etc).
 
 
 If we assume that the embryo increases in size isometrically (that is, for a fixed aspect ratio $\alpha_s$), the change in diameter to maintain a constant tissue volume when an inclusion is added is
@@ -251,7 +251,7 @@ from which
 \subsection{Nondimensionalization of the surface chimera}
 \textbf{THIS SECTION NEEDS TO BE CHECKED!!!}
 
-The relationships above suggest a nondimensionalization using an equivalent spherical diameter, defined as the diameter of the sphere with volume equal to that of the tissue, as a length scale:
+The relationships above suggest a nondimensionalization using an equivalent spherical diameter, defining the characteristic length scale as the diameter of the sphere with volume equal to that of the tissue:
 \begin{eqnarray}\label{equivsphere}
 	V_{sph}^* = \frac{\pi}{6} {D_{sph}^*}^3 = V_t^*, \non \\
 	D_{sph}^* = \sqrt[\uproot{5}3]{\frac{6}{\pi} V_t^*}
@@ -262,7 +262,7 @@ Equating the spherical volume to the right hand side of Equation \ref{vol2} simp
 \end{equation} 
 %Here, we adopt $D_s^*$ and $\alpha_s$ as notation for the equatorial diameter and aspect ratio of the surface chimera (to distinguish it from chimeras representing inclusions).
 We adopt $D_{sph}^*$ as the characteristic length for nondimensionalizing embryo morphology.
-For example, a nondimensionalized chimera diameter is
+For example, a nondimensionalized surface chimera diameter is
 \begin{equation}\label{ndD}
 	D_s = \frac{D_s^*}{D_{sph}^*}
 \end{equation} 
@@ -304,7 +304,7 @@ Again using $D_{sph}^*$ as a characteristic length (in this case, the distance o
 \end{equation} 
 This torque is an upper limit that cannot be realized (or, in most reasonable geometries, even approached).
 This is because the body forces generated by inclusions will rarely approach the body force of the tissue, and the moment arm over which inclusion forces act will rarely approach the entire length of the embryo. 
-Nonetheless, this torque is likely to scale in a similar way with embryo size, and the viscosity and density of the fluid medium, as torques on more realistic embryo shapes. This makes it is suitable as a characteristic value to factor out direct effects of those parameters.
+Nonetheless, this torque is likely to scale in a similar way with embryo size, and the viscosity and density of the fluid medium, as torques on more realistic embryo shapes. This makes it suitable as a characteristic value to factor out direct effects of those parameters.
 
 Substituting this value into Equation \ref{tau1} and simplifying gives
 \begin{equation}\label{tau2}
@@ -363,7 +363,7 @@ A dimensional embryo swimming scenario is prescribed by:
 	\item Geometrical parameters of the outer surface: $D^*_s$, $L^*_{s_1}$, $L^*_{s_2}$; 
 	\item Geometrical parameters of the inclusion(s): $D^*_{i}$, $L^*_{i_1}$, $L^*_{i_2}$, $h^*_i$; 
 	\item Densities of the tissue and inclusion(s): $\rho^*_t$, $\rho^*_{i}$; 
-	\item Ciliary velocity: $V^*_{cil}$;
+	\item Ciliary velocity: $v^*_{cil}$;
 	\item Fluid medium viscosity and density: $\rho^*_{med}$, $\mu$;
 	\item Fluid medium shear, $\frac{\p u^*}{\p z^*}$ and $\frac{\p w^*}{\p x^*}$
 	\item Simulation end time, $t^*_{end}$; and,
@@ -486,65 +486,16 @@ apply similarly to both dimensional and nondimensional scenarios.
 
 
 
-%\begin{itemize}
-%	\item Geometrical parameters of the outer surface: $D^*_s$, $L^*_{s_1}$, $L^*_{s_2}$; 
-%	\item Geometrical parameters of the inclusion(s): $D^*_{i}$, $L^*_{i_1}$, $L^*_{i_2}$, $h^*_i$; 
-%	\item Densities of the tissue and inclusion(s): $\rho^*_t$, $\rho^*_{i}$; 
-%	\item Ciliary velocity: $V^*_{cil}$;
-%	\item Fluid medium viscosity and density: $\rho^*_{med}$, $\mu$;
-%	\item Fluid medium shear, $\frac{\p u^*}{\p z^*}$ and $\frac{\p w^*}{\p x^*}$
-%	\item Simulation end time, $t^*_{end}$; and,
-%	\item Initial Euler angles, $\phi$, $\theta$ and $\psi$. 
-%\end{itemize}
-
-
-
-%\begin{enumerate}
-%	\item Calculate aspect ratio and equatorial height parameters:
-%	\begin{eqnarray}\label{d2ndpars1}
-%		\alpha_s = \frac{L^*_{s_0}}{D^*_s}, ~ L^*_{s_0} = L^*_{s_1} + L^*_{s_2} \non \\
-%		\lambda_s = \frac{L^*_{s_2}}{L^*_{s_0}} \non \\
-%		\alpha_{i} = \frac{L^*_{i_0}}{D^*_i}, ~ L^*_{i_0} = L^*_{i_1} + L^*_{i_2} \non \\
-%		\lambda_{i} = \frac{L^*_{i_2}}{L^*_{i_0}}
-%	\end{eqnarray}
-%	\item Calculate volumes:
-%	\begin{eqnarray}\label{d2ndpars2}
-%		V_s^* = \frac{\pi}{12} \alpha_s {D_s^*}^3 \non \\
-%		V_i^* = \frac{\pi}{12} \alpha_i {D_i^*}^3 \non \\
-%		V_t^* = V_s^* - V_i^* \non \\
-%		\beta = \frac{V_s^*}{V_t^*} \non \\
-%		D_t^* = \frac{1}{\sqrt[\uproot{5}3]{\beta}} D_s^* \non \\
-%	\end{eqnarray}
-%	\item Calculate the equivalent sphere diameter and rotation timescale (the nondimensionalization length and time scales):
-%	\begin{eqnarray}\label{d2ndpars3}
-%		%D_{sph}^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{2}} ~ D_t^*  \non \\
-%		%D_{sph}^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{2 \beta}} ~ D_s^* \non \\
-%		D_{sph}^* = \sqrt[\uproot{5}3]{\frac{6}{\pi} V_t^*} \non \\
-%		\tau^*_{rot}^* = \frac{6 \mu}{\rho^*_{med} ~ g ~ D_{sph}^*}
-%	\end{eqnarray}
-%	\item Calculate the nondimensionalized geometrical parameters:
-%	\begin{eqnarray}\label{d2ndpars4a}
-%		D_s = \sqrt[\uproot{5}3]{\frac{2 \beta}{\alpha_s}} \non \\
-%		L_{s_0} = \alpha_s D_s \non \\
-%		L_{s_2} = \lambda_s L_{s_0}, L_{s_1} = (1 - \lambda_s) L_{s_0} \non \\
-%		%L_{s_2} = \lambda_s L_{s_0}, L_{s_1} = L_{s_0} - L_{s_2} \non \\
-%		%V_i = \frac{V^*_i}{V^*_t} \non \\
-%		V_i = \beta - 1 \non \\
-%		D_i = \sqrt[\uproot{5}3]{\frac{12 V_i}{\alpha_i}} \non \\
-%		L_{i_0} = \alpha_i D_i \non \\
-%		L_{i_2} = \lambda_i L_{i_0}, L_{i_1} = (1 - \lambda_i) L_{i_0} \non \\
-%		h_i = \frac{h^*_i}{D_{sph}^*}
-%		%L_{i_1} = \frac{L^*_{i_1}}{D_{sph}^*}, L_{i_2} = \frac{L^*_{i_2}}{D_{sph}^*}, D_i = \frac{D^*_i}{D_{sph}^*}, h_i = \frac{h^*_i}{D_{sph}^*}
-%	\end{eqnarray}
 
 
 
 
 
+\newpage
 
+\textbf{Probably no longer needed:}
+\vspace{2cm}
 
-
-\vspace{4cm}
 The embryo parameters in the swimming embryo scenario are:
 \begin{itemize}
 	\item Material density, $\rho_m$, where $m$ is either tissue or an inclusion material such as seawater, lipid or calcium carbonate;
@@ -571,7 +522,7 @@ The environmental parameters in the swimming embryo scenario are:
 	\vspace{.25cm}
 	\small
 	\rowcolors{2}{gray!10}{white}
-	\begin{tabular}{|I|L|lL|}
+	\begin{tabular}{|I|L|l|}
 		\hline
 		Dimen. param. & Conversion formula \& result & \hspace{1cm} Interpretation \\
 		\hline
