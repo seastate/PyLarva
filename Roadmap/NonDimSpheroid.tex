@@ -117,17 +117,17 @@ A constitutive chimera is parameterized by:
 	\item $L_2^*$, the height of its  lower semi-spheroid; 
 	\item $L_0^* \equiv L_1^* + L_2^*$, the total height of the chimera;
 	\item $\alpha \equiv \frac{L_0^*}{D^*}$, an aspect ratio parameter; and,
-	\item $\lambda \equiv \frac{L_2^*}{L_0^*}$, the fractional height of the lower semi-spheroid.
+	\item $\eta \equiv \frac{L_2^*}{L_0^*}$, the fractional height of the lower semi-spheroid.
 \end{itemize}
 We refer to the junction between the upper and lower semi-spheroids (indicated by $D$ in Figure \ref{fig:chimera1}) as the ``equator''.
-$\lambda$ is the height of the equator, as a fraction of embryo length (\textit{e.g.}, $\lambda = 0.5$ implies top-bottom symmetry, $\lambda = 0.1$ implies a chimera with a long pointy top and a short, blunt bottom, \etc).
+$\eta$ is the height of the equator, as a fraction of embryo length (\textit{e.g.}, $\eta = 0.5$ implies top-bottom symmetry, $\eta = 0.1$ implies a chimera with a long pointy top and a short, blunt bottom, \etc).
 The asterisks imply dimensional quantities.
 
 From the formula for the volume of an spheroid, applied to each semi-spheroid and summed, the total volume of a constitutive chimera is
 \begin{equation}\label{vol1}
 	V^* = \frac{\pi}{6} {D^*}^2 \left(\frac{L_1^*+L_2^*}{2}\right) = \frac{\pi}{12} {D^*}^2 L_0^*
 \end{equation} 
-Equation \ref{vol1} shows that the volume is a function of diameter and total length, $L_0^*$, regardless of how that length is allocated to the upper or lower semi-spheroids (that is, the volume is independent of $\lambda$).
+Equation \ref{vol1} shows that the volume is a function of diameter and total length, $L_0^*$, regardless of how that length is allocated to the upper or lower semi-spheroids (that is, the volume is independent of $\eta$).
 The volume can also be expressed in terms of the aspect ratio,
 \begin{equation}\label{vol2}
 	V^* = \frac{\pi}{12} \alpha {D^*}^3
@@ -378,9 +378,9 @@ From these parameters, the steps to obtain the corresponding nondimensional para
 	\item Calculate aspect ratio and equatorial height parameters:
 	\begin{eqnarray}\label{d2ndpars1}
 		\alpha_s = \frac{L^*_{s_0}}{D^*_s}, ~ L^*_{s_0} = L^*_{s_1} + L^*_{s_2} \non \\
-		\lambda_s = \frac{L^*_{s_2}}{L^*_{s_0}} \non \\
+		\eta_s = \frac{L^*_{s_2}}{L^*_{s_0}} \non \\
 		\alpha_{i} = \frac{L^*_{i_0}}{D^*_i}, ~ L^*_{i_0} = L^*_{i_1} + L^*_{i_2} \non \\
-		\lambda_{i} = \frac{L^*_{i_2}}{L^*_{i_0}}
+		\eta_{i} = \frac{L^*_{i_2}}{L^*_{i_0}}
 	\end{eqnarray}
 	\item Calculate volumes:
 	\begin{eqnarray}\label{d2ndpars2}
@@ -401,10 +401,10 @@ From these parameters, the steps to obtain the corresponding nondimensional para
 %	\begin{eqnarray}\label{d2ndpars4}
 %		D_s = \sqrt[\uproot{5}3]{\frac{2 \beta}{\alpha_s}} \non \\
 %		L_{s_0} = \alpha_s D_s \non \\
-%		L_{s_2} = \lambda_s L_{s_0}, L_{s_1} = L_{s_0} - L_{s_2} \non \\
+%		L_{s_2} = \eta_s L_{s_0}, L_{s_1} = L_{s_0} - L_{s_2} \non \\
 %		D_i = \frac{D^*_{i_0}}{D_{sph}^*} \non \\
 %		L_{i_0} = \frac{L^*_{i_0}}{D_{sph}^*} \non \\
-%		L_{i_2} = \lambda_i L_{i_0}, L_{i_1} = L_{i_0} - L_{i_2} \non \\
+%		L_{i_2} = \eta_i L_{i_0}, L_{i_1} = L_{i_0} - L_{i_2} \non \\
 %		h_i = \frac{h^*_i}{D_{sph}^*}
 %		%L_{i_1} = \frac{L^*_{i_1}}{D_{sph}^*}, L_{i_2} = \frac{L^*_{i_2}}{D_{sph}^*}, D_i = \frac{D^*_i}{D_{sph}^*}, h_i = \frac{h^*_i}{D_{sph}^*}
 %	\end{eqnarray}
@@ -412,13 +412,13 @@ From these parameters, the steps to obtain the corresponding nondimensional para
 	\begin{eqnarray}\label{d2ndpars4a}
 		D_s = \sqrt[\uproot{5}3]{\frac{2 \beta}{\alpha_s}} \non \\
 		L_{s_0} = \alpha_s D_s \non \\
-		L_{s_2} = \lambda_s L_{s_0}, L_{s_1} = (1 - \lambda_s) L_{s_0} \non \\
-		%L_{s_2} = \lambda_s L_{s_0}, L_{s_1} = L_{s_0} - L_{s_2} \non \\
+		L_{s_2} = \eta_s L_{s_0}, L_{s_1} = (1 - \eta_s) L_{s_0} \non \\
+		%L_{s_2} = \eta_s L_{s_0}, L_{s_1} = L_{s_0} - L_{s_2} \non \\
 		%V_i = \frac{V^*_i}{V^*_t} \non \\
 		V_i = \beta - 1 \non \\
 		D_i = \sqrt[\uproot{5}3]{\frac{12 V_i}{\alpha_i}} \non \\
 		L_{i_0} = \alpha_i D_i \non \\
-		L_{i_2} = \lambda_i L_{i_0}, L_{i_1} = (1 - \lambda_i) L_{i_0} \non \\
+		L_{i_2} = \eta_i L_{i_0}, L_{i_1} = (1 - \eta_i) L_{i_0} \non \\
 		h_i = \frac{h^*_i}{D_{sph}^*}
 	%L_{i_1} = \frac{L^*_{i_1}}{D_{sph}^*}, L_{i_2} = \frac{L^*_{i_2}}{D_{sph}^*}, D_i = \frac{D^*_i}{D_{sph}^*}, h_i = \frac{h^*_i}{D_{sph}^*}
 \end{eqnarray}
@@ -444,9 +444,49 @@ must be derived from the parameters
 \end{eqnarray}
 The shape parameters
 \begin{eqnarray}\label{nd2dpars2}
-	\alpha_s, \lambda_s, \alpha_{i}, \lambda_{i}, \beta
+	\alpha_s, \eta_s, \alpha_{i}, \eta_{i}, \beta
 \end{eqnarray}
 apply similarly to both dimensional and nondimensional scenarios.
+
+
+\vspace{2cm}
+The complete list of nondimensional parameters:
+\begin{eqnarray}\label{nd2dpars_essential}
+	\rho_t, \rho_i, \alpha_s, \eta_s, \alpha_{i}, \eta_{i}, \beta, h_i, v_{cil}, \frac{\p w}{\p x}, \frac{\p u}{\p z}, t_{end}
+\end{eqnarray}
+\vspace{2cm}
+The complete list of dimensional parameters needed to convert to a dimensional scenario:
+\begin{eqnarray}\label{nd2dpars_essential2}
+	V_t^*, \rho^*_{med}, g, \mu
+\end{eqnarray}
+
+\vspace{2cm}
+The nondimensional parameters to characterize a no-flow scenario (if assume stability, a function of inclusion volume but not geometry):
+\begin{eqnarray}\label{nd2dpars_essential3}
+	\rho_t, \rho_i, \alpha_s, \eta_s, v_{cil}, t_{end}
+\end{eqnarray}
+Observable metrics:
+\begin{enumerate}
+	\item Upward velocity, e.g. neutral weight speed, ciliary velocity for hovering (after transient, not a function of end time)
+	\item reorientation timescale (this is a function of inclusion CM, though not of geometric details).
+\end{enumerate}
+These are entirely functions of no-propulsion sinking and neutral weight swimming velocity (relative to vcil).
+
+For given choices of tissue and inclusion densities, these are functions only of alpha (strong?) and lambda (weak?) ==> heat maps \& look-up tables.
+
+\vspace{2cm}
+Inclusion parameters have effect only through the CM/CB and volume; detailed parameters reflect only whether the volume/CM/CB are feasible to achieve within the family of external shapes.
+
+
+\vspace{2cm}
+Solid body rotation scenario (like inside a plankton wheel -- embryo finds its place as function of angle \& radius relative to the center of rotation)
+
+The vertical \& horizontal positions (tangent of flow \& swimming velocity) of this can be scaled by the noflow vertical velocity to quantify loss of stability/tilt.
+
+
+Also vertical movement in horizontal shear and horizontal movement in vertical shear.
+
+
 
 %A starting point is to determine the scaling parameters $D_{sph}^*,\tau^*_{rot}$.
 
@@ -456,7 +496,7 @@ apply similarly to both dimensional and nondimensional scenarios.
 	\rho^*_t = \rho^*_{med} \rho_t \non \\
 	\rho^*_i = \rho^*_{med} \rho_i \non \\
 	V_s^* = \beta V_t^* \non \\
-	V_i^* = (1-\beta) V_t^* \non \\
+	V_i^* = (\beta-1) V_t^* \non \\
 	D_{sph}^* = \sqrt[\uproot{5}3]{\frac{6}{\pi} V_t^*} \non \\
 	\tau^*_{rot} = \frac{6 \mu}{\rho^*_{med} ~ g ~ D_{sph}^*}
 \end{eqnarray}
@@ -465,11 +505,11 @@ apply similarly to both dimensional and nondimensional scenarios.
 	D_s^* = \sqrt[\uproot{5}3]{\beta} D_t^* \non \\
 	D^*_i = \sqrt[\uproot{5}3]{\frac{12 V_i^*}{\pi \alpha_i}} \non \\
 	L^*_{s_0} = \alpha_s D^*_s \non \\
-	L^*_{s_2} = \lambda_s L^*_{s_0} \non \\
-	L^*_{s_1} = (1-\lambda_s) L^*_{s_0} \non \\
+	L^*_{s_2} = \eta_s L^*_{s_0} \non \\
+	L^*_{s_1} = (1-\eta_s) L^*_{s_0} \non \\
 	L^*_{i_0} = \alpha_i D^*_i \non \\
-	L^*_{i_2} = \lambda_i L^*_{i_0} \non \\
-	L^*_{i_1} = (1-\lambda_i) L^*_{i_0} \non \\
+	L^*_{i_2} = \eta_i L^*_{i_0} \non \\
+	L^*_{i_1} = (1-\eta_i) L^*_{i_0} \non \\
 	h^*_i = D_{sph}^* h_i \non \\
 	v^*_{cil} = \frac{D_{sph}^*}{{\tau^*_{rot}}}  v_{cil} \non \\
 	\frac{\p w^*}{\p x^*} = \frac{1}{\tau^*_{rot}} \frac{\p w}{\p x} \non \\
@@ -478,7 +518,7 @@ apply similarly to both dimensional and nondimensional scenarios.
 	%D_s, L_{s_0}, L_{s_2}, L_{s_1}, V_i, D_i, L_{i_0}, L_{i_2}, L_{i_0}, L_{i_1}, \non \\
 	%h_i, v_{cil}, \frac{\p w}{\p x}, \frac{\p u}{\p z}, t_{end}
 \end{eqnarray}
-\textbf{Expression for $D^*_i$ can probably be simplified.}
+%\textbf{Expression for $D^*_i$ can probably be simplified.}
 	
 \end{enumerate}
 
@@ -501,10 +541,10 @@ The embryo parameters in the swimming embryo scenario are:
 	\item Material density, $\rho_m$, where $m$ is either tissue or an inclusion material such as seawater, lipid or calcium carbonate;
 	\item Tissue volume, $V^*_t$, used to calculate $D_{sph}^*$;
 	\item Surface geometry aspect ratio, $\alpha_s$;
-	\item Surface geometry equatorial height, $\lambda_s$;
+	\item Surface geometry equatorial height, $\eta_s$;
 	\item Inclusion volume, $V^*_{i_m}$ for inclusion material(s) $m$;
 	\item Inclusion aspect ratio, $\alpha_{i_m}$ for inclusion material(s) $m$;
-	\item Inclusion equatorial height, $\lambda_{i_m}$ for inclusion material(s) $m$;
+	\item Inclusion equatorial height, $\eta_{i_m}$ for inclusion material(s) $m$;
 	\item Inclusion offset height parameter, $h_{i_m}$ for inclusion material(s) $m$; and,
 	\item Ciliary velocity, $v^*_{cil}$
 \end{itemize}
@@ -529,11 +569,11 @@ The environmental parameters in the swimming embryo scenario are:
 		$\rho_t^* \sim \mathsf{\frac{kg}{m^3}}$ & $\rho_t = \frac{1}{\rho_{med}^*} \rho_t^* $  & Density of tissue \\
 		$V^*_t \sim \mathsf{m^3}$ & $V_t = \frac{1}{{D_{sph}^*}^3} V^*_t $  & Volume of tissue \\
 		$\alpha_s \sim \mathsf{1}$ &    & Aspect ratio of embryo surface \\
-		$\lambda_s \sim \mathsf{1}$ &    & Equatorial height of embryo surface \\
+		$\eta_s \sim \mathsf{1}$ &    & Equatorial height of embryo surface \\
 		$\rho_m^* \sim \mathsf{\frac{kg}{m^3}}$ & $\rho_m = \frac{1}{\rho_{med}^*} \rho_m^* $  & Density of embryo material $m$ \\
 		$V^*_{i_m} \sim \mathsf{m^3}$ & $V_{i_m} = \frac{1}{{D_{sph}^*}^3} V^*_{i_m} $  & Volume of inclusion $m$ \\
 		$\alpha_{i_m} \sim \mathsf{1}$ &    & Aspect ratio of inclusion $m$ \\
-		$\lambda_{i_m} \sim \mathsf{1}$ &    & Equatorial height of inclusion $m$ \\
+		$\eta_{i_m} \sim \mathsf{1}$ &    & Equatorial height of inclusion $m$ \\
 		$h^*_{i_m} \sim \mathsf{m}$ & $h_{i_m} = \frac{1}{{D_{sph}^*}} h^*_{i_m} $  & Vertical position of inclusion $m$ \\
 		$v^*_{cil} \sim \mathsf{\frac{m}{s}}$ & $v_{cil} = \frac{{\tau^*_{rot}}}{D_{sph}^*}  v^*_{cil}  $  & Ciliary velocity \\
 		%$v^*_{cil} \sim \mathsf{\frac{m}{s}}$ & $v_{cil} = \frac{D_{sph}^*}{{\tau^*_{rot}}}  v^*_{cil}  = 6 \frac{\mu}{{\rho_{med}^* g}}  v^*_{cil} $  & Ciliary velocity \\
