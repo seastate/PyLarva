@@ -272,10 +272,10 @@ from which
 	%\frac{\pi}{6} {D_{sph}^*}^3 = \frac{\pi}{6} \alpha_s \beta {D_t^*}^3
 \end{eqnarray} 
 
-Equation \ref{equivsphere4} shows that, if we adopt $\mathit{l} \equiv \frac{1}{\sqrt[\uproot{5}3]{\alpha_s}} D_{sph}^*$ as the characteristic length for nondimensionalizing embryo morphology,
+Equation \ref{equivsphere4} shows that, if we adopt $\mathit{l} \equiv \frac{1}{\sqrt[\uproot{5}3]{\alpha_s}} D_{sph}^* = D_t^*$ as the characteristic length for nondimensionalizing embryo morphology,
 \begin{eqnarray}\label{ndD}
-	D_t \equiv \frac{D_t^*}{D_{sph}^*} = 1, \non \\
-	D_s \equiv \frac{D_s^*}{D_{sph}^*} = \frac{1}{\sqrt[\uproot{5}3]{\beta}},
+	D_t \equiv \frac{D_t^*}{\mathit{l}}  = 1, \non \\
+	D_s \equiv \frac{D_s^*}{\mathit{l}} = \sqrt[\uproot{5}3]{\beta},
 \end{eqnarray} 
 to preserve the volumetric equality in Equation \ref{equivsphere2}.
 As a result, the body forces (excluding effects of inclusions) are also normalized to remove the primary effects of size.
@@ -333,27 +333,48 @@ The last equation enforces incompressibility.
 
 To nondimensionalize, we define nondimensional parameters $x$, $u$, $f_q, q \in x, y, z$,  and $p$:
 \begin{itemize}
-	\item $x^* = D_{sph}^* x$, $x = \frac{x^*}{D_{sph}^*}$
-	\item $u^* = \frac{D_{sph}^*}{\tau^*_{rot}} u$, $u = \frac{\tau^*_{rot}}{D_{sph}^*} u^*$
-	\item $f_q^* = \frac{\mu^*}{\tau^*_{rot} D_{sph}^*} f_q$, $f_q = \frac{\tau^*_{rot} D_{sph}^*}{\mu^*} f_q^*, q \in x, y, z$
-	\item $p^* = \frac{\mu^*}{\tau^*_{rot}} p$, $p = \frac{\tau^*_{rot}}{\mu^*} p^*$
+	\item Scaling for position:
+	\begin{eqnarray*}
+		x \equiv \frac{x^*}{\mathit{l}} = \frac{\sqrt[\uproot{5}3]{\alpha_s}}{D_{sph}^*}x^*, \\
+	    x^* = \mathit{l} x = \frac{D_{sph}^*}{\sqrt[\uproot{5}3]{\alpha_s}} x;
+    \end{eqnarray*} 
+	\item Scaling for velocity:
+		\begin{eqnarray*}
+			u \equiv \frac{\tau^*_{rot}}{\mathit{l}} u^* = \frac{6 \alpha_s^{\frac{2}{3}} \mu^*}{\rho_{med}^* g {D_{sph}^*}^2} u^*, \\
+	      	u^* = \frac{\mathit{l}}{\tau^*_{rot}} u = \frac{\rho_{med}^* g {D_{sph}^*}^2}{6 \alpha_s^{\frac{2}{3}} \mu^*} u;
+    \end{eqnarray*} 
+	\item Scaling for force (for $q \in x, y, z$):
+		\begin{eqnarray*}
+			f_q \equiv \frac{6}{\rho_{med}^* g} f_q^*, \\
+			f_q^* = \frac{\rho_{med}^* g}{6} f_q, \\
+			%f_q \equiv \frac{\tau^*_{rot} D_{sph}^*}{\mu^*} f_q^*, q \in x, y, z
+			%f_q^* = \frac{\mu^*}{\tau^*_{rot} D_{sph}^*} f_q, \\
+    \end{eqnarray*} 
+	\item Scaling for pressure:
+		\begin{eqnarray*}
+			p \equiv \frac{6 \alpha_s^{\frac{1}{3}}}{\rho_{med}^* g D_{sph}^*} p^*, \\
+			p^* = \frac{\rho_{med}^* g D_{sph}^*}{6 \alpha_s^{\frac{1}{3}}} p, 
+			%p \equiv \frac{\tau^*_{rot}}{\mu^*} p^*
+			%p^* = \frac{\mu^*}{\tau^*_{rot}} p, \\
+    \end{eqnarray*} 
 \end{itemize}
-The scaling parameters $D_{sph}^*$ and $\tau^*_{rot}$ are as derived above in Sections \ref{GeomSect} and \ref{RotSect}.
+%The scaling parameters $D_{sph}^*$ and $\tau^*_{rot}$ are as derived above in Sections \ref{GeomSect} and \ref{RotSect}.
 
-Substituting the expression for the rotation timescale,
-\begin{eqnarray}\label{NDpars}
-	u = 6 \frac{\mu^*}{\rho^*_{med} ~ g } u^* \non \\
-	f_q = \frac{D_{sph}}{\mu^*} 6 \frac{\mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*} f_q^* = \frac{6}{\rho^*_{med}~  g} f_q^*, ~ q \in x, y, z \non \\
-	p = \frac{1}{\mu^*} 6 \frac{\mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*} p^* = \frac{6}{\rho^*_{med} ~ g ~ D_{sph}^*} p^*
-\end{eqnarray}
-Expressing the dimensional quantities in Equations \ref{Stokes1} in terms of the nondimensional parameters in \ref{NDpars}, 
+%Substituting the expression for the rotation timescale,
+%\begin{eqnarray}\label{NDpars}
+%	u = 6 \frac{\mu^*}{\rho^*_{med} ~ g } u^* \non \\
+%	f_q = \frac{D_{sph}}{\mu^*} 6 \frac{\mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*} f_q^* = \frac{6}{\rho^*_{med}~  g} f_q^*, ~ q \in x, y, z \non \\
+%	p = \frac{1}{\mu^*} 6 \frac{\mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*} p^* = \frac{6}{\rho^*_{med} ~ g ~ D_{sph}^*} p^*
+%\end{eqnarray}
+Expressing the dimensional quantities in Equations \ref{Stokes1} in terms of the nondimensional parameters, % in \ref{NDpars}, 
 \begin{eqnarray}\label{Stokes2}
 	0 = \left( \frac{\p^2 u}{\p x^2}+\frac{\p^2 u}{\p y^2}+\frac{\p^2 u}{\p z^2} \right) - \frac{\p p}{\p x} + f_x \non \\
 	0 = \left( \frac{\p^2 v}{\p x^2}+\frac{\p^2 v}{\p y^2}+\frac{\p^2 v}{\p z^2} \right) - \frac{\p p}{\p y} + f_y \non \\
 	0 = \left( \frac{\p^2 w}{\p x^2}+\frac{\p^2 w}{\p y^2}+\frac{\p^2 w}{\p z^2} \right) - \frac{\p p}{\p z} + f_z , \non \\
 	0 =  \frac{\p u}{\p {x}}+\frac{\p v}{\p {y}}+\frac{\p w}{\p {z}}
 \end{eqnarray}
-Equations \ref{Stokes2} are the nondimensional form of the Stokes equations, in which space and time are rescaled such that the primary effects of embryo size, and of medium viscosity and density, are factored out.  
+Equations \ref{Stokes2} are the nondimensionalized form of the Stokes equations, resulting from the scaling choices made in this section.
+In this form of the Stokes Equations. space and time are rescaled such that thre are no free parameters -- the primary effects of embryo size, and of the viscosity and density of the fluid medium, are all factored out.  
 
 \section{Parameterization of the non-dimensional embryo swimming problem}\label{NDparsSect}
 This section summarizes the procedure to convert dimensional parameters from a scenario of embryo swimming into their nondimensional parameter analogs, and to reconvert nondimensional results into their corresponding dimensional quantities.
@@ -399,7 +420,7 @@ From these parameters, the steps to obtain the corresponding nondimensional para
 		%D_{sph}^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{2}} ~ D_t^*  \non \\
 		%D_{sph}^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{2 \beta}} ~ D_s^* \non \\
 		D_{sph}^* = \sqrt[\uproot{5}3]{\frac{6}{\pi} V_t^*} \non \\
-		\tau^*_{rot} = \frac{6 \mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*}
+		\tau^*_{rot} = \frac{6 \alpha_s^{\frac{1}{3}} \mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*}
 	\end{eqnarray}
 	\item Calculate the nondimensionalized geometrical parameters:
 %	\begin{eqnarray}\label{d2ndpars4}
@@ -414,17 +435,21 @@ From these parameters, the steps to obtain the corresponding nondimensional para
 %	\end{eqnarray}
 %\textbf{Alternatively, inclusion parameters can (should?) be expressed in terms of volume.}
 	\begin{eqnarray}\label{d2ndpars4a}
-		D_s = \sqrt[\uproot{5}3]{\frac{2 \beta}{\alpha_s}} \non \\
+		D_t = 1 \non \\
+		D_s = \sqrt[\uproot{5}3]{\beta} \non \\
+		%D_s = \sqrt[\uproot{5}3]{\frac{2 \beta}{\alpha_s}} \non \\
 		L_{s_0} = \alpha_s D_s \non \\
 		L_{s_2} = \eta_s L_{s_0}, L_{s_1} = (1 - \eta_s) L_{s_0} \non \\
 		%L_{s_2} = \eta_s L_{s_0}, L_{s_1} = L_{s_0} - L_{s_2} \non \\
 		%V_i = \frac{V^*_i}{V^*_t} \non \\
 		V_i = \beta - 1 \non \\
-		D_i = \sqrt[\uproot{5}3]{\frac{12 V_i}{\alpha_i}} \non \\
+		D_i = \sqrt[\uproot{5}3]{(1-\beta)\frac{\alpha_s}{\alpha_i}} \non \\
+		%D_i = \sqrt[\uproot{5}3]{\frac{12 V_i}{\alpha_i}} \non \\
 		L_{i_0} = \alpha_i D_i \non \\
 		L_{i_2} = \eta_i L_{i_0}, L_{i_1} = (1 - \eta_i) L_{i_0} \non \\
-		h_i = \frac{h^*_i}{D_{sph}^*}
-	%L_{i_1} = \frac{L^*_{i_1}}{D_{sph}^*}, L_{i_2} = \frac{L^*_{i_2}}{D_{sph}^*}, D_i = \frac{D^*_i}{D_{sph}^*}, h_i = \frac{h^*_i}{D_{sph}^*}
+		%h_i = \frac{h^*_i}{D_{sph}^*}
+		h_i = \frac{h^*_i}{D_t^*}
+		%L_{i_1} = \frac{L^*_{i_1}}{D_{sph}^*}, L_{i_2} = \frac{L^*_{i_2}}{D_{sph}^*}, D_i = \frac{D^*_i}{D_{sph}^*}, h_i = \frac{h^*_i}{D_{sph}^*}
 \end{eqnarray}
 %\textbf{May be useful to define an inclusion volume parameter, $V_i/V_t$.}
 	\item Calculate the nondimensionalized ciliary velocity, shear and simulation end time:
