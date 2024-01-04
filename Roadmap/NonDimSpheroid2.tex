@@ -249,36 +249,36 @@ from which
 
 
 \subsection{Nondimensionalization of the surface chimera}
-\textbf{THIS SECTION NEEDS TO BE CHECKED!!!}
-
-The relationships above suggest a nondimensionalization using an equivalent spherical diameter, defining the characteristic length scale as the diameter of the sphere with volume equal to that of the tissue:
+The relationships above suggest a nondimensionalization based on a sphere of volume equal to $V_t^*$,
 \begin{eqnarray}\label{equivsphere}
 	V_{sph}^* = \frac{\pi}{6} {D_{sph}^*}^3 = V_t^*, \non \\
-	D_{sph}^* = \sqrt[\uproot{5}3]{\frac{6}{\pi} V_t^*}
 \end{eqnarray} 
-Equating the spherical volume to the right hand side of Equation \ref{vol2} simplifies to
-\begin{equation}\label{equivD}
-	D_{sph}^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{2}} ~ D_t^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{2 \beta}} ~ D_s^*
-\end{equation} 
-%Here, we adopt $D_s^*$ and $\alpha_s$ as notation for the equatorial diameter and aspect ratio of the surface chimera (to distinguish it from chimeras representing inclusions).
-We adopt $D_{sph}^*$ as the characteristic length for nondimensionalizing embryo morphology.
-For example, a nondimensionalized surface chimera diameter is
-\begin{equation}\label{ndD}
-	D_s = \frac{D_s^*}{D_{sph}^*}
-\end{equation} 
-where the dropped asterisk implies a nondimensional quantity.
+such that the tissue volume nondimensionalized by normalization with $V_{sph}^*$ is always
+\begin{eqnarray}\label{equivsphere2}
+	V_t \equiv \frac{V_t^*}{V_{sph}^*} = 1
+\end{eqnarray} 
+As before, dropped $^*$'s imply a nondimensional quantity.
 
-Because $D_{sph}^*$ is defined to match volumes, this also ensures that the nondimensional volume of the tissue is equal to 1.
+To maintain this equality, the diameters must satisfy
+\begin{eqnarray}\label{equivsphere3}
+	\frac{\pi}{6} {D_{sph}^*}^3 = \frac{\pi}{6} \alpha_s {D_t^*}^3  = \frac{\pi}{6} \frac{\alpha_s}{\beta} {D_s^*}^3, \non \\
+	%D_{sph}^* = \sqrt[\uproot{5}3]{\alpha_s} D_t^*
+	%\frac{\pi}{6} {D_{sph}^*}^3 = \frac{\pi}{6} \alpha_s \beta {D_t^*}^3
+\end{eqnarray} 
+from which
+\begin{eqnarray}\label{equivsphere4}
+	%\frac{\pi}{6} {D_{sph}^*}^3 = \frac{\pi}{6} \alpha_s {D_t^*}^3, \non \\
+	D_{sph}^* = \sqrt[\uproot{5}3]{\alpha_s} D_t^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{\beta}} D_s^*.
+	%\frac{\pi}{6} {D_{sph}^*}^3 = \frac{\pi}{6} \alpha_s \beta {D_t^*}^3
+\end{eqnarray} 
+
+Equation \ref{equivsphere4} shows that, if we adopt $\mathit{l} \equiv \frac{1}{\sqrt[\uproot{5}3]{\alpha_s}} D_{sph}^*$ as the characteristic length for nondimensionalizing embryo morphology,
+\begin{eqnarray}\label{ndD}
+	D_t \equiv \frac{D_t^*}{D_{sph}^*} = 1, \non \\
+	D_s \equiv \frac{D_s^*}{D_{sph}^*} = \frac{1}{\sqrt[\uproot{5}3]{\beta}},
+\end{eqnarray} 
+to preserve the volumetric equality in Equation \ref{equivsphere2}.
 As a result, the body forces (excluding effects of inclusions) are also normalized to remove the primary effects of size.
-
-
-From Equations \ref{equivD} and \ref{ndD},
-\begin{eqnarray}\label{equivD2}
-	D_t = \sqrt[\uproot{5}3]{\frac{2}{\alpha_s}}, ~ \alpha_s = \frac{2}{D_t^3}, \non \\
-	D_s = \sqrt[\uproot{5}3]{\frac{2 \beta}{\alpha_s}}, ~ \alpha_s = \frac{2 \beta}{D_s^3}.
-\end{eqnarray}
-Equations \ref{equivD2} show that the nondimensional diameters $D_t$ and $D_s$ are fully determined by the aspect ratio, $\alpha_s$ and volume parameter, $\beta$ (and \textit{vice versa}).
-
 
 \section{Rotational movement of a sphere}\label{RotSect}
 The rotation rate of a sphere of diameter $D_{sph}^*$ in a fluid of viscosity $\mu^*$ is 
@@ -295,22 +295,24 @@ We can define a rotation timescale, $\tau^*_{rot}$, as the inverse of this rate,
 For the timescale $\tau^*_{rot}$ to reflect the fundamental effects of size on chimera swimming, we can choose a value of $T^*$ that emerges from the equivalent sphere.
 Specifically, Equation \ref{equivsphere} gives a characteristic buoyancy force of
 \begin{equation}\label{charF}
-	F_{sph}^* = \frac{\pi}{6} ~ \rho_{med}^* ~ g ~ {D_{sph}^*}^3 = \rho_{med}^* ~ g ~ V_{sph}^*,
+	F_{sph}^* = \rho_{med}^* ~ g ~ V_{sph}^* = \frac{\pi}{6} ~ \rho_{med}^* ~ g ~ {D_{sph}^*}^3,
 \end{equation} 
 where $\rho_{med}^*$ is the density of the fluid medium, and $g$ is gravitational acceleration.
-Again using $D_{sph}^*$ as a characteristic length (in this case, the distance over which the characteristic force acts to generate a moment), we can assign a characteristic value to the torque:
+
+Again using $\mathit{l} \equiv \frac{1}{\sqrt[\uproot{5}3]{\alpha_s}} D_{sph}^*$ as a characteristic length (in this case, the distance over which the characteristic force acts to generate a moment), we can assign a characteristic value to the torque:
 \begin{equation}\label{charT}
-	T^* = F_{sph}^* D_{sph}^* = \frac{\pi}{6} ~ \rho_{med}^* ~ g ~ {D_{sph}^*}^4 = \rho_{med}^* ~ g ~ D_{sph}^* V_{sph}^*,
+	T^* = \frac{1}{\sqrt[\uproot{5}3]{\alpha_s}} D_{sph}^* F_{sph}^* = \frac{\pi}{6 \sqrt[\uproot{5}3]{\alpha_s}} ~ \rho_{med}^* ~ g ~ {D_{sph}^*}^4 = \frac{1}{\sqrt[\uproot{5}3]{\alpha_s}} \rho_{med}^* ~ g ~ D_{sph}^* V_{sph}^*,
 \end{equation} 
 This torque is an upper limit that cannot be realized (or, in most reasonable geometries, even approached).
 This is because the body forces generated by inclusions will rarely approach the body force of the tissue, and the moment arm over which inclusion forces act will rarely approach the entire length of the embryo. 
-Nonetheless, this torque is likely to scale in a similar way with embryo size, and the viscosity and density of the fluid medium, as torques on more realistic embryo shapes. This makes it suitable as a characteristic value to factor out direct effects of those parameters.
+Nonetheless, this torque is likely to scale in a similar way, across variation in embryo size, viscosity and fluid density, as torques on more realistic embryo shapes. 
+This makes it suitable as a characteristic value to factor out direct effects of those parameters.
 
 Substituting this value into Equation \ref{tau1} and simplifying gives
 \begin{equation}\label{tau2}
-	\tau^*_{rot} = \frac{6 \mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*}
+	\tau^*_{rot} = \frac{6 \sqrt[\uproot{5}3]{\alpha_s} \mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*}
 \end{equation}
-Equation \ref{tau2} reflects the fundamental proportional dependence of the rotation timescale of an equivalent sphere on size (diameter), viscosity, medium density, and gravitational acceleration.
+Equation \ref{tau2} reflects the fundamental proportional dependence of the rotation timescale of an equivalent sphere on size (diameter and aspect ratio), viscosity, medium density, and gravitational acceleration.
 
 
 \section{Non-dimensionalized Stokes Equations}\label{NDStokesSect}
