@@ -225,6 +225,13 @@ In the numerical model implementation, an embryo can be constructed with multipl
 However, to simplify calculations, the numerical model assumes there are no intersections between constitutive chimeras.
 That is, \textbf{inclusion chimeras must be entirely inside the surface chimera, and entirely inside or outside of other inclusion chimeras}.
 
+In Figure \ref{fig:chimera2}, $h_i^*$ is the height of the equator of the inclusion, relative to the equator of the surface. 
+This parameter is most usefully expressed as the ratio, 
+\begin{equation}\label{phi_eq}
+	\xi = \frac{h_i^*}{L_{s_0}^*}
+\end{equation}
+This form anticipates the nondimensionalization below, and its range is constrained such that $-1 < \xi < 1$.
+
 A composite chimera with one inclusion is characterized by three volumes:
 \begin{itemize}
 	\item $V_s^* = \frac{\pi}{6} \alpha_s {D_s^*}^3$ is the volume enclosed by the outer surface of the composite chimera, with diameter $D_s^*$ and aspect ratio $\alpha_s^*$;
@@ -427,20 +434,20 @@ The expectation is that results from directly simulating a dimensional scenario 
 That being established, each nondimensional result is applicable to a range of dimensional scenarios, the reduction in parameter space facilitating an overall analysis of embryo swimming functional morphology.
 
 \subsection{Dimensional to nondimensional conversion}
-A dimensional embryo swimming scenario is prescribed by:
+A typical dimensional embryo swimming scenario is prescribed by:
 \begin{itemize}
 	\item Geometrical parameters of the outer surface: $D^*_s$, $L^*_{s_1}$, $L^*_{s_2}$; 
 	\item Geometrical parameters of the inclusion(s): $D^*_{i}$, $L^*_{i_1}$, $L^*_{i_2}$, $h^*_i$; 
 	\item Densities of the tissue and inclusion(s): $\rho^*_t$, $\rho^*_{i}$; 
 	\item Ciliary velocity: $v^*_{cil}$;
 	\item Fluid medium viscosity and density: $\rho^*_{med}$, $\mu^*$;
-	\item Fluid medium shear, $\frac{\p u^*}{\p z^*}$ and $\frac{\p w^*}{\p x^*}$
+	\item Fluid medium shear, $\frac{\p u^*}{\p z^*}$, $\frac{\p w^*}{\p x^*}$ and $\frac{\p w^*}{\p y^*}$
 	\item Simulation end time, $t^*_{end}$;
 	\item Initial position, $(x^*, y^*, z^*) = (0,0,0)$; and,
 	\item Initial orientation, specified by Euler angles $\phi$, $\theta$ and $\psi$. 
 \end{itemize}
 Geometrical parameters and ciliary velocity are typically measured on micrographs or microvideos (Fig. \ref{fig:chimera2}).
-Densities are estimated from water columns with density gradients (to measure average density) or from known properties of specific materials (seawater, lipids, calcium carbonate, \etc). 
+Densities are often estimated from equilibrium positions in water columns with density gradients (to measure average density) or from known properties of specific materials (seawater, lipids, calcium carbonate, \etc). 
 The Euler angles, $\phi$, $\theta$ and $\psi$,  have units of radians, and are not changed in the nondimensionalization.
 
 From these parameters, the steps to obtain the corresponding nondimensional parameter set are:
@@ -450,7 +457,7 @@ From these parameters, the steps to obtain the corresponding nondimensional para
 		\alpha_s = \frac{L^*_{s_0}}{D^*_s}, ~ L^*_{s_0} = L^*_{s_1} + L^*_{s_2} \non \\
 		\eta_s = \frac{L^*_{s_2}}{L^*_{s_0}} \non \\
 		\alpha_{i} = \frac{L^*_{i_0}}{D^*_i}, ~ L^*_{i_0} = L^*_{i_1} + L^*_{i_2} \non \\
-		\eta_{i} = \frac{L^*_{i_2}}{L^*_{i_0}}
+		\eta_{i} = \frac{L^*_{i_2}}{L^*_{i_0}}, ~ \xi = \frac{h_i^*}{L_{s_0}^*}
 	\end{eqnarray}
 	\item Calculate volumes:
 	\begin{eqnarray}\label{d2ndpars2}
@@ -460,48 +467,35 @@ From these parameters, the steps to obtain the corresponding nondimensional para
 		\beta = \frac{V_s^*}{V_t^*} \non \\
 		D_t^* = \frac{1}{\sqrt[\uproot{5}3]{\beta}} D_s^*
 	\end{eqnarray}
-	\item Calculate the equivalent sphere diameter and rotation timescale (the nondimensionalization length and time scales):
+	\item Calculate the equivalent sphere diameter, the characteristic length and the rotation timescale:
 	\begin{eqnarray}\label{d2ndpars3}
-		%D_{sph}^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{2}} ~ D_t^*  \non \\
-		%D_{sph}^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{2 \beta}} ~ D_s^* \non \\
 		D_{sph}^* = \sqrt[\uproot{5}3]{\frac{6}{\pi} V_t^*} \non \\
-		\tau^*_{rot} = \frac{6 \alpha_s^{\frac{1}{3}} \mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*}
+		\l = \sqrt[\uproot{5}3]{\frac{\pi}{6}} D_{sph}^* \non \\
+		\tau^*_{rot} = \frac{6  \mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*}
 	\end{eqnarray}
 	\item Calculate the nondimensionalized geometrical parameters:
-%	\begin{eqnarray}\label{d2ndpars4}
-%		D_s = \sqrt[\uproot{5}3]{\frac{2 \beta}{\alpha_s}} \non \\
-%		L_{s_0} = \alpha_s D_s \non \\
-%		L_{s_2} = \eta_s L_{s_0}, L_{s_1} = L_{s_0} - L_{s_2} \non \\
-%		D_i = \frac{D^*_{i_0}}{D_{sph}^*} \non \\
-%		L_{i_0} = \frac{L^*_{i_0}}{D_{sph}^*} \non \\
-%		L_{i_2} = \eta_i L_{i_0}, L_{i_1} = L_{i_0} - L_{i_2} \non \\
-%		h_i = \frac{h^*_i}{D_{sph}^*}
-%		%L_{i_1} = \frac{L^*_{i_1}}{D_{sph}^*}, L_{i_2} = \frac{L^*_{i_2}}{D_{sph}^*}, D_i = \frac{D^*_i}{D_{sph}^*}, h_i = \frac{h^*_i}{D_{sph}^*}
-%	\end{eqnarray}
-%\textbf{Alternatively, inclusion parameters can (should?) be expressed in terms of volume.}
 	\begin{eqnarray}\label{d2ndpars4a}
-		D_t = 1 \non \\
-		D_s = \sqrt[\uproot{5}3]{\beta} \non \\
-		%D_s = \sqrt[\uproot{5}3]{\frac{2 \beta}{\alpha_s}} \non \\
+		D_t = \sqrt[\uproot{5}3]{\frac{6}{\pi}} \non \\
+		D_s = \sqrt[\uproot{5}3]{\frac{6 \beta}{\pi}} \non \\
 		L_{s_0} = \alpha_s D_s \non \\
 		L_{s_2} = \eta_s L_{s_0}, L_{s_1} = (1 - \eta_s) L_{s_0} \non \\
 		%L_{s_2} = \eta_s L_{s_0}, L_{s_1} = L_{s_0} - L_{s_2} \non \\
 		%V_i = \frac{V^*_i}{V^*_t} \non \\
 		V_i = \beta - 1 \non \\
-		D_i = \sqrt[\uproot{5}3]{(1-\beta)\frac{\alpha_s}{\alpha_i}} \non \\
+		D_i = \sqrt[\uproot{5}3]{\frac{6 V_i}{\pi \alpha_i}} \non \\
 		%D_i = \sqrt[\uproot{5}3]{\frac{12 V_i}{\alpha_i}} \non \\
 		L_{i_0} = \alpha_i D_i \non \\
 		L_{i_2} = \eta_i L_{i_0}, L_{i_1} = (1 - \eta_i) L_{i_0} \non \\
-		%h_i = \frac{h^*_i}{D_{sph}^*}
-		h_i = \frac{h^*_i}{D_t^*}
+		h_i = \xi L_{s_0} \non \\
+		%h_i = \frac{h^*_i}{D_t^*}
 		%L_{i_1} = \frac{L^*_{i_1}}{D_{sph}^*}, L_{i_2} = \frac{L^*_{i_2}}{D_{sph}^*}, D_i = \frac{D^*_i}{D_{sph}^*}, h_i = \frac{h^*_i}{D_{sph}^*}
 \end{eqnarray}
 %\textbf{May be useful to define an inclusion volume parameter, $V_i/V_t$.}
 	\item Calculate the nondimensionalized ciliary velocity, shear and simulation end time:
 	\begin{eqnarray}\label{d2ndpars5}
-		v_{cil} = \frac{{\tau^*_{rot}}}{D_{sph}^*}  v^*_{cil} \non \\
-		\frac{\p w}{\p x} = \tau^*_{rot} \frac{\p w^*}{\p x^*} \non \\
-		\frac{\p u}{\p z} = \tau^*_{rot} \frac{\p u^*}{\p z^*} \non \\
+		v_{cil} = \frac{{\tau^*_{rot}}}{\l}  v^*_{cil} \non \\
+		\frac{\p w}{\p x} = \frac{1}{\l ~ \tau^*_{rot}} \frac{\p w^*}{\p x^*} \non \\
+		\frac{\p u}{\p z} = \frac{1}{\l ~ \tau^*_{rot}} \frac{\p u^*}{\p z^*} \non \\
 		t_{end} = \frac{t^*_{end}}{\tau^*_{rot}}
 	\end{eqnarray}
 \end{enumerate}
@@ -519,7 +513,11 @@ must be derived from the parameters
 \end{eqnarray}
 The shape parameters
 \begin{eqnarray}\label{nd2dpars2}
-	\alpha_s, \eta_s, \alpha_{i}, \eta_{i}, \beta
+	\alpha_s, \eta_s, \alpha_{i}, \eta_{i}, \beta, \xi
+\end{eqnarray}
+and the initial Euler angles
+\begin{eqnarray}\label{nd2dpars2a}
+	 \phi, \theta, \psi
 \end{eqnarray}
 apply similarly to both dimensional and nondimensional scenarios.
 
@@ -533,8 +531,8 @@ apply similarly to both dimensional and nondimensional scenarios.
 	\end{enumerate}
 	\item From these, calculate tissue and surface volumes, tissue and inclusion densities, the equivalent sphere diameter and the rotation timescale :
 \begin{eqnarray}\label{nd2dpars3}
-	\rho^*_t = \rho^*_{med} \rho_t \non \\
-	\rho^*_i = \rho^*_{med} \rho_i \non \\
+	\rho^*_t = \rho^*_{med} ~ \rho_t \non \\
+	\rho^*_i = \rho^*_{med} ~ \rho_i \non \\
 	V_s^* = \beta V_t^* \non \\
 	V_i^* = (\beta-1) V_t^* \non \\
 	D_{sph}^* = \sqrt[\uproot{5}3]{\frac{6}{\pi} V_t^*} \non \\
@@ -542,70 +540,60 @@ apply similarly to both dimensional and nondimensional scenarios.
 \end{eqnarray}
 \item Calculate dimensions of the surface and inclusions in physical units:
 \begin{eqnarray}\label{nd2dpars4}
-	D_t^* = \sqrt[\uproot{5}3]{\frac{12 V_t^*}{\pi \alpha_s}} \non \\
+	D_t^* = \sqrt[\uproot{5}3]{\frac{6 V_t^*}{\pi \alpha_s}} \non \\
 	D_s^* = \sqrt[\uproot{5}3]{\beta} D_t^* \non \\
-	D^*_i = \sqrt[\uproot{5}3]{\frac{12 V_i^*}{\pi \alpha_i}} \non \\
+	D^*_i = \sqrt[\uproot{5}3]{\frac{6 V_i^*}{\pi \alpha_i}} \non \\
 	L^*_{s_0} = \alpha_s D^*_s \non \\
 	L^*_{s_2} = \eta_s L^*_{s_0} \non \\
 	L^*_{s_1} = (1-\eta_s) L^*_{s_0} \non \\
 	L^*_{i_0} = \alpha_i D^*_i \non \\
 	L^*_{i_2} = \eta_i L^*_{i_0} \non \\
 	L^*_{i_1} = (1-\eta_i) L^*_{i_0} \non \\
-	h^*_i = D_{sph}^* h_i \non \\
+	h^*_i = \xi L^*_{s_0}  \non \\
 \end{eqnarray}
 \item Calculate ciliary velocity, shear and simulation time:
 \begin{eqnarray}\label{nd2dpars4a}
-	v^*_{cil} = \frac{D_{sph}^*}{{\tau^*_{rot}}}  v_{cil} \non \\
-	\frac{\p w^*}{\p x^*} = \frac{1}{\tau^*_{rot}} \frac{\p w}{\p x} \non \\
-	\frac{\p u^*}{\p z^*} = \frac{1}{\tau^*_{rot}} \frac{\p u}{\p z} \non \\
+	v^*_{cil} = \frac{\l}{\tau^*_{rot}}  v_{cil} \non \\
+	\frac{\p w^*}{\p x^*} = \frac{1}{\l ~ \tau^*_{rot}} \frac{\p w}{\p x} \non \\
+	\frac{\p u^*}{\p z^*} = \frac{1}{\l ~ \tau^*_{rot}} \frac{\p u}{\p z} \non \\
 	t^*_{end} = \tau^*_{rot} t_{end}
-	%D_s, L_{s_0}, L_{s_2}, L_{s_1}, V_i, D_i, L_{i_0}, L_{i_2}, L_{i_0}, L_{i_1}, \non \\
-	%h_i, v_{cil}, \frac{\p w}{\p x}, \frac{\p u}{\p z}, t_{end}
 \end{eqnarray}
-%\textbf{Expression for $D^*_i$ can probably be simplified.}
 	
 \end{enumerate}
 
 
-
-
-
-
-
-
-
-\begin{table}[h]
-	\centering
-	\caption{Summary of dimensional-nondimensional transformations for the swimming embryo problem. In the left column, $\sim$ is followed by the SI units of the dimensional parameter. Parameters that have units $\sim 1$ are already nondimensional, and are unchanged in the nondimensionalization. Among dimensional-nondimensional parameter pairs, the dimensional form is labeled with an $^*$. The diameter of the equivalent sphere, $D_{sph}^*$, is given in Equation \ref{equivsphere} . The rotation timescale, $\tau^*_{rot}$, is given in Equation \ref{tau2} .} \label{tab:d2nd}
-	\vspace{.25cm}
-	\small
-	\rowcolors{2}{gray!10}{white}
-	\begin{tabular}{|I|L|l|}
-		\hline
-		Dimen. param. & Conversion formula \& result & \hspace{1cm} Interpretation \\
-		\hline
-		$\rho_t^* \sim \mathsf{\frac{kg}{m^3}}$ & $\rho_t = \frac{1}{\rho_{med}^*} \rho_t^* $  & Density of tissue \\
-		$V^*_t \sim \mathsf{m^3}$ & $V_t = \frac{1}{{D_{sph}^*}^3} V^*_t $  & Volume of tissue \\
-		$\alpha_s \sim \mathsf{1}$ & $\alpha_s = \frac{L^*_{s_0}}{D^*_s}, ~ L^*_{s_0} = L^*_{s_1} + L^*_{s_2}$ & Aspect ratio of embryo surface \\
-		$\eta_s \sim \mathsf{1}$ & $\eta_s = \frac{L^*_{s_2}}{L^*_{s_0}}$ & Equatorial height of embryo surface \\
-		$\rho_m^* \sim \mathsf{\frac{kg}{m^3}}$ & $\rho_m = \frac{1}{\rho_{med}^*} \rho_m^* $  & Density of embryo material $m$ \\
-		$V^*_{i_m} \sim \mathsf{m^3}$ & $V_{i_m} = \frac{1}{{D_{sph}^*}^3} V^*_{i_m} $  & Volume of inclusion $m$ \\
-		$\alpha_{i_m} \sim \mathsf{1}$ & $\alpha_i = \frac{L^*_{i_0}}{D^*_i}, ~ L^*_{i_0} = L^*_{i_1} + L^*_{i_2}$ & Aspect ratio of inclusion $m$ \\
-		$\eta_{i_m} \sim \mathsf{1}$ & $\eta_i = \frac{L^*_{i_2}}{L^*_{i_0}}$ & Equatorial height of inclusion $m$ \\
-		$h^*_{i_m} \sim \mathsf{m}$ & $h_{i_m} = \frac{1}{{D_{sph}^*}} h^*_{i_m} $  & Vertical position of inclusion $m$ \\
-		$v^*_{cil} \sim \mathsf{\frac{m}{s}}$ & $v_{cil} = \frac{{\tau^*_{rot}}}{D_{sph}^*}  v^*_{cil}  $  & Ciliary velocity \\
-		%$v^*_{cil} \sim \mathsf{\frac{m}{s}}$ & $v_{cil} = \frac{D_{sph}^*}{{\tau^*_{rot}}}  v^*_{cil}  = 6 \frac{\mu^*}{{\rho_{med}^* g}}  v^*_{cil} $  & Ciliary velocity \\
-		\hline
-		\vspace{0.1cm}
-		$\frac{\p w^*}{\p x^*} \sim \mathsf{\frac{1}{s}}$ & $\frac{\p w}{\p x} = \tau^*_{rot} \frac{\p w^*}{\p x^*}  $  & Vertical shear velocity \\
-		\vspace{0.1cm}
-		$\frac{\p u^*}{\p z^*} \sim \mathsf{\frac{1}{s}}$ & $\frac{\p u}{\p z} = \tau^*_{rot} \frac{\p u^*}{\p z^*}  $  & Horizontal shear velocity \\
-		\vspace{0.1cm}
-		$t^* \sim \mathsf{s}$ & $t =  \frac{t^*}{\tau^*_{rot}}  $  & Time \\
-		\hline
-	\end{tabular}
-\end{table}
-
+%\begin{table}[h]
+%	\centering
+%	\caption{Summary of dimensional-nondimensional transformations for the swimming embryo problem. In the left column, $\sim$ is followed by the SI units of the dimensional parameter. Parameters that have units $\sim 1$ are already nondimensional, and are unchanged in the nondimensionalization. Among dimensional-nondimensional parameter pairs, the dimensional form is labeled with an $^*$. The diameter of the equivalent sphere, $D_{sph}^*$, is given in Equation \ref{equivsphere} . The rotation timescale, $\tau^*_{rot}$, is given in Equation \ref{tau2} .} \label{tab:d2nd}
+%	\vspace{.25cm}
+%	\small
+%	\rowcolors{2}{gray!10}{white}
+%	\begin{tabular}{|I|L|l|}
+%		\hline
+%		Dimen. param. & Conversion formula \& result & \hspace{1cm} Interpretation \\
+%		\hline
+%		$\rho_t^* \sim \mathsf{\frac{kg}{m^3}}$ & $\rho_t = \frac{1}{\rho_{med}^*} \rho_t^* $  & Density of tissue \\
+%		$V^*_t \sim \mathsf{m^3}$ & $V_t = \frac{1}{{D_{sph}^*}^3} V^*_t $  & Volume of tissue \\
+%		$\alpha_s \sim \mathsf{1}$ & $\alpha_s = \frac{L^*_{s_0}}{D^*_s}, ~ L^*_{s_0} = L^*_{s_1} + L^*_{s_2}$ & Aspect ratio of embryo surface \\
+%		$\eta_s \sim \mathsf{1}$ & $\eta_s = \frac{L^*_{s_2}}{L^*_{s_0}}$ & Equatorial height of embryo surface \\
+%		$\rho_m^* \sim \mathsf{\frac{kg}{m^3}}$ & $\rho_m = \frac{1}{\rho_{med}^*} \rho_m^* $  & Density of embryo material $m$ \\
+%		$V^*_{i_m} \sim \mathsf{m^3}$ & $V_{i_m} = \frac{1}{{D_{sph}^*}^3} V^*_{i_m} $  & Volume of inclusion $m$ \\
+%		$\alpha_{i_m} \sim \mathsf{1}$ & $\alpha_i = \frac{L^*_{i_0}}{D^*_i}, ~ L^*_{i_0} = L^*_{i_1} + L^*_{i_2}$ & Aspect ratio of inclusion $m$ \\
+%		$\eta_{i_m} \sim \mathsf{1}$ & $\eta_i = \frac{L^*_{i_2}}{L^*_{i_0}}$ & Equatorial height of inclusion $m$ \\
+%		$h^*_{i_m} \sim \mathsf{m}$ & $h_{i_m} = \frac{1}{{D_{sph}^*}} h^*_{i_m} $  & Vertical position of inclusion $m$ \\
+%		$v^*_{cil} \sim \mathsf{\frac{m}{s}}$ & $v_{cil} = \frac{{\tau^*_{rot}}}{D_{sph}^*}  v^*_{cil}  $  & Ciliary velocity \\
+%		%$v^*_{cil} \sim \mathsf{\frac{m}{s}}$ & $v_{cil} = \frac{D_{sph}^*}{{\tau^*_{rot}}}  v^*_{cil}  = 6 \frac{\mu^*}{{\rho_{med}^* g}}  v^*_{cil} $  & Ciliary velocity \\
+%		\hline
+%		\vspace{0.1cm}
+%		$\frac{\p w^*}{\p x^*} \sim \mathsf{\frac{1}{s}}$ & $\frac{\p w}{\p x} = \tau^*_{rot} \frac{\p w^*}{\p x^*}  $  & Vertical shear velocity \\
+%		\vspace{0.1cm}
+%		$\frac{\p u^*}{\p z^*} \sim \mathsf{\frac{1}{s}}$ & $\frac{\p u}{\p z} = \tau^*_{rot} \frac{\p u^*}{\p z^*}  $  & Horizontal shear velocity \\
+%		\vspace{0.1cm}
+%		$t^* \sim \mathsf{s}$ & $t =  \frac{t^*}{\tau^*_{rot}}  $  & Time \\
+%		\hline
+%	\end{tabular}
+%\end{table}
+%
 
 
 
