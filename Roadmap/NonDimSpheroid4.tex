@@ -437,11 +437,34 @@ This section summarizes the procedure to convert dimensional parameters from a s
 The expectation is that results from directly simulating a dimensional scenario are identical to results from converting that scenario to its nondimensional counterpart, running the simulation, and re-dimensionalizing the results.
 That being established, each nondimensional result is applicable to a range of dimensional scenarios, the reduction in parameter space facilitating an overall analysis of embryo swimming functional morphology.
 
+The basic strategy is to derive the shape parameters, 
+\begin{eqnarray}\label{shapars}
+	\alpha_s, \eta_s, \alpha_{i}, \eta_{i}, \beta, \xi
+\end{eqnarray}
+from the experimentally observed embryo dimensions.
+
+
+The shape parameters, together with the tissue volume $\Vts$ and the fluid medium viscosity $\mu^*$ and density $\rho_{med}^*$, are then sufficient to reconstruct:
+\begin{itemize}
+	\item the original observed geometry and swimming scenario;
+	\item and the corresponding nondimensional geometry and swimming scenario;
+	\item any other geometrically and dynamically similar geometry and swimming scenario.
+\end{itemize}
+%Because the nondimensional geometry corresponds to a spectrum of dynamically similar physical geometries, swimming performance measured on the nondimensional geometry can be used to infer the performance of the entire spectrum of dynamically similar embryos.
+The shape parameters summarize the geometry of an early stage embryo with tissue volume factored out, opening the possibility of separately delineating the effects of embryo size and shape.
+Essentially, this parameterization frames the questions,
+\begin{quotation}
+	\textbf{What are the inherent constraints on swimming performance for embryos of different sizes?}
+\end{quotation}
+\begin{quotation}
+	\textbf{Given a fixed amount of tissue, what are the costs and benefits of forming that tissue into embryos of different shapes?}
+\end{quotation}
+
 \subsection{Dimensional to nondimensional conversion}
 A typical dimensional embryo swimming scenario is prescribed by:
 \begin{itemize}
-	\item Geometrical parameters of the outer surface: $D^*_s$, $L^*_{s_1}$, $L^*_{s_2}$; 
-	\item Geometrical parameters of the inclusion(s): $D^*_{i}$, $L^*_{i_1}$, $L^*_{i_2}$, $h^*_i$; 
+	\item Geometrical parameters of the outer surface: $D^*_s$, $L^*_{s_0}$, $L^*_{s_1}$, $L^*_{s_2}$; 
+	\item Geometrical parameters of the inclusion(s): $D^*_{i}$, $L^*_{i_0}$, $L^*_{i_1}$, $L^*_{i_2}$, $h^*_i$; 
 	\item Densities of the tissue and inclusion(s): $\rho^*_t$, $\rho^*_{i}$; 
 	\item Ciliary velocity: $v^*_{cil}$;
 	\item Fluid medium viscosity and density: $\rho^*_{med}$, $\mu^*$;
@@ -451,31 +474,36 @@ A typical dimensional embryo swimming scenario is prescribed by:
 	\item Initial orientation, specified by Euler angles $\phi$, $\theta$ and $\psi$. 
 \end{itemize}
 Geometrical parameters and ciliary velocity are typically measured on micrographs or microvideos (Fig. \ref{fig:chimera2}).
-Densities are often estimated from equilibrium positions in water columns with density gradients (to measure average density) or from known properties of specific materials (seawater, lipids, calcium carbonate, \etc). 
+Densities are often estimated from equilibrium positions in water columns with density gradients (to measure average density) or inferred from known properties of specific materials (seawater, lipids, calcium carbonate, \etc). 
 The Euler angles, $\phi$, $\theta$ and $\psi$,  have units of radians, and are not changed in the nondimensionalization.
+Relevant ranges for the shears are inferred from \textit{in situ} observations of turbulence or estimates of turbulent intensity in different marine habitats.
 
 From these parameters, the steps to obtain the corresponding nondimensional parameter set are:
 \begin{enumerate}
-	\item Calculate aspect ratio and equatorial height parameters:
-	\begin{eqnarray}\label{d2ndpars1}
-		\alpha_s = \frac{L^*_{s_0}}{D^*_s}, ~ L^*_{s_0} = L^*_{s_1} + L^*_{s_2} \non \\
-		\eta_s = \frac{L^*_{s_2}}{L^*_{s_0}} \non \\
-		\alpha_{i} = \frac{L^*_{i_0}}{D^*_i}, ~ L^*_{i_0} = L^*_{i_1} + L^*_{i_2} \non \\
-		\eta_{i} = \frac{L^*_{i_2}}{L^*_{i_0}}, ~ \xi = \frac{h_i^*}{L_{s_0}^*}
-	\end{eqnarray}
-	\item Calculate volumes:
+	\item Calculate the volumes:
 	\begin{eqnarray}\label{d2ndpars2}
-		V_s^* = \frac{\pi}{12} \alpha_s {D_s^*}^3 \non \\
-		V_i^* = \frac{\pi}{12} \alpha_i {D_i^*}^3 \non \\
-		V_t^* = V_s^* - V_i^* \non \\
-		\beta = \frac{V_s^*}{V_t^*} \non \\
-		D_t^* = \frac{1}{\sqrt[\uproot{5}3]{\beta}} D_s^*
+		V_s^* = \frac{\pi}{6} L_{s_0}^* {D_s^*}^2 \non \\
+		V_i^* = \frac{\pi}{6} L_{i_0}^* {D_i^*}^2 \non \\
+		V_t^* = V_s^* - V_i^* 
 	\end{eqnarray}
-	\item Calculate the equivalent sphere diameter, the characteristic length and the rotation timescale:
+	\item Calculate the shape parameters: %aspect ratio and equatorial height parameters:
+	\begin{eqnarray}\label{d2ndpars1}
+		\alpha_s = \frac{L^*_{s_0}}{D^*_s} \non \\
+		\eta_s = \frac{L^*_{s_2}}{L^*_{s_0}} \non \\
+		\alpha_{i} = \frac{L^*_{i_0}}{D^*_i} \non \\
+		\eta_{i} = \frac{L^*_{i_2}}{L^*_{i_0}} \non \\
+		\xi = \frac{h_i^*}{L_{s_0}^*} \non \\
+		\beta = \frac{V_s^*}{V_t^*}
+		%D_t^* = \frac{1}{\sqrt[\uproot{5}3]{\beta}} D_s^*
+	\end{eqnarray}
+	%\item Calculate the characteristic length, the equivalent sphere diameter and the rotation timescale:
+	\item Calculate the characteristic length and the rotation timescale:
 	\begin{eqnarray}\label{d2ndpars3}
-		D_{sph}^* = \sqrt[\uproot{5}3]{\frac{6}{\pi} V_t^*} \non \\
-		\l = \sqrt[\uproot{5}3]{\frac{\pi}{6}} D_{sph}^* \non \\
-		\tau^*_{rot} = \frac{6  \mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*}
+		\l = \sqrt[\uproot{5}3]{V_t^*} \non \\
+		%D_{sph}^* = \sqrt[\uproot{5}3]{\frac{6}{\pi} V_t^*} \non \\
+		%\l = \sqrt[\uproot{5}3]{\frac{\pi}{6}} D_{sph}^* \non \\
+		%\tau^*_{rot} = \frac{6  \mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*}
+		\tau^*_{rot} = \frac{\sqrt[\uproot{5}3]{36 \pi} ~ \mu^*}{\rho^*_{med} ~ g ~ \sqrt[\uproot{5}3]{V_t^*}}
 	\end{eqnarray}
 	\item Calculate the nondimensionalized geometrical parameters:
 	\begin{eqnarray}\label{d2ndpars4a}
@@ -510,19 +538,38 @@ From these parameters, the steps to obtain the corresponding nondimensional para
 
 \newpage 
 \subsection{Nondimensional to dimensional conversion}
-To relate nondimensional results to real-world scenarios in physical units, the parameters
+To relate nondimensional results to real-world scenarios in physical units, the required physical parameters are
 \begin{eqnarray}\label{nd2dpars0}
-	D^*_s, L^*_{s_1}, L^*_{s_2}, D^*_{i}, L^*_{i_1}, L^*_{i_2}, h^*_i, \rho^*_t, \rho^*_{i}, V^*_{cil}, \rho^*_{med}, \mu^*, \frac{\p u^*}{\p z^*}, \frac{\p w^*}{\p x^*}, t^*_{end}
+	D^*_s, L^*_{s_1}, L^*_{s_2}, D^*_{i}, L^*_{i_1}, L^*_{i_2}, h^*_i, \rho^*_t, \rho^*_{i}, V^*_{cil}, \rho^*_{med}, \mu^*, \frac{\p u^*}{\p z^*}, \frac{\p w^*}{\p x^*}, t^*_{end}.
 \end{eqnarray}
-must be derived from the parameters 
-\begin{eqnarray}\label{nd2dpars1}
-	D_s, L_{s_0}, L_{s_2}, L_{s_1}, V_i, D_i, L_{i_0}, L_{i_2}, L_{i_0}, L_{i_1}, \non \\
-	h_i, v_{cil}, \rho_t, \rho_i, \frac{\p w}{\p x}, \frac{\p u}{\p z}, t_{end}
-\end{eqnarray}
+These must be derived from the following sets of parameters:
+\begin{itemize}
+	\item The three physical parameters,
+		\begin{eqnarray}\label{nd2dpars0a}
+			V_t^*, \mu^*, \rho^*_{med}	
+		\end{eqnarray}
+	\item The shape parameters 
+		\begin{eqnarray}\label{nd2dpars2}
+			\alpha_s, \eta_s, \alpha_{i}, \eta_{i}, \beta, \xi
+		\end{eqnarray}
+	\item The nondimensional tissue and inclusion densities, and ciliary velocity:
+		\begin{eqnarray}\label{nd2dpars1a}
+			v_{cil}, \rho_t, \rho_i, \frac{\p w}{\p x}, \frac{\p u}{\p z}, t_{end}
+		\end{eqnarray}
+	\item The ciliary velocity, shears and simulation end time:
+		\begin{eqnarray}\label{nd2dpars1b}
+			v_{cil}, \frac{\p w}{\p x}, \frac{\p u}{\p z}, t_{end}
+		\end{eqnarray}
+	\item The initial Euler angles and position
+		\begin{eqnarray}\label{nd2dpars2a}
+			\phi, \theta, \psi, x_0, y_0, z_0
+		\end{eqnarray}	 	
+\end{itemize}
+%\begin{eqnarray}\label{nd2dpars1}
+%	D_s, L_{s_0}, L_{s_2}, L_{s_1}, V_i, D_i, L_{i_0}, L_{i_2}, L_{i_0}, L_{i_1}, \non \\
+%	h_i, v_{cil}, \rho_t, \rho_i, \frac{\p w}{\p x}, \frac{\p u}{\p z}, t_{end}
+%\end{eqnarray}
 The shape parameters
-\begin{eqnarray}\label{nd2dpars2}
-	\alpha_s, \eta_s, \alpha_{i}, \eta_{i}, \beta, \xi
-\end{eqnarray}
 and the initial Euler angles
 \begin{eqnarray}\label{nd2dpars2a}
 	 \phi, \theta, \psi
@@ -531,26 +578,22 @@ apply similarly to both dimensional and nondimensional scenarios.
 
 
 \begin{enumerate}
-	\item The desired dimensional scenario is specified by three physical parameters:
-	\begin{enumerate}
-		\item the embryo tissue volume, $V_t^*$;
-		\item the fluid medium viscosity, $\mu^*$:
-		\item the fluid medium density, $\rho^*_{med}$.
-	\end{enumerate}
 	\item From these, calculate tissue and surface volumes, tissue and inclusion densities, the equivalent sphere diameter and the rotation timescale :
 \begin{eqnarray}\label{nd2dpars3}
 	\rho^*_t = \rho^*_{med} ~ \rho_t \non \\
 	\rho^*_i = \rho^*_{med} ~ \rho_i \non \\
 	V_s^* = \beta V_t^* \non \\
 	V_i^* = (\beta-1) V_t^* \non \\
-	D_{sph}^* = \sqrt[\uproot{5}3]{\frac{6}{\pi} V_t^*} \non \\
-	\tau^*_{rot} = \frac{6 \mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*}
+	\l = \sqrt[\uproot{5}3]{V_t^*} \non \\
+	%D_{sph}^* = \sqrt[\uproot{5}3]{\frac{6}{\pi}} \l \non \\
+	%\tau^*_{rot} = \frac{6 \mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*} \\
+	\tau^*_{rot} = \frac{\sqrt[\uproot{5}3]{36 \pi} ~ \mu^*}{\rho^*_{med} ~ g ~ \sqrt[\uproot{5}3]{V_t^*}}
 \end{eqnarray}
 \item Calculate dimensions of the surface and inclusions in physical units:
 \begin{eqnarray}\label{nd2dpars4}
-	D_t^* = \sqrt[\uproot{5}3]{\frac{6 V_t^*}{\pi \alpha_s}} \non \\
+	D_t^* = \sqrt[\uproot{5}3]{\frac{6}{\pi \alpha_s}} \l \non \\
 	D_s^* = \sqrt[\uproot{5}3]{\beta} D_t^* \non \\
-	D^*_i = \sqrt[\uproot{5}3]{\frac{6 V_i^*}{\pi \alpha_i}} \non \\
+	D^*_i = \sqrt[\uproot{5}3]{\frac{6}{\pi \alpha_i}} \l \non \\
 	L^*_{s_0} = \alpha_s D^*_s \non \\
 	L^*_{s_2} = \eta_s L^*_{s_0} \non \\
 	L^*_{s_1} = (1-\eta_s) L^*_{s_0} \non \\
@@ -559,6 +602,18 @@ apply similarly to both dimensional and nondimensional scenarios.
 	L^*_{i_1} = (1-\eta_i) L^*_{i_0} \non \\
 	h^*_i = \xi L^*_{s_0}  \non \\
 \end{eqnarray}
+%\begin{eqnarray}\label{nd2dpars4}
+%	D_t^* = \sqrt[\uproot{5}3]{\frac{6 V_t^*}{\pi \alpha_s}} \non \\
+%	D_s^* = \sqrt[\uproot{5}3]{\beta} D_t^* \non \\
+%	D^*_i = \sqrt[\uproot{5}3]{\frac{6 V_i^*}{\pi \alpha_i}} \non \\
+%	L^*_{s_0} = \alpha_s D^*_s \non \\
+%	L^*_{s_2} = \eta_s L^*_{s_0} \non \\
+%	L^*_{s_1} = (1-\eta_s) L^*_{s_0} \non \\
+%	L^*_{i_0} = \alpha_i D^*_i \non \\
+%	L^*_{i_2} = \eta_i L^*_{i_0} \non \\
+%	L^*_{i_1} = (1-\eta_i) L^*_{i_0} \non \\
+%	h^*_i = \xi L^*_{s_0}  \non \\
+%\end{eqnarray}
 \item Calculate ciliary velocity, shear and simulation time:
 \begin{eqnarray}\label{nd2dpars4a}
 	v^*_{cil} = \frac{\l}{\tau^*_{rot}}  v_{cil} \non \\
