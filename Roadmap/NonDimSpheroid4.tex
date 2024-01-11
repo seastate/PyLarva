@@ -591,9 +591,10 @@ apply similarly to both dimensional and nondimensional scenarios.
 \end{eqnarray}
 \item Calculate dimensions of the surface and inclusions in physical units:
 \begin{eqnarray}\label{nd2dpars4}
-	D_t^* = \sqrt[\uproot{5}3]{\frac{6}{\pi \alpha_s}} \l \non \\
-	D_s^* = \sqrt[\uproot{5}3]{\beta} D_t^* \non \\
-	D^*_i = \sqrt[\uproot{5}3]{\frac{6}{\pi \alpha_i}} \l \non \\
+	%D_t^* = \sqrt[\uproot{5}3]{\frac{6}{\pi \alpha_s}} \l \non \\
+	D_s^* = \sqrt[\uproot{5}3]{\frac{6 \beta}{\pi \alpha_s}} \l \non \\
+	%D_s^* = \sqrt[\uproot{5}3]{\beta} D_t^* \non \\
+	D^*_i = \sqrt[\uproot{5}3]{\frac{6 (\beta-1)}{\pi \alpha_i}} \l \non \\
 	L^*_{s_0} = \alpha_s D^*_s \non \\
 	L^*_{s_2} = \eta_s L^*_{s_0} \non \\
 	L^*_{s_1} = (1-\eta_s) L^*_{s_0} \non \\
