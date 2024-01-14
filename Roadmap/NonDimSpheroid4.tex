@@ -530,8 +530,8 @@ From these parameters, the steps to obtain the corresponding nondimensional para
 	\item Calculate the nondimensionalized ciliary velocity, shear and simulation end time:
 	\begin{eqnarray}\label{d2ndpars6}
 		v_{cil} = \frac{{\tau^*_{rot}}}{\l}  v^*_{cil} \non \\
-		\frac{\p w}{\p x} = \frac{1}{\l ~ \tau^*_{rot}} \frac{\p w^*}{\p x^*} \non \\
-		\frac{\p u}{\p z} = \frac{1}{\l ~ \tau^*_{rot}} \frac{\p u^*}{\p z^*} \non \\
+		\frac{\p w}{\p x} = \tau^*_{rot} \frac{\p w^*}{\p x^*} \non \\
+		\frac{\p u}{\p z} = \tau^*_{rot} \frac{\p u^*}{\p z^*} \non \\
 		t_{end} = \frac{t^*_{end}}{\tau^*_{rot}}
 	\end{eqnarray}
 \end{enumerate}
@@ -569,12 +569,7 @@ These must be derived from the following sets of parameters:
 %	D_s, L_{s_0}, L_{s_2}, L_{s_1}, V_i, D_i, L_{i_0}, L_{i_2}, L_{i_0}, L_{i_1}, \non \\
 %	h_i, v_{cil}, \rho_t, \rho_i, \frac{\p w}{\p x}, \frac{\p u}{\p z}, t_{end}
 %\end{eqnarray}
-The shape parameters
-and the initial Euler angles
-\begin{eqnarray}\label{nd2dpars2a}
-	 \phi, \theta, \psi
-\end{eqnarray}
-apply similarly to both dimensional and nondimensional scenarios.
+The shape parameters and the initial Euler angles apply similarly to both dimensional and nondimensional scenarios.
 
 
 \begin{enumerate}
@@ -618,8 +613,8 @@ apply similarly to both dimensional and nondimensional scenarios.
 \item Calculate ciliary velocity, shear and simulation time:
 \begin{eqnarray}\label{nd2dpars4a}
 	v^*_{cil} = \frac{\l}{\tau^*_{rot}}  v_{cil} \non \\
-	\frac{\p w^*}{\p x^*} = \frac{1}{\l ~ \tau^*_{rot}} \frac{\p w}{\p x} \non \\
-	\frac{\p u^*}{\p z^*} = \frac{1}{\l ~ \tau^*_{rot}} \frac{\p u}{\p z} \non \\
+	\frac{\p w^*}{\p x^*} = \frac{1}{\tau^*_{rot}} \frac{\p w}{\p x} \non \\
+	\frac{\p u^*}{\p z^*} = \frac{1}{\tau^*_{rot}} \frac{\p u}{\p z} \non \\
 	t^*_{end} = \tau^*_{rot} t_{end}
 \end{eqnarray}
 	
