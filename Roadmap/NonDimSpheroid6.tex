@@ -304,36 +304,92 @@ Adopting these values, the nondimensional forms are
 Equations \ref{equvol3} (along with \ref{equvol3a}) and \ref{equvol5} are now the basis of a nondimensionalization in which tissue volume is factored out of the rescaled equations.
 
 
+\section{Nondimensionalized Stokes Equations}\label{NDStokesSect}
+Most embryos of marine invertebrates are small enough and move slowly enough to be characterized by a very small to moderately small Reynolds Number, $Re$. 
+Flows with $Re = 0$ (\textit{i.e.}, neglecting inertial effects entirely) are described by the Stokes equations, which are linear and are much easier to solve than the Navier-Stokes equations describing higher $Re$ flows.
+Though the formal requirement justifying the Stokes equations is $Re \ll 1$, in practice the errors associated with using Stokes equations as approximations for flows with $Re \approx 1$ are typically small.
+Here, we assume embryo swimming is characterized by the Stokes equations, accepting the small potential errors associated with inertial effects for the largest and fastest embryos to enable efficient solution techniques.
 
+The dimensional form of the Stokes equations can be written as
+\begin{eqnarray}\label{Stokes1}
+	0 = \mu^* \left( \frac{\p^2 u^*}{\p {x^*}^2}+\frac{\p^2 u^*}{\p {y^*}^2}+\frac{\p^2 u^*}{\p {z^*}^2} \right) - \frac{\p p^*}{\p {x^*}} + f_x^*, \non \\
+	0 = \mu^* \left( \frac{\p^2 v^*}{\p {x^*}^2}+\frac{\p^2 v^*}{\p {y^*}^2}+\frac{\p^2 v^*}{\p {z^*}^2} \right) - \frac{\p p^*}{\p {y^*}} + f_y^*, \non \\
+	0 = \mu^* \left( \frac{\p^2 w^*}{\p {x^*}^2}+\frac{\p^2 w^*}{\p {y^*}^2}+\frac{\p^2 w^*}{\p {z^*}^2} \right) - \frac{\p p^*}{\p {z^*}} + f_z^*, \non \\
+	0 =  \frac{\p u^*}{\p {x^*}}+\frac{\p v^*}{\p {y^*}}+\frac{\p w^*}{\p {z^*}} 
+\end{eqnarray}
+In Equations \ref{Stokes1}, $f$ terms denote body forces, with units $\mathrm{\frac{N}{m^3}}$. $p$ is pressure, with units $\mathrm{\frac{N}{m^2}}$.
+The first three equations enforce conservation of momentum in the $x$, $y$ and $z$ directions, in the $Re \rightarrow 0$ limit.
+The last equation enforces incompressibility.
 
-%such that the tissue volume nondimensionalized by normalization with $V_{sph}^*$ is always
-%\begin{eqnarray}\label{equivsphere2}
-%	V_t \equiv \frac{V_t^*}{V_{sph}^*} = 1
-%\end{eqnarray} 
-%As before, dropped $^*$'s imply a nondimensional quantity.
-%
-%To maintain this equality, the diameters must satisfy
-%\begin{eqnarray}\label{equivsphere3}
-%	\frac{\pi}{6} {D_{sph}^*}^3 = \frac{\pi}{6} \alpha_s {D_t^*}^3  = \frac{\pi}{6} \frac{\alpha_s}{\beta} {D_s^*}^3, \non \\
-%	%D_{sph}^* = \sqrt[\uproot{5}3]{\alpha_s} D_t^*
-%	%\frac{\pi}{6} {D_{sph}^*}^3 = \frac{\pi}{6} \alpha_s \beta {D_t^*}^3
-%\end{eqnarray} 
-%from which
-%\begin{eqnarray}\label{equivsphere4}
-%	%\frac{\pi}{6} {D_{sph}^*}^3 = \frac{\pi}{6} \alpha_s {D_t^*}^3, \non \\
-%	D_{sph}^* = \sqrt[\uproot{5}3]{\alpha_s} D_t^* = \sqrt[\uproot{5}3]{\frac{\alpha_s}{\beta}} D_s^*.
-%	%\frac{\pi}{6} {D_{sph}^*}^3 = \frac{\pi}{6} \alpha_s \beta {D_t^*}^3
-%\end{eqnarray} 
-%
-%Equation \ref{equivsphere4} shows that, if we adopt $\mathit{l} \equiv \frac{1}{\sqrt[\uproot{5}3]{\alpha_s}} D_{sph}^* = D_t^*$ as the characteristic length for nondimensionalizing embryo morphology,
-%\begin{eqnarray}\label{ndD}
-%	D_t \equiv \frac{D_t^*}{\mathit{l}}  = 1, \non \\
-%	D_s \equiv \frac{D_s^*}{\mathit{l}} = \sqrt[\uproot{5}3]{\beta},
-%\end{eqnarray} 
-%to preserve the volumetric equality in Equation \ref{equivsphere2}.
-%As a result, the body forces (excluding effects of inclusions) are also normalized to remove the primary effects of size.
+To nondimensionalize, we define nondimensional parameters $x$, $u$, $f_q, q \in x, y, z$:
+%,  and $p$ in terms of the characteristic length, $l$, a characteristic body force $$ timescale
+\begin{itemize}
+	\item We nondimensionalize position and other length quantities by normalizing with $l$:
+	\begin{eqnarray*}
+		x \equiv \frac{x^*}{\mathit{l}} , \\
+		x^* = \mathit{l} x 
+	\end{eqnarray*} 
+	\item We nondimensionalize velocity by normalizing with $l$ and with a timescale, $\tau^*$, that will be determined below:
+	\begin{eqnarray*}
+		u \equiv \frac{\tau^*_{rot}}{\mathit{l}} u^* , \\
+		u^* = \frac{\mathit{l}}{\tau^*_{rot}} u 
+	\end{eqnarray*} 
+	\item We nondimensionalize body force by normalizing with a characteristic buoyancy force,
+	\begin{equation}\label{charforce}
+		\hat{f^*} = \Delta \rho ~ g
+	\end{equation}
+	where $\Delta \rho$ is a ``typical'' density difference between the fluid medium and the embryo. 
+	Then, for $q \in x, y, z$:
+	\begin{eqnarray*}
+		f_q \equiv \frac{f_q^*}{\hat{f^*}}  = \frac{f_q^*}{\Delta \rho^* ~ g} , \\
+		f_q^* = \hat{f^*} f_q = \Delta \rho^* ~ g f_q
+		%f_q \equiv \frac{\l ~ \tau^*_{rot}}{\mu^*} f_q^* , \\
+		%f_q^* = \frac{\mu^*}{\l ~ \tau^*_{rot}} f_q 
+	\end{eqnarray*} 
+	\item Similarly, we nondimensionalize pressure 
+	\begin{eqnarray*}
+		p \equiv  \frac{ p^*}{\Delta \rho^* ~ g ~ l} , \\
+		p^* = \Delta \rho^* ~ g ~ l ~ p  
+		%p \equiv \frac{\tau^*_{rot}}{\mu^*} p^*
+		%p^* = \frac{\mu^*}{\tau^*_{rot}} p, \\
+	\end{eqnarray*} 
+\end{itemize}
+With these nondimensionalizations, the choice 
+\begin{equation}\label{tau_def}
+	\tau^* = \frac{\mu^*}{\Delta \rho^* ~ g ~ l}
+\end{equation}
+leads to the nodimensionalized Stokes equations,
+\begin{eqnarray}\label{Stokes2}
+	0 = \left( \frac{\p^2 u}{\p x^2}+\frac{\p^2 u}{\p y^2}+\frac{\p^2 u}{\p z^2} \right) - \frac{\p p}{\p x} + f_x \non \\
+	0 = \left( \frac{\p^2 v}{\p x^2}+\frac{\p^2 v}{\p y^2}+\frac{\p^2 v}{\p z^2} \right) - \frac{\p p}{\p y} + f_y \non \\
+	0 = \left( \frac{\p^2 w}{\p x^2}+\frac{\p^2 w}{\p y^2}+\frac{\p^2 w}{\p z^2} \right) - \frac{\p p}{\p z} + f_z , \non \\
+	0 =  \frac{\p u}{\p {x}}+\frac{\p v}{\p {y}}+\frac{\p w}{\p {z}}
+\end{eqnarray}
+In this form of the Stokes Equations. space and time are rescaled such that there are no free parameters -- the primary effects of embryo size, and of the viscosity and density of the fluid medium, are all factored out.  
 
-\section{Rotational movement of a sphere}\label{RotSect}
+\subsection{The nondimensionalization timescale, in context}
+It is worth a brief consideration of interpretations of $\tau$ as defined in Equation \ref{tau_def}.
+Two timescales suggest themselves as being intrinsically relevant to the physics of embryo swimming:
+\begin{itemize}
+	\item the time over which an embryo sinks a distance equal to its own size; and,
+	\item the time over which an embryo rotated away from its stable orientation reorients to approach its stable orientation.
+\end{itemize}
+We can get a sense for the magnitudes of these timescales, without introducing unnecessary parameters, by considering the equivalent sphere.
+
+\subsection{Sinking movement of a sphere}\label{SinkSect}
+A sphere of diameter $D_{sph}^*$ sinking in Stokes flow falls at speed
+ \begin{equation}\label{sink1}
+ 	u_{sink}^* = \frac{1}{18} ~ \frac{\Delta \rho^* ~ g}{\mu^*}  ~ {D_{sph}^*}^2,
+ \end{equation}
+where $\Delta \rho^*$ is the density difference between the sphere and the surrounding fluid.
+Defining a timescale $\tau_{sink}$ as the time needed for the sphere to sink a distance equal to the length scale, $l$,
+\begin{equation}\label{sink2}
+	\tau^*_{sink} = \frac{l}{u_{sink}^*} = 18 \sqrt[\uproot{5}3]{\frac{\pi^2}{36}} ~ \frac{\mu^*}{\Delta \rho^* ~ g ~ l} 
+	              = 11.69 ~ \tau^*
+\end{equation}
+Equation \ref{sink2} shows that the sinking timescale scales in the same way as the timescale inferred in Equation \ref{tau_def} from the nondimensionalization of the Stokes equations, and is larger by an order of magnitude (that is, by a constant factor of 11.69).
+
+\subsection{Rotational movement of a sphere}\label{RotSect}
 The rotation rate of a sphere of diameter $D_{sph}^*$ in a fluid of viscosity $\mu^*$ is 
 \begin{equation}\label{rot1}
 	\omega^* = \frac{T^*}{\pi \mu^* {D_{sph}^*}^3} = \frac{T^*}{6 \mu^* V_{sph}^*},	
@@ -349,23 +405,23 @@ For the timescale $\tau^*_{rot}$ to reflect the fundamental effects of size on c
 $T^*$ is the product of a buoyancy force, $F^*$, and a moment arm $A^*$.
 If $F^*$ and $A^*$ are of approximately the same magnitudes as buoyancy forces and moment arms in relevant embryo morphologies, $T^*$ will also be characteristic of buoyancy-driven torque for these morphologies.
 
-The buoyancy force is the product of a volume and a density difference. 
 As an order-of-magnitude estimate of the moment arm, we can use the distance between the center of an equivalent sphere and the centroid of its hemisphere,
 \begin{equation}\label{arm}
 	A^* = \frac{3}{16} D_{sph}^*
 \end{equation}
-A density difference, $\Delta \rho^*$, that is likely to be characteristic of many swimming embryo scenarios is indicated by the nominal densities of tissue, $\rho_{tissue} = 1070 ~ \mathrm{\frac{kg}{m^3}}$, and of lipid, $\rho_{lipid} = 900 ~ \mathrm{\frac{kg}{m^3}}$, in comparison to seawater, $\rho_{seawater} = 1030 ~ \mathrm{\frac{kg}{m^3}}$.
-Expressing the density difference in terms of $\rho_{seawater}$,
-\begin{equation}\label{dens}
-	\Delta \rho^* = \gamma ~ \rho_{med},
-	%\Delta \rho^* = \rho_{tissue} - \rho_{lipid}
-\end{equation}
-where the coefficient $\gamma$ is of $\mathcal{O}(10^{-1})$ so that $\Delta \rho^* \approx 10^2$.
-%Taking $\rho_{tissue} = 1070 ~ \mathrm{\frac{kg}{m^3}}$ and $\rho_{lipid} = 900 ~ \mathrm{\frac{kg}{m^3}}$ as nominal values gives a value for the characteristic density difference driving embryo rotation as
-%\begin{equation}\label{dens2}
-%	\Delta \rho^* = 130 ~ \mathrm{\frac{kg}{m^3}}
+The buoyancy force is the product of a density difference and a volume. 
+%A density difference, $\Delta \rho^*$, that is likely to be characteristic of many swimming embryo scenarios is indicated by the nominal densities of tissue, $\rho_{tissue} = 1070 ~ \mathrm{\frac{kg}{m^3}}$, and of lipid, $\rho_{lipid} = 900 ~ \mathrm{\frac{kg}{m^3}}$, in comparison to seawater, $\rho_{seawater} = 1030 ~ \mathrm{\frac{kg}{m^3}}$.
+%Expressing the density difference in terms of $\rho_{seawater}$,
+%\begin{equation}\label{dens}
+%	\Delta \rho^* = \gamma ~ \rho_{med},
+%	%\Delta \rho^* = \rho_{tissue} - \rho_{lipid}
 %\end{equation}
-
+%where the coefficient $\gamma$ is of $\mathcal{O}(10^{-1})$ so that $\Delta \rho^* \approx 10^2$.
+%%Taking $\rho_{tissue} = 1070 ~ \mathrm{\frac{kg}{m^3}}$ and $\rho_{lipid} = 900 ~ \mathrm{\frac{kg}{m^3}}$ as nominal values gives a value for the characteristic density difference driving embryo rotation as
+%%\begin{equation}\label{dens2}
+%%	\Delta \rho^* = 130 ~ \mathrm{\frac{kg}{m^3}}
+%%\end{equation}
+%
 Using the volume from the equivalent hemisphere, 
 \begin{equation}\label{charF}
 	F_{sph}^* = \frac{\Delta \rho^* ~ g ~ V_{sph}^*}{2}  %= \frac{\pi}{6} ~ \rho_{med}^* ~ g ~ {D_{sph}^*}^3,
@@ -390,70 +446,14 @@ as a characteristic buoyancy-driven torque for many relevant embryo morphologies
 
 Substituting this value into Equation \ref{tau1}, substituting with \ref{equvol4} and simplifying gives
 \begin{equation}\label{tau2}
-	\tau^*_{rot} = \frac{64 ~ \mu^*}{\Delta \rho^* ~ g ~ \sqrt[\uproot{5}3]{\alpha_s} \Dts}
+	\tau^*_{rot} = \frac{64 ~ \mu^*}{\Delta \rho^* ~ g ~ D_{sph}} 
+	=  64\sqrt[\uproot{5}3]{\frac{\pi}{6}} ~ \tau^*
+%=  64\sqrt[\uproot{5}3]{\frac{\pi}{6}} \frac{\mu^*}{\Delta \rho^* ~ g ~ l}
 \end{equation}
-Equation \ref{tau2} reflects the fundamental proportional dependence of the buoyancy-driven rotation timescale of an equivalent sphere on size (diameter and aspect ratio), viscosity, medium density, and gravitational acceleration.
+Equation \ref{tau2} shows that the rotation timescale scales in the same way as the timescale inferred in Equation \ref{tau_def} from the nondimensionalization of the Stokes equations, and is larger by about two orders of magnitude (that is, by a constant factor of 51.58).
 
+The consistency in scaling of Equations \ref{sink2} and \ref{tau2} with Equation \ref{tau_def} shows that very similar nondimensionalizations (differeing only by constant factors) are obtained by three distinct approaches to determining relevant timescales for the embryo swimming problem.
 
-\section{Non-dimensionalized Stokes Equations}\label{NDStokesSect}
-Most embryos of marine invertebrates are small enough and move slowly enough to be characterized by a very small to moderately small Reynolds Number, $Re$. 
-Flows with $Re = 0$ (\textit{i.e.}, neglecting inertial effects entirely) are described by the Stokes equations, which are linear and are much easier to solve than the Navier-Stokes equations describing higher $Re$ flows.
-Though the formal requirement justifying the Stokes equations is $Re \ll 1$, in practice the errors associated with using Stokes equations as approximations for flows with $Re \approx 1$ are typically small.
-Here, we assume embryo swimming is characterized by the Stokes equations, accepting the small potential errors associated with inertial effects for the largest and fastest embryos to enable efficient solution techniques.
-
-The dimensional form of the Stokes equations can be written as
-\begin{eqnarray}\label{Stokes1}
-	0 = \mu^* \left( \frac{\p^2 u^*}{\p {x^*}^2}+\frac{\p^2 u^*}{\p {y^*}^2}+\frac{\p^2 u^*}{\p {z^*}^2} \right) - \frac{\p p^*}{\p {x^*}} + f_x^*, \non \\
-	0 = \mu^* \left( \frac{\p^2 v^*}{\p {x^*}^2}+\frac{\p^2 v^*}{\p {y^*}^2}+\frac{\p^2 v^*}{\p {z^*}^2} \right) - \frac{\p p^*}{\p {y^*}} + f_y^*, \non \\
-	0 = \mu^* \left( \frac{\p^2 w^*}{\p {x^*}^2}+\frac{\p^2 w^*}{\p {y^*}^2}+\frac{\p^2 w^*}{\p {z^*}^2} \right) - \frac{\p p^*}{\p {z^*}} + f_z^*, \non \\
-	0 =  \frac{\p u^*}{\p {x^*}}+\frac{\p v^*}{\p {y^*}}+\frac{\p w^*}{\p {z^*}} 
-\end{eqnarray}
-In Equations \ref{Stokes1}, $f$ terms denote body forces, with units $\mathrm{\frac{N}{m^3}}$.
-The first three equations enforce conservation of momentum in the $x$, $y$ and $z$ directions, in the $Re \rightarrow 0$ limit.
-The last equation enforces incompressibility.
-
-To nondimensionalize, we define nondimensional parameters $x$, $u$, $f_q, q \in x, y, z$,  and $p$:
-\begin{itemize}
-	\item Scaling for position:
-	\begin{eqnarray*}
-		x \equiv \frac{x^*}{\mathit{l}} , \\
-	    x^* = \mathit{l} x 
-    \end{eqnarray*} 
-	\item Scaling for velocity:
-		\begin{eqnarray*}
-			u \equiv \frac{\tau^*_{rot}}{\mathit{l}} u^* , \\
-	      	u^* = \frac{\mathit{l}}{\tau^*_{rot}} u 
-    \end{eqnarray*} 
-	\item Scaling for force (for $q \in x, y, z$):
-		\begin{eqnarray*}
-			f_q \equiv \frac{\l ~ \tau^*_{rot}}{\mu^*} f_q^* , \\
-			f_q^* = \frac{\mu^*}{\l ~ \tau^*_{rot}} f_q 
-    \end{eqnarray*} 
-	\item Scaling for pressure:
-		\begin{eqnarray*}
-			p \equiv  \frac{\tau^*_{rot}}{\mu^*} p^* , \\
-			p^* = \frac{\mu^*}{\tau^*_{rot}} p  
-			%p \equiv \frac{\tau^*_{rot}}{\mu^*} p^*
-			%p^* = \frac{\mu^*}{\tau^*_{rot}} p, \\
-    \end{eqnarray*} 
-\end{itemize}
-%The scaling parameters $D_{sph}^*$ and $\tau^*_{rot}$ are as derived above in Sections \ref{GeomSect} and \ref{RotSect}.
-
-%Substituting the expression for the rotation timescale,
-%\begin{eqnarray}\label{NDpars}
-%	u = 6 \frac{\mu^*}{\rho^*_{med} ~ g } u^* \non \\
-%	f_q = \frac{D_{sph}}{\mu^*} 6 \frac{\mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*} f_q^* = \frac{6}{\rho^*_{med}~  g} f_q^*, ~ q \in x, y, z \non \\
-%	p = \frac{1}{\mu^*} 6 \frac{\mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*} p^* = \frac{6}{\rho^*_{med} ~ g ~ D_{sph}^*} p^*
-%\end{eqnarray}
-Expressing the dimensional quantities in Equations \ref{Stokes1} in terms of the nondimensional parameters, % in \ref{NDpars}, 
-\begin{eqnarray}\label{Stokes2}
-	0 = \left( \frac{\p^2 u}{\p x^2}+\frac{\p^2 u}{\p y^2}+\frac{\p^2 u}{\p z^2} \right) - \frac{\p p}{\p x} + f_x \non \\
-	0 = \left( \frac{\p^2 v}{\p x^2}+\frac{\p^2 v}{\p y^2}+\frac{\p^2 v}{\p z^2} \right) - \frac{\p p}{\p y} + f_y \non \\
-	0 = \left( \frac{\p^2 w}{\p x^2}+\frac{\p^2 w}{\p y^2}+\frac{\p^2 w}{\p z^2} \right) - \frac{\p p}{\p z} + f_z , \non \\
-	0 =  \frac{\p u}{\p {x}}+\frac{\p v}{\p {y}}+\frac{\p w}{\p {z}}
-\end{eqnarray}
-Equations \ref{Stokes2} are the nondimensionalized form of the Stokes equations, resulting from the scaling choices made in this section.
-In this form of the Stokes Equations. space and time are rescaled such that thre are no free parameters -- the primary effects of embryo size, and of the viscosity and density of the fluid medium, are all factored out.  
 
 \section{Parameterization of the non-dimensional embryo swimming problem}\label{NDparsSect}
 This section summarizes the procedure to convert dimensional parameters from a scenario of embryo swimming into their nondimensional parameter analogs, and to reconvert nondimensional results into their corresponding dimensional quantities.
