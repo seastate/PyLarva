@@ -69,7 +69,7 @@ One instance of a constitutive chimera represents the surface of the embryo.
 The volume inside this surface is assumed to be tissue, except where displaced by inclusions of another material. 
 Constitutive chimeras are also used to approximate inclusions, which contain material such as seawater or lipid (both less dense than tissue) or calcium carbonate (heavier than tissue).
 If the volume of tissue is held constant, inclusions alter the volume enclosed by the surface, and typically shift the center of gravity away from the center of buoyancy.
-A shift of this type results in a preferred orientation, in still water.
+A shift of this type results in a preferred orientation, in still water, with the center of buoyancy directly above the center of gravity.
 
 The ability of the embryo to swim directionally (typically upwards) depends on the relative strengths of the ``body-force'' righting moments, associated with gravity and buoyancy, compared to destabilizing environmental moments from shear and vorticity that tend to turn larvae away from their vertical orientations.
 The overarching goals of the analysis are to:
@@ -78,10 +78,10 @@ The overarching goals of the analysis are to:
 	\item Assess habitats and conditions under which environmental moments might sporadically or frequently exceed righting moments, compromising embryos' capacities for oriented swimming; and, 
 	\item Assess whether existing or hypothetical embryo morphologies are likely to encounter habitat-specific constraints, and whether observed patterns of size and morphology are consistent with predictions stemming from a benefit or requirement for oriented swimming.
 \end{enumerate}
-In this analysis we consider only chimeras comprising semi-spheroids.
+While the underlying hydrodynamic model is flexible, in this analysis we consider only chimeras comprising semi-spheroids.
 We do not consider the more general case of semi-ellipsoids with radially asymmetrical shapes.
 We also restrict our analysis to embryo shapes that are overall radially symmetrical -- that is, embryos constructed from semi-spheroids aligned along the vertical axis. 
-This is in part to avoid a proliferation of parameter space, but mostly because the observed larval shapes approximate our focal class of morphologies. 
+This is in part because the majority of observed larval shapes approximate our focal class of morphologies, but mostly to avoid a proliferation of parameter space in this initial study. 
 We note, though, that it is an interesting open question why early stage embryos are typically radially symmetrical\footnote{One hypothesis is that most or all such asymmetries would decrease initial stability.}. 
 
 \section{Basic geometry of a semi-spheroid chimera}\label{GeomSect}
@@ -223,7 +223,7 @@ From a morphological perspective, this implies that an embryo of fixed diameter 
 Figure \ref{fig:chimera2} is a schematic showing the geometry of a composite chimera, comprising an external constitutive chimera, representing the surface of embryo tissue in contact with the fluid medium, and an internal constitutive chimera representing an inclusion such as lipid, seawater or calcium carbonate.
 In the numerical model implementation, an embryo can be constructed with multiple inclusions, e.g. a ``light'' inclusion containing lipids and a ``heavy'' inclusion containing calcium carbonate.
 However, to simplify calculations, the numerical model assumes there are no intersections between constitutive chimeras.
-That is, \textbf{inclusion chimeras must be entirely inside the surface chimera, and entirely inside or outside of other inclusion chimeras}.
+That is, \textbf{inclusion chimeras must be entirely inside the surface chimera, and entirely inside or entirely outside of other inclusion chimeras}.
 
 In Figure \ref{fig:chimera2}, $h_i^*$ is the height of the equator of the inclusion, relative to the equator of the surface. 
 This parameter is most usefully expressed as the ratio, 
@@ -321,7 +321,7 @@ In Equations \ref{Stokes1}, $f$ terms denote body forces, with units $\mathrm{\f
 The first three equations enforce conservation of momentum in the $x$, $y$ and $z$ directions, in the $Re \rightarrow 0$ limit.
 The last equation enforces incompressibility.
 
-To nondimensionalize, we define nondimensional parameters $x$, $u$, $f_q, q \in x, y, z$:
+To nondimensionalize, we define nondimensional parameters $x$, $u$, $p$ and $f_q, q \in x, y, z$:
 %,  and $p$ in terms of the characteristic length, $l$, a characteristic body force $$ timescale
 \begin{itemize}
 	\item We nondimensionalize position and other length quantities by normalizing with $l$:
@@ -331,8 +331,8 @@ To nondimensionalize, we define nondimensional parameters $x$, $u$, $f_q, q \in 
 	\end{eqnarray*} 
 	\item We nondimensionalize velocity by normalizing with $l$ and with a timescale, $\tau^*$, that will be determined below:
 	\begin{eqnarray*}
-		u \equiv \frac{\tau^*_{rot}}{\mathit{l}} u^* , \\
-		u^* = \frac{\mathit{l}}{\tau^*_{rot}} u 
+		u \equiv \frac{\tau^*}{\mathit{l}} u^* , \\
+		u^* = \frac{\mathit{l}}{\tau^*} u 
 	\end{eqnarray*} 
 	\item We nondimensionalize body force by normalizing with a characteristic buoyancy force,
 	\begin{equation}\label{charforce}
@@ -342,16 +342,16 @@ To nondimensionalize, we define nondimensional parameters $x$, $u$, $f_q, q \in 
 	Then, for $q \in x, y, z$:
 	\begin{eqnarray*}
 		f_q \equiv \frac{f_q^*}{\hat{f^*}}  = \frac{f_q^*}{\Delta \rho^* ~ g} , \\
-		f_q^* = \hat{f^*} f_q = \Delta \rho^* ~ g f_q
-		%f_q \equiv \frac{\l ~ \tau^*_{rot}}{\mu^*} f_q^* , \\
-		%f_q^* = \frac{\mu^*}{\l ~ \tau^*_{rot}} f_q 
+		f_q^* = \hat{f^*} f_q = \Delta \rho^* ~ g ~ f_q
+		%f_q \equiv \frac{\l ~ \tau^*}{\mu^*} f_q^* , \\
+		%f_q^* = \frac{\mu^*}{\l ~ \tau^*} f_q 
 	\end{eqnarray*} 
-	\item Similarly, we nondimensionalize pressure 
+	\item Similarly, we nondimensionalize pressure as
 	\begin{eqnarray*}
 		p \equiv  \frac{ p^*}{\Delta \rho^* ~ g ~ l} , \\
 		p^* = \Delta \rho^* ~ g ~ l ~ p  
-		%p \equiv \frac{\tau^*_{rot}}{\mu^*} p^*
-		%p^* = \frac{\mu^*}{\tau^*_{rot}} p, \\
+		%p \equiv \frac{\tau^*}{\mu^*} p^*
+		%p^* = \frac{\mu^*}{\tau^*} p, \\
 	\end{eqnarray*} 
 \end{itemize}
 With these nondimensionalizations, the choice 
@@ -371,10 +371,10 @@ In this form of the Stokes Equations. space and time are rescaled such that ther
 It is worth a brief consideration of interpretations of $\tau$ as defined in Equation \ref{tau_def}.
 Two timescales suggest themselves as being intrinsically relevant to the physics of embryo swimming:
 \begin{itemize}
-	\item the time over which an embryo sinks a distance equal to its own size; and,
-	\item the time over which an embryo rotated away from its stable orientation reorients to approach its stable orientation.
+	\item the timescale over which an embryo sinks a distance equal to its own size; and,
+	\item the timescale over which an embryo reorients to approach its stable orientation from an initial angular displacement.
 \end{itemize}
-We can get a sense for the magnitudes of these timescales, without introducing unnecessary parameters, by considering the equivalent sphere.
+We can get a sense for the magnitudes of these timescales, without introducing unnecessary parameters, by considering their values for the equivalent sphere.
 
 \subsection{Sinking movement of a sphere}\label{SinkSect}
 A sphere of diameter $D_{sph}^*$ sinking in Stokes flow falls at speed
@@ -405,11 +405,11 @@ For the timescale $\tau^*_{rot}$ to reflect the fundamental effects of size on c
 $T^*$ is the product of a buoyancy force, $F^*$, and a moment arm $A^*$.
 If $F^*$ and $A^*$ are of approximately the same magnitudes as buoyancy forces and moment arms in relevant embryo morphologies, $T^*$ will also be characteristic of buoyancy-driven torque for these morphologies.
 
-As an order-of-magnitude estimate of the moment arm, we can use the distance between the center of an equivalent sphere and the centroid of its hemisphere,
+As an order-of-magnitude estimate of the moment arm, we can consider a sphere divided along a vertical plane into two hemispheres, one of which differs in density from the surrounding fluid. Using the distance between the center of an equivalent sphere and the centroid of its hemisphere as a moment arm,
 \begin{equation}\label{arm}
 	A^* = \frac{3}{16} D_{sph}^*
 \end{equation}
-The buoyancy force is the product of a density difference and a volume. 
+The buoyancy force is the product of the density difference and the hemisphere volume,
 %A density difference, $\Delta \rho^*$, that is likely to be characteristic of many swimming embryo scenarios is indicated by the nominal densities of tissue, $\rho_{tissue} = 1070 ~ \mathrm{\frac{kg}{m^3}}$, and of lipid, $\rho_{lipid} = 900 ~ \mathrm{\frac{kg}{m^3}}$, in comparison to seawater, $\rho_{seawater} = 1030 ~ \mathrm{\frac{kg}{m^3}}$.
 %Expressing the density difference in terms of $\rho_{seawater}$,
 %\begin{equation}\label{dens}
@@ -422,16 +422,16 @@ The buoyancy force is the product of a density difference and a volume.
 %%	\Delta \rho^* = 130 ~ \mathrm{\frac{kg}{m^3}}
 %%\end{equation}
 %
-Using the volume from the equivalent hemisphere, 
+%Using the volume from the equivalent hemisphere, 
 \begin{equation}\label{charF}
-	F_{sph}^* = \frac{\Delta \rho^* ~ g ~ V_{sph}^*}{2}  %= \frac{\pi}{6} ~ \rho_{med}^* ~ g ~ {D_{sph}^*}^3,
+	F_{sph}^* = \frac{\Delta \rho^* ~ g ~ V_{sph}^*}{2}.  %= \frac{\pi}{6} ~ \rho_{med}^* ~ g ~ {D_{sph}^*}^3,
 \end{equation} 
-and 
+Combining these estimates,
 \begin{equation}\label{charT}
-	T^* \equiv F^* ~ A^* = \frac{3}{32} ~ \Delta \rho^* ~ g D_{sph}^* V_{sph}^* 
+	T^* \equiv F^* ~ A^* = \frac{3}{32} ~ \Delta \rho^* ~ g ~ D_{sph}^* V_{sph}^* 
 	% = \frac{3 \pi}{192} ~ \Delta \rho^* ~ g ~ {D_{sph}^*}^4
 \end{equation}
-as a characteristic buoyancy-driven torque for many relevant embryo morphologies.
+is a characteristic buoyancy-driven torque for many relevant embryo morphologies.
 % 
 %\begin{equation}\label{charT}
 %	T^* \equiv F^* ~ A^* = \frac{\Delta \rho^* ~ g ~ V_{sph}^*}{2} ~ \frac{3 ~ D_{sph}^*}{16} =  %D_{sph}^* F_{sph}^* = \frac{\pi}{6} ~ \rho_{med}^* ~ g ~ {D_{sph}^*}^4 =  \rho_{med}^* ~ g ~ D_{sph}^* V_{sph}^*,
@@ -452,25 +452,24 @@ Substituting this value into Equation \ref{tau1}, substituting with \ref{equvol4
 \end{equation}
 Equation \ref{tau2} shows that the rotation timescale scales in the same way as the timescale inferred in Equation \ref{tau_def} from the nondimensionalization of the Stokes equations, and is larger by about two orders of magnitude (that is, by a constant factor of 51.58).
 
-The consistency in scaling of Equations \ref{sink2} and \ref{tau2} with Equation \ref{tau_def} shows that very similar nondimensionalizations (differeing only by constant factors) are obtained by three distinct approaches to determining relevant timescales for the embryo swimming problem.
+The consistency in scaling of Equations \ref{sink2} and \ref{tau2} with Equation \ref{tau_def} shows that very similar nondimensionalizations (differing only by constant factors) are obtained by these three distinct approaches to determining relevant timescales for the embryo swimming problem.
+The relative magnitudes, in which sinking and rotation timescales are 1-2 orders larger than the nominal timescale $\tau^*$, suggests that simulations of embryo swimming must have minimum durations of roughly 3 orders of magnitude larger than $\tau$ to reflect the effects of environment on orientation and water column position.
 
 
 \section{Parameterization of the non-dimensional embryo swimming problem}\label{NDparsSect}
 This section summarizes the procedure to convert dimensional parameters from a scenario of embryo swimming into their nondimensional parameter analogs, and to reconvert nondimensional results into their corresponding dimensional quantities.
 The expectation is that results from directly simulating a dimensional scenario are identical to results from converting that scenario to its nondimensional counterpart, running the simulation, and re-dimensionalizing the results.
-That being established, each nondimensional result is applicable to a range of dimensional scenarios, the reduction in parameter space facilitating an overall analysis of embryo swimming functional morphology.
+That being established, each nondimensional result is applicable to a wide range of dimensional scenarios. This reduction in parameter space facilitates an overall analysis of embryo swimming functional morphology.
 
-The basic strategy is to derive the shape parameters, 
+The basic strategy is to derive the \textit{shape parameters}, 
 \begin{eqnarray}\label{shapars}
 	\alpha_s, \eta_s, \alpha_{i}, \eta_{i}, \beta, \xi
 \end{eqnarray}
 from the experimentally observed embryo dimensions.
-
-
-The shape parameters, together with the tissue volume $\Vts$ and the fluid medium viscosity $\mu^*$ and density $\rho_{med}^*$, are then sufficient to reconstruct:
+These shape parameters, together with three \textit{scale parameters} -- tissue volume $\Vts$ and the fluid medium viscosity $\mu^*$ and density $\rho_{med}^*$ -- are then sufficient to reconstruct:
 \begin{itemize}
 	\item the original observed geometry and swimming scenario;
-	\item and the corresponding nondimensional geometry and swimming scenario;
+	\item the corresponding nondimensional geometry and swimming scenario;
 	\item any other geometrically and dynamically similar geometry and swimming scenario.
 \end{itemize}
 %Because the nondimensional geometry corresponds to a spectrum of dynamically similar physical geometries, swimming performance measured on the nondimensional geometry can be used to infer the performance of the entire spectrum of dynamically similar embryos.
@@ -520,43 +519,47 @@ From these parameters, the steps to obtain the corresponding nondimensional para
 		%D_t^* = \frac{1}{\sqrt[\uproot{5}3]{\beta}} D_s^*
 	\end{eqnarray}
 	%\item Calculate the characteristic length, the equivalent sphere diameter and the rotation timescale:
-	\item Calculate the characteristic length and the rotation timescale:
+	\item Calculate the characteristic length and timescale:
 	\begin{eqnarray}\label{d2ndpars3}
 		\l = \sqrt[\uproot{5}3]{V_t^*} \non \\
 		%D_{sph}^* = \sqrt[\uproot{5}3]{\frac{6}{\pi} V_t^*} \non \\
 		%\l = \sqrt[\uproot{5}3]{\frac{\pi}{6}} D_{sph}^* \non \\
-		%\tau^*_{rot} = \frac{6  \mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*}
-		\Delta \rho^* = \gamma \rho_{med}, ~ \gamma = 0.1 \non \\
-		\tau^*_{rot} = \frac{64 ~ \mu^*}{\Delta \rho^* ~ g ~ \sqrt[\uproot{5}3]{V_t^*}}
+		%\tau^* = \frac{6  \mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*}
+		\Delta \rho^* = \gamma \rho_{med}^*, ~ \gamma = 0.1 \non \\
+		\tau^* = \frac{\mu^*}{\Delta \rho^* ~ g ~ l}
 	\end{eqnarray}
+	Here, a ``typical'' density difference equal to $\gamma \rho_{med}^*$ is assumed in determining the timescale, to streamline comparisons of nondimensional swimming performance across variations in embryo density.
+	The value $\gamma = 0.1$ reflects the order of magnitude of density differences of embryo tissue, lipid, freshwater etc.
 	\item Calculate the nondimensionalized geometrical parameters:
 	\begin{eqnarray}\label{d2ndpars4a}
 		D_t = \sqrt[\uproot{5}3]{\frac{6}{\pi \alpha_s}} \non \\
 		D_s = \sqrt[\uproot{5}3]{\frac{6 \beta}{\pi \alpha_s}} \non \\
 		L_{s_0} = \alpha_s D_s \non \\
-		L_{s_2} = \eta_s L_{s_0}, L_{s_1} = (1 - \eta_s) L_{s_0} \non \\
+		L_{s_2} = \eta_s L_{s_0} \non \\
+		 L_{s_1} = (1 - \eta_s) L_{s_0} \non \\
 		%L_{s_2} = \eta_s L_{s_0}, L_{s_1} = L_{s_0} - L_{s_2} \non \\
 		%V_i = \frac{V^*_i}{V^*_t} \non \\
 		V_i = \beta - 1 \non \\
 		D_i = \sqrt[\uproot{5}3]{\frac{6 (1-\beta)}{\pi \alpha_i}} \non \\
 		%D_i = \sqrt[\uproot{5}3]{\frac{6 V_i}{\pi \alpha_i}} \non \\
 		L_{i_0} = \alpha_i D_i \non \\
-		L_{i_2} = \eta_i L_{i_0}, L_{i_1} = (1 - \eta_i) L_{i_0} \non \\
+		L_{i_2} = \eta_i L_{i_0} \non \\
+		 L_{i_1} = (1 - \eta_i) L_{i_0} \non \\
 		h_i = \xi L_{s_0} 
 		%h_i = \frac{h^*_i}{D_t^*}
 		%L_{i_1} = \frac{L^*_{i_1}}{D_{sph}^*}, L_{i_2} = \frac{L^*_{i_2}}{D_{sph}^*}, D_i = \frac{D^*_i}{D_{sph}^*}, h_i = \frac{h^*_i}{D_{sph}^*}
 	\end{eqnarray}
 	\item Calculate the nondimensionalized tissue and inclusion densities:
 	\begin{eqnarray}\label{d2ndpars5}
-		\rho_t = \frac{\rho_t^*}{\rho_{med}^*} \non \\
-		\rho_i = \frac{\rho_i^*}{\rho_{med}^*}
+		\rho_t = \frac{\rho_t^*}{\Delta \rho^*} \non \\
+		\rho_i = \frac{\rho_i^*}{\Delta \rho^*}
 	\end{eqnarray}
 	\item Calculate the nondimensionalized ciliary velocity, shear and simulation end time:
 	\begin{eqnarray}\label{d2ndpars6}
-		v_{cil} = \frac{{\tau^*_{rot}}}{\l}  v^*_{cil} \non \\
-		\frac{\p w}{\p x} = \tau^*_{rot} \frac{\p w^*}{\p x^*} \non \\
-		\frac{\p u}{\p z} = \tau^*_{rot} \frac{\p u^*}{\p z^*} \non \\
-		t_{end} = \frac{t^*_{end}}{\tau^*_{rot}}
+		v_{cil} = \frac{{\tau^*}}{\l}  v^*_{cil} \non \\
+		\frac{\p w}{\p x} = \tau^* \frac{\p w^*}{\p x^*} \non \\
+		\frac{\p u}{\p z} = \tau^* \frac{\p u^*}{\p z^*} \non \\
+		t_{end} = \frac{t^*_{end}}{\tau^*}
 	\end{eqnarray}
 \end{enumerate}
 
@@ -568,11 +571,11 @@ To relate nondimensional results to real-world scenarios in physical units, the 
 \end{eqnarray}
 These must be derived from the following sets of parameters:
 \begin{itemize}
-	\item The three physical parameters,
+	\item The three physical \textit{scale parameters},
 		\begin{eqnarray}\label{nd2dpars0a}
 			V_t^*, \mu^*, \rho^*_{med}	
 		\end{eqnarray}
-	\item The shape parameters 
+	\item The \textit{shape parameters}, 
 		\begin{eqnarray}\label{nd2dpars2}
 			\alpha_s, \eta_s, \alpha_{i}, \eta_{i}, \beta, \xi
 		\end{eqnarray}
@@ -593,21 +596,21 @@ These must be derived from the following sets of parameters:
 %	D_s, L_{s_0}, L_{s_2}, L_{s_1}, V_i, D_i, L_{i_0}, L_{i_2}, L_{i_0}, L_{i_1}, \non \\
 %	h_i, v_{cil}, \rho_t, \rho_i, \frac{\p w}{\p x}, \frac{\p u}{\p z}, t_{end}
 %\end{eqnarray}
-The shape parameters and the initial Euler angles apply similarly to both dimensional and nondimensional scenarios.
+The shape parameters and the initial Euler angles apply equally to both dimensional and nondimensional scenarios.
 
 
 \begin{enumerate}
 	\item From these, calculate tissue and surface volumes, tissue and inclusion densities, the equivalent sphere diameter and the rotation timescale :
 \begin{eqnarray}\label{nd2dpars3}
-	\rho^*_t = \rho^*_{med} ~ \rho_t \non \\
-	\rho^*_i = \rho^*_{med} ~ \rho_i \non \\
-	\Delta \rho = \gamma \rho_{med}, ~ \gamma = 0.1 \non \\
+	\Delta \rho^* = \gamma ~ \rho_{med}^*, ~ \gamma = 0.1 \non \\
+	\rho^*_t = \Delta \rho^* ~ \rho_t \non \\
+	\rho^*_i = \Delta \rho^* ~ \rho_i \non \\
 	V_s^* = \beta V_t^* \non \\
 	V_i^* = (\beta-1) V_t^* \non \\
 	\l = \sqrt[\uproot{5}3]{V_t^*} \non \\
 	%D_{sph}^* = \sqrt[\uproot{5}3]{\frac{6}{\pi}} \l \non \\
-	%\tau^*_{rot} = \frac{6 \mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*} \\
-	\tau^*_{rot} = \frac{64 ~ \mu^*}{\Delta \rho^* ~ g ~ \sqrt[\uproot{5}3]{V_t^*}}
+	%\tau^* = \frac{6 \mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*} \\
+	\tau^* = \frac{\mu^*}{\Delta \rho^* ~ g ~ l}
 \end{eqnarray}
 \item Calculate dimensions of the surface and inclusions in physical units:
 \begin{eqnarray}\label{nd2dpars4}
@@ -637,10 +640,10 @@ The shape parameters and the initial Euler angles apply similarly to both dimens
 %\end{eqnarray}
 \item Calculate ciliary velocity, shear and simulation time:
 \begin{eqnarray}\label{nd2dpars4a}
-	v^*_{cil} = \frac{\l}{\tau^*_{rot}}  v_{cil} \non \\
-	\frac{\p w^*}{\p x^*} = \frac{1}{\tau^*_{rot}} \frac{\p w}{\p x} \non \\
-	\frac{\p u^*}{\p z^*} = \frac{1}{\tau^*_{rot}} \frac{\p u}{\p z} \non \\
-	t^*_{end} = \tau^*_{rot} t_{end}
+	v^*_{cil} = \frac{\l}{\tau^*}  v_{cil} \non \\
+	\frac{\p w^*}{\p x^*} = \frac{1}{\tau^*} \frac{\p w}{\p x} \non \\
+	\frac{\p u^*}{\p z^*} = \frac{1}{\tau^*} \frac{\p u}{\p z} \non \\
+	t^*_{end} = \tau^* t_{end}
 \end{eqnarray}
 	
 \end{enumerate}
@@ -648,7 +651,7 @@ The shape parameters and the initial Euler angles apply similarly to both dimens
 
 %\begin{table}[h]
 %	\centering
-%	\caption{Summary of dimensional-nondimensional transformations for the swimming embryo problem. In the left column, $\sim$ is followed by the SI units of the dimensional parameter. Parameters that have units $\sim 1$ are already nondimensional, and are unchanged in the nondimensionalization. Among dimensional-nondimensional parameter pairs, the dimensional form is labeled with an $^*$. The diameter of the equivalent sphere, $D_{sph}^*$, is given in Equation \ref{equivsphere} . The rotation timescale, $\tau^*_{rot}$, is given in Equation \ref{tau2} .} \label{tab:d2nd}
+%	\caption{Summary of dimensional-nondimensional transformations for the swimming embryo problem. In the left column, $\sim$ is followed by the SI units of the dimensional parameter. Parameters that have units $\sim 1$ are already nondimensional, and are unchanged in the nondimensionalization. Among dimensional-nondimensional parameter pairs, the dimensional form is labeled with an $^*$. The diameter of the equivalent sphere, $D_{sph}^*$, is given in Equation \ref{equivsphere} . The rotation timescale, $\tau^*$, is given in Equation \ref{tau2} .} \label{tab:d2nd}
 %	\vspace{.25cm}
 %	\small
 %	\rowcolors{2}{gray!10}{white}
@@ -665,15 +668,15 @@ The shape parameters and the initial Euler angles apply similarly to both dimens
 %		$\alpha_{i_m} \sim \mathsf{1}$ & $\alpha_i = \frac{L^*_{i_0}}{D^*_i}, ~ L^*_{i_0} = L^*_{i_1} + L^*_{i_2}$ & Aspect ratio of inclusion $m$ \\
 %		$\eta_{i_m} \sim \mathsf{1}$ & $\eta_i = \frac{L^*_{i_2}}{L^*_{i_0}}$ & Equatorial height of inclusion $m$ \\
 %		$h^*_{i_m} \sim \mathsf{m}$ & $h_{i_m} = \frac{1}{{D_{sph}^*}} h^*_{i_m} $  & Vertical position of inclusion $m$ \\
-%		$v^*_{cil} \sim \mathsf{\frac{m}{s}}$ & $v_{cil} = \frac{{\tau^*_{rot}}}{D_{sph}^*}  v^*_{cil}  $  & Ciliary velocity \\
-%		%$v^*_{cil} \sim \mathsf{\frac{m}{s}}$ & $v_{cil} = \frac{D_{sph}^*}{{\tau^*_{rot}}}  v^*_{cil}  = 6 \frac{\mu^*}{{\rho_{med}^* g}}  v^*_{cil} $  & Ciliary velocity \\
+%		$v^*_{cil} \sim \mathsf{\frac{m}{s}}$ & $v_{cil} = \frac{{\tau^*}}{D_{sph}^*}  v^*_{cil}  $  & Ciliary velocity \\
+%		%$v^*_{cil} \sim \mathsf{\frac{m}{s}}$ & $v_{cil} = \frac{D_{sph}^*}{{\tau^*}}  v^*_{cil}  = 6 \frac{\mu^*}{{\rho_{med}^* g}}  v^*_{cil} $  & Ciliary velocity \\
 %		\hline
 %		\vspace{0.1cm}
-%		$\frac{\p w^*}{\p x^*} \sim \mathsf{\frac{1}{s}}$ & $\frac{\p w}{\p x} = \tau^*_{rot} \frac{\p w^*}{\p x^*}  $  & Vertical shear velocity \\
+%		$\frac{\p w^*}{\p x^*} \sim \mathsf{\frac{1}{s}}$ & $\frac{\p w}{\p x} = \tau^* \frac{\p w^*}{\p x^*}  $  & Vertical shear velocity \\
 %		\vspace{0.1cm}
-%		$\frac{\p u^*}{\p z^*} \sim \mathsf{\frac{1}{s}}$ & $\frac{\p u}{\p z} = \tau^*_{rot} \frac{\p u^*}{\p z^*}  $  & Horizontal shear velocity \\
+%		$\frac{\p u^*}{\p z^*} \sim \mathsf{\frac{1}{s}}$ & $\frac{\p u}{\p z} = \tau^* \frac{\p u^*}{\p z^*}  $  & Horizontal shear velocity \\
 %		\vspace{0.1cm}
-%		$t^* \sim \mathsf{s}$ & $t =  \frac{t^*}{\tau^*_{rot}}  $  & Time \\
+%		$t^* \sim \mathsf{s}$ & $t =  \frac{t^*}{\tau^*}  $  & Time \\
 %		\hline
 %	\end{tabular}
 %\end{table}
