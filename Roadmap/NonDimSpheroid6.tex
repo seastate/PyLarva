@@ -30,6 +30,12 @@
 
 \usetikzlibrary{positioning,patterns,arrows,decorations.markings,decorations.pathreplacing,shapes,shapes.misc}
 
+% Set up plotting within LaTeX
+\usepackage{pgfplots}
+\pgfplotsset{width=11.5cm,compat=1.9}
+% We will externalize the figures
+%\usepgfplotslibrary{external}
+%\tikzexternalize
 
 \def\non{\nonumber}
 \def\p{\partial}
@@ -376,7 +382,7 @@ Two timescales suggest themselves as being intrinsically relevant to the physics
 \end{itemize}
 We can get a sense for the magnitudes of these timescales, without introducing unnecessary parameters, by considering their values for the equivalent sphere.
 
-\subsection{Sinking movement of a sphere}\label{SinkSect}
+\subsubsection{Sinking movement of a sphere}\label{SinkSect}
 A sphere of diameter $D_{sph}^*$ sinking in Stokes flow falls at speed
  \begin{equation}\label{sink1}
  	u_{sink}^* = \frac{1}{18} ~ \frac{\Delta \rho^* ~ g}{\mu^*}  ~ {D_{sph}^*}^2,
@@ -389,7 +395,7 @@ Defining a timescale $\tau_{sink}$ as the time needed for the sphere to sink a d
 \end{equation}
 Equation \ref{sink2} shows that the sinking timescale scales in the same way as the timescale inferred in Equation \ref{tau_def} from the nondimensionalization of the Stokes equations, and is larger by an order of magnitude (that is, by a constant factor of 11.69).
 
-\subsection{Rotational movement of a sphere}\label{RotSect}
+\subsubsection{Rotational movement of a sphere}\label{RotSect}
 The rotation rate of a sphere of diameter $D_{sph}^*$ in a fluid of viscosity $\mu^*$ is 
 \begin{equation}\label{rot1}
 	\omega^* = \frac{T^*}{\pi \mu^* {D_{sph}^*}^3} = \frac{T^*}{6 \mu^* V_{sph}^*},	
@@ -454,6 +460,126 @@ Equation \ref{tau2} shows that the rotation timescale scales in the same way as 
 
 The consistency in scaling of Equations \ref{sink2} and \ref{tau2} with Equation \ref{tau_def} shows that very similar nondimensionalizations (differing only by constant factors) are obtained by these three distinct approaches to determining relevant timescales for the embryo swimming problem.
 The relative magnitudes, in which sinking and rotation timescales are 1-2 orders larger than the nominal timescale $\tau^*$, suggests that simulations of embryo swimming must have minimum durations of roughly 3 orders of magnitude larger than $\tau$ to reflect the effects of environment on orientation and water column position.
+
+\subsubsection{Implications of timescales for swimming in oceanic turbulence}\label{turb}
+\begin{figure}[t] 
+	\begin{center}
+		\resizebox{10.5cm}{!}{
+			
+			\begin{tikzpicture}
+				\begin{loglogaxis}[
+					axis lines = left,
+					xlabel = {dissipation rate, \(\epsilon ~\left(\mathrm{\frac{W}{kg}}\right)\)},
+					ylabel = {timescale, \(\tau ~(\mathrm{s})\), and length scale, $l ~(\mathrm{m})$},
+					]
+					%Below the red parabola is defined
+					\addplot [
+					domain=0.0000000001:0.0001, 
+					samples=100, 
+					color=red,
+					]
+					{0.001/sqrt(x)};
+					\addlegendentry{\(\tau_K\)}
+					%\addlegendentry{Kolmogorov timescale, \(\tau_K\)}
+					%Here the blue parabola is defined
+					\addplot [
+					domain=0.0000000001:0.0001, 
+					samples=100, 
+					color=blue,
+					]
+					{0.01*0.001/sqrt(x)};
+					\addlegendentry{\(\tau_{max}\)}
+					%\addlegendentry{Stokes timescale, \(\tau\)}
+					%Here the blue parabola is defined
+					\addplot [
+					domain=0.0000000001:0.0001, 
+					samples=100, 
+					color=black,
+					]
+					{1e-6/(0.01*0.001/sqrt(x))};
+					\addlegendentry{\(l_{min}\)}
+					%\addlegendentry{Stokes length scale, \(l\)}
+					\addplot [
+					domain=0.0000000001:0.0001, 
+					samples=10, 
+					color=gray,
+					]
+					{5e-6};
+					\addplot [
+					domain=0.0000000001:0.0001, 
+					samples=10, 
+					color=gray,
+					]
+					{5e-5};
+					\addplot [
+					domain=0.0000000001:0.0001, 
+					samples=10, 
+					color=gray,
+					]
+					{5e-4};		
+				\end{loglogaxis}
+			\end{tikzpicture}
+		}
+	\end{center}
+	\caption{Variation of hypothesized time and length scale constaints, across a wide range of dissipation rates that span likely conditions from intense near-surface turbulence (very roughly, $\epsilon \sim 10^{-4}$) to quiescent deep water (very roughly, $\epsilon \sim 10^{-8}$). $\tau_K$ is the Kolmogorov timescale. $\tau_{max}$ is the maximum Stokes timescale (from Section \ref{NDStokesSect}) satisfying the criterion in Equation \ref{K5a}. $\l_{min}$ is the minimum Stokes length scale satisfying the criterion in Equation \ref{K6}. Horizontal gray lines representing lengths of 5, 50 and 500 microns are shown to give context to the inferred embryo length scales. 
+	} \label{fig:Kol}
+\end{figure}
+
+Because early stage embryos are frequently exposed to turbulence, it is useful to consider the time and length scales arising from the analysis above in the context of turbulence time and length scales.
+As a back-of-the-envelope estimate, we can consider the scales developed by Kolmogorov for homogeneous isotropic turbulence \footnote{summarized in Yamazaki et al. 2002}.
+These scales reflect the approximate duration, size and velocity of the smallest eddies, at which turbulent energy is dissipated as heat at the lower end of the \textit{inertial subrange} (the range within which velocity decreases with wavenumber $k$ as $k^{-5/3}$).
+
+With $\nu^*$ as the dynamic viscosity and $\epsilon^*$ as the energy dissipation rate:
+\begin{itemize}
+	\item The Kolmogorov length scale, $l_K^*$:
+	\begin{equation}\label{K1}
+		l_K^* = \left(\frac{{\nu^*}^3}{\epsilon^*}\right)^\frac{1}{4}
+	\end{equation}
+	\item The Kolmogorov time scale scale, $\tau_K^*$:
+	\begin{equation}\label{K2}
+		\tau_K^* = \left(\frac{\nu^*}{\epsilon^*}\right)^\frac{1}{2}
+	\end{equation}
+	\item The Kolmogorov velocity scale, $u_K^*$:
+	\begin{equation}\label{K3}
+		u_K^* = \left(\nu^* ~ \epsilon^* \right)^\frac{1}{4}
+	\end{equation}
+\end{itemize}
+Note that these estimates depend solely on dimensional arguments.
+The timescale $\tau_K$ therefore reflects both estimates of the \textit{duration} and of the \textit{velocity gradients} (shear and vorticity) of the smallest eddies, because both of these have units of time.
+
+A plausible hypothesis is that, to maintain oriented swimming, the rotation timescale $\tau_{rot}$ of an embryo must be ``small'' compared to the time and shear scales of the fluid in which it is immersed. 
+Because the timescales associated with embryo swimming lengthen as size decreases, it follows from this hypothesis that a given rate of turbulent dissipation implies a minimum embryo size.
+This hypothetical constraint can be expressed in mathematical terms as
+\begin{equation}\label{K4}
+	\tau_{rot}^* < C ~ \tau_K^*
+\end{equation}
+In Equation \ref{K4}, $C$ is a constant -- perhaps of $\mathcal{O}(1)$ -- reflecting, among other uncertainties, that the Kolmogorov timescale does not correspond exactly to the duration or velocity gradients in the smallest turbulent eddies. 
+
+Assuming (after Yamazaki 2002) that viscosity is $\nu^* = 10^{-6} \mathrm{\frac{W}{kg}}$
+\begin{equation}\label{K5}
+	\tau^* < \frac{10^{-3} C}{51.6} {\epsilon^*}^{-\frac{1}{2}}
+\end{equation}
+Rounding extravagantly for the sake of clarity, we can use 
+\begin{equation}\label{K5a}
+	\tau^* < 10^{-5} {\epsilon^*}^{-\frac{1}{2}}
+\end{equation}
+as a back-of-the-envelope estimate of the hypothesized constraint on embryo swimming timescale as a function of turbulent dissipation rate.
+
+This constraint can be expressed in terms of a minimum length $l_{min}^*$, with additional rounding, as:
+\begin{equation}\label{K6}
+	l_{min}^* = \frac{\mu^*}{\Delta \rho^* ~ g^* ~ \tau_{max}^*} \approx 10^{-6} \frac{1}{\tau^*}
+\end{equation}
+
+The hypothesized constraints in Equations \ref{K5a} and \ref{K6} are plotted in Figure \ref{fig:Kol}.
+In this figure, gray lines are shown indicating the length scales typical of very tiny (5 microns), moderate sized (50 microns) and large (500 microns) larvae. 
+The black line shows the minimum length scale in Equation \ref{K6}. 
+
+The hypothesis implies that larvae with length scales below the black line are at risk of losing stability under the influence of ambient turbulence.
+The hypothesis predicts that the smallest larvae may be frequently disoriented in all but the most quiescent environments.
+Larger larvae are predicted to maintain stability in moderate environments, but to be at the limit of their stability in near-surface turbulence.
+In sum, stability requirements (according to this simplistic analysis) impose minimum size constraints such that tiny larvae are viable swimmers only in very quiescent environments (e.g. the deep sea), while the largest larvae are viable swimmers in quiescent and moderate environments but approach the limits of their stability in near surface environments. 
+
+
 
 
 \section{Parameterization of the non-dimensional embryo swimming problem}\label{NDparsSect}
