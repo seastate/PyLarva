@@ -336,8 +336,8 @@ To nondimensionalize, we define nondimensional parameters $x$, $u$, $p$ and $f_q
 		x^* = \mathit{l} x 
 	\end{eqnarray*} 
 	\item We nondimensionalize velocity by normalizing with $l$ and with a timescale, $\tau^*$, that will be determined below:
-	\begin{eqnarray*}
-		u \equiv \frac{\tau^*}{\mathit{l}} u^* , \\
+	\begin{eqnarray*}\label{uscale}
+		u \equiv \frac{\tau^*}{l} u^* , \\
 		u^* = \frac{\mathit{l}}{\tau^*} u 
 	\end{eqnarray*} 
 	\item We nondimensionalize body force by normalizing with a characteristic buoyancy force,
@@ -372,6 +372,17 @@ leads to the nodimensionalized Stokes equations,
 	0 =  \frac{\p u}{\p {x}}+\frac{\p v}{\p {y}}+\frac{\p w}{\p {z}}
 \end{eqnarray}
 In this form of the Stokes Equations. space and time are rescaled such that there are no free parameters -- the primary effects of embryo size, and of the viscosity and density of the fluid medium, are all factored out.  
+
+\subsection{Implications of velocity scaling}
+In a survey of thirteen early stage larvae from diverse benthic marine invertebrate taxa, McDonold and Gr\"unbaum (2010) found that excess density scaled approximately as the inverse square of embryo length. 
+Among the nine early stage trochozoans studied, upward swimming speed was approximately constant with length (speed decreased with length for the four echinoderms, which included the three largest embryos in the study).
+McDonald and Gr\"unbaum hypothesized an ecological requirement for a ``standard'' swimming speed common to many early stage larvae, below which swimming fails to fulfill important roles in predator avoidance, habitat selection or other functions.
+
+In this context, it is worth noting that the scaling of velocity, Equation \ref{uscale}, can be expressed using Equation \ref{tau_def} as
+\begin{equation}\label{key}
+	u^* = \frac{\Delta \rho^* ~ g ~ {l^*}^2}{\mu^*} u 
+\end{equation}
+This expression implies that, for swimming velocity to remain constant across variations in size, excess density (expressed as $\Delta \rho$) must vary as the inverse square of length $l$, in agreement with the observations.
 
 \subsection{The nondimensionalization timescale, in context}
 It is worth a brief consideration of interpretations of $\tau$ as defined in Equation \ref{tau_def}.
@@ -521,7 +532,7 @@ The relative magnitudes, in which sinking and rotation timescales are 1-2 orders
 			\end{tikzpicture}
 		}
 	\end{center}
-	\caption{Variation of hypothesized time and length scale constaints, across a wide range of dissipation rates that span likely conditions from intense near-surface turbulence (very roughly, $\epsilon \sim 10^{-4}$) to quiescent deep water (very roughly, $\epsilon \sim 10^{-8}$). $\tau_K$ is the Kolmogorov timescale. $\tau_{max}$ is the maximum Stokes timescale (from Section \ref{NDStokesSect}) satisfying the criterion in Equation \ref{K5a}. $\l_{min}$ is the minimum Stokes length scale satisfying the criterion in Equation \ref{K6}. Horizontal gray lines representing lengths of 5, 50 and 500 microns are shown to give context to the inferred embryo length scales. 
+	\caption{Variation of hypothesized time and length scale constraints, across a wide range of dissipation rates that span likely conditions from intense near-surface turbulence (very roughly, $\epsilon \sim 10^{-4}$) to quiescent deep water (very roughly, $\epsilon \sim 10^{-8}$). $\tau_K$ is the Kolmogorov timescale. $\tau_{max}$ is the maximum Stokes timescale (from Section \ref{NDStokesSect}) satisfying the criterion in Equation \ref{K5a}. $\l_{min}$ is the minimum Stokes length scale satisfying the criterion in Equation \ref{K6}. Horizontal gray lines representing lengths of 5, 50 and 500 microns are shown to give context to the inferred embryo length scales. 
 	} \label{fig:Kol}
 \end{figure}
 
