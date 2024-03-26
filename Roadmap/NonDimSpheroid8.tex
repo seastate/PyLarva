@@ -77,7 +77,7 @@ Constitutive chimeras are also used to approximate inclusions, which contain mat
 If the volume of tissue is held constant, inclusions alter the volume enclosed by the surface, and typically shift the center of gravity away from the center of buoyancy.
 A shift of this type results in a preferred orientation, in still water, with the center of buoyancy directly above the center of gravity.
 
-The ability of the embryo to swim directionally (typically upwards) depends on the relative strengths of the ``body-force'' righting moments, associated with gravity and buoyancy, compared to destabilizing environmental moments from shear and vorticity that tend to turn larvae away from their vertical orientations.
+The ability of the embryo to swim directionally (typically upwards) depends on the relative strengths of the ``body force'' righting moments, associated with gravity and buoyancy, compared to destabilizing environmental moments from shear and vorticity that tend to turn larvae away from their vertical orientations.
 The overarching goals of the analysis are to:
 \begin{enumerate}
 	\item Assess how embryo size and morphology affect stabilizing body-force righting moments and destabilizing environmental moments; 
@@ -220,7 +220,7 @@ From a morphological perspective, this implies that an embryo of fixed diameter 
 		}
 	\end{center}
 	\caption{Layout of a composite chimera, in profile view, with a constitutive chimera representing the exterior surface (parameterized by $D_s^*$, $L^*_{s_0}$, \etc) and a nested constitutive chimera representing an inclusion (parameterized by $D_i^*$, $L^*_{i_0}$, \etc). 
-	$h_i^*$ is the height by which the equator of the inclusion chimera is elevated relative to the equator of the surface chimera (which may be negative). 
+	$h_i^*$ is the height by which the equator of the inclusion chimera is elevated relative to the equator of the surface chimera. Note that $-L^*_{s_2} < h^*_i < L^*_{s_1}$; a negative value of $h^*_i$ implies that the inclusion equator is lower than the surface equator. 
 	%The schematic shows the inclusion chimera being co-axial with the surface chimera. 
 	%In the numerical implementation, inclusions may be offset horizontally, as long as no chimera surfaces intersect.
 	} \label{fig:chimera2}
@@ -260,7 +260,7 @@ in  Equation \ref{vol3}, where $E$ is the set of exposed inclusions.
 Contained inclusions lie entirely within another inclusion; these do not displace tissue and so do not increase embryo volume (though they do affect calculations of gravity forces, centers of mass, \etc).
 
 
-If we assume that the embryo increases in size isometrically (that is, for a fixed aspect ratio $\alpha_s$), the change in diameter to maintain a constant tissue volume when an inclusion is added is
+If we assume that the embryo increases in size isometrically (that is, for a fixed aspect ratio $\alpha_s$), the change in diameter to maintain a constant tissue volume when an inclusion is added is given by
 \begin{equation}\label{vol4}
 	V_s^*  = \frac{\pi}{6} \alpha_s {D_s^*}^3 = \beta V_t^* = \frac{\pi}{6} \alpha_s \beta {D_t^*}^3,
 \end{equation} 
@@ -307,7 +307,7 @@ Adopting these values, the nondimensional forms are
 	\Dt = \sqrt[\uproot{5}3]{\frac{6}{\pi \alpha_s}} \non, \\
 	\Ds = \sqrt[\uproot{5}3]{\frac{6}{\pi}}
 \end{eqnarray}
-Equations \ref{equvol3} (along with \ref{equvol3a}) and \ref{equvol5} are now the basis of a nondimensionalization in which tissue volume is factored out of the rescaled equations.
+Equations \ref{equvol3}, \ref{equvol3a} and \ref{equvol5} are now the basis of a nondimensionalization in which tissue volume is factored out of the rescaled equations.
 
 
 \section{Nondimensionalized Stokes Equations}\label{NDStokesSect}
@@ -331,38 +331,39 @@ To nondimensionalize, we define nondimensional parameters $x$, $u$, $p$ and $f_q
 %,  and $p$ in terms of the characteristic length, $l$, a characteristic body force $$ timescale
 \begin{itemize}
 	\item We nondimensionalize position and other length quantities by normalizing with $l$:
-	\begin{eqnarray*}
-		x \equiv \frac{x^*}{\mathit{l}} , \\
+	\begin{eqnarray}
+		x \equiv \frac{x^*}{\mathit{l}} , \non \\
 		x^* = \mathit{l} x 
-	\end{eqnarray*} 
+	\end{eqnarray} 
 	\item We nondimensionalize velocity by normalizing with $l$ and with a timescale, $\tau^*$, that will be determined below:
-	\begin{eqnarray*}\label{uscale}
-		u \equiv \frac{\tau^*}{l} u^* , \\
+	\begin{eqnarray}\label{uscale}
+		u \equiv \frac{\tau^*}{l} u^* , \non \\
 		u^* = \frac{\mathit{l}}{\tau^*} u 
-	\end{eqnarray*} 
+	\end{eqnarray} 
 	\item We nondimensionalize body force by normalizing with a characteristic buoyancy force,
 	\begin{equation}\label{charforce}
-		\hat{f^*} = \Delta \rho ~ g
+		\hat{f^*} = \Delta \rho^* ~ g^*
 	\end{equation}
-	where $\Delta \rho$ is a ``typical'' density difference between the fluid medium and the embryo. 
+	where $\Delta \rho^*$ is a ``characteristic'' density that we define below. 
+	$g^*$ is gravitational acceleration.
 	Then, for $q \in x, y, z$:
-	\begin{eqnarray*}
-		f_q \equiv \frac{f_q^*}{\hat{f^*}}  = \frac{f_q^*}{\Delta \rho^* ~ g} , \\
-		f_q^* = \hat{f^*} f_q = \Delta \rho^* ~ g ~ f_q
+	\begin{eqnarray}
+		f_q \equiv \frac{f_q^*}{\hat{f^*}}  = \frac{f_q^*}{\Delta \rho^* ~ g^*} , \non \\
+		f_q^* = \hat{f^*} f_q = \Delta \rho^* ~ g^* ~ f_q
 		%f_q \equiv \frac{\l ~ \tau^*}{\mu^*} f_q^* , \\
 		%f_q^* = \frac{\mu^*}{\l ~ \tau^*} f_q 
-	\end{eqnarray*} 
+	\end{eqnarray} 
 	\item Similarly, we nondimensionalize pressure as
-	\begin{eqnarray*}
-		p \equiv  \frac{ p^*}{\Delta \rho^* ~ g ~ l} , \\
-		p^* = \Delta \rho^* ~ g ~ l ~ p  
+	\begin{eqnarray}
+		p \equiv  \frac{ p^*}{\Delta \rho^* ~ g^* ~ l} , \non \\
+		p^* = \Delta \rho^* ~ g^* ~ l ~ p  
 		%p \equiv \frac{\tau^*}{\mu^*} p^*
 		%p^* = \frac{\mu^*}{\tau^*} p, \\
-	\end{eqnarray*} 
+	\end{eqnarray} 
 \end{itemize}
 With these nondimensionalizations, the choice 
 \begin{equation}\label{tau_def}
-	\tau^* = \frac{\mu^*}{\Delta \rho^* ~ g ~ l}
+	\tau^* = \frac{\mu^*}{\Delta \rho^* ~ g^* ~ l}
 \end{equation}
 leads to the nodimensionalized Stokes equations,
 \begin{eqnarray}\label{Stokes2}
@@ -373,19 +374,84 @@ leads to the nodimensionalized Stokes equations,
 \end{eqnarray}
 In this form of the Stokes Equations. space and time are rescaled such that there are no free parameters -- the primary effects of embryo size, and of the viscosity and density of the fluid medium, are all factored out.  
 
+\subsection{Nondimensionalization: Densities}
+In embryos' low Reynolds Number swimming, the inertial effects (proportional to densities) are negligible.
+Embryo motion is therefore determined by the external flow and by forces from ciliary propulsion, gravity and buoyancy.
+In choosing the characteristic density $\Delta \rho^*$ for nondimensionalizing the Stokes equations governing embryo swimming mechanics, it is useful to consider the net body forces resulting from the combined effects of buoyancy and gravity. 
+
+A key point is that gravity forces on embryos are typically of the same order of magnitude, but opposite in direction, as the buoyancy force.
+That is, the net body force on an embryo is typically an order of magnitude or more smaller than either the buoyancy or gravity forces in isolation.
+A consequence is that scaling embryo material densities in the simplest way -- by normalizing with the medium density, $\rho^*_{med}$) -- would lead to very large or very small nondimensional parameters.
+While not incorrect, this approach loses one of the key benefits of nondimensionalization, which is to recast parameters such that large or small values reflect whether or not a mechanism is dynamically important.
+
+To make the nondimensionalization of densities more informative, we define $\hat{\rho}^*$ as a ``typical'' average density of an embryo as a whole.
+This is a useful reference density for embryos, in part because it is the easiest to measure (\textit{e.g.} by measuring equilibrium conditions within a sucrose or dextran gradient in a graduated cylinder).
+
+$\hat{\rho}^*$ enables us to define the \textit{excess density} -- the amount by which a ``typical'' embryo density exceeds that of the surrounding seawater -- as
+\begin{equation}
+	\Delta \rho^* = \hat{\rho}^* - \rho_{med}^*
+\end{equation}
+The excess density is found in references by Emlet, MacDonald and others to typically be on the order of $10-50 \frac{\mathrm{kg}}{\mathrm{m^3}}$ in magnitude.
+Excess density can also be negative, for buoyant embryos; Emlet's examples suggest a similar range of typical magnitudes.
+
+To nondimensionalize material properties within embryos, we define the excess densities of the tissue and inclusions within embryos as
+\begin{eqnarray}\label{dens1}
+	\Delta \rho_t^* = \rho_t^* - \rho_{med}^*, \non \\
+	\Delta \rho_i^* = \rho_i^* - \rho_{med}^*
+\end{eqnarray}
+We then define nondimensional excess densities for tissue and inclusions as
+\begin{eqnarray}\label{dens2}
+	\gamma_t = \frac{\Delta \rho_t^*}{\Delta \rho^*} \non \\
+	\gamma_i = \frac{\Delta \rho_i^*}{\Delta \rho^*}
+\end{eqnarray}
+In terms of the original densities, the tissue and inclusion densities can be expressed as 
+\begin{eqnarray}\label{dens3}
+	\rho_t^* = \gamma_t \hat{\rho}^* + (1 - \gamma_t) \rho_{med}^*, \non \\
+	\rho_t^* = \gamma_i \hat{\rho}^* + (1 - \gamma_i) \rho_{med}^*.
+\end{eqnarray}
+The interpretation of these $\gamma$ parameters is that:
+\begin{itemize}
+	\item $\gamma = 0$ implies density equal to that of the fluid medium, $\rho_{med}^*$;
+	\item $\gamma = 1$ implies density equal to the reference density $\hat{\rho}^*$;
+	\item $\gamma < 0$ implies a buoyant material (density less than $\rho_{med}^*$); and,
+	\item $\gamma > 1$ implies a heavy material (density greater than $\hat{\rho}^*$).
+\end{itemize}
+
+Because $\Delta \rho^*$ reflects the net effect of body forces on swimming embryos, using it as the reference density in Equations \ref{charforce}-\ref{tau_def} is likely to yield nondimensional parameters that are closer to $\mathcal{O}(1)$ than absolute densities such as $\hat{\rho}^*$ or $\rho_{med}^*$.
+$\gamma_t$ and $\gamma_i$ are likewise informative because they indicate how strongly and in which direction material properties contribute to density differences of embryo components relative to the surrounding fluid medium. 
+
+The total mass enclosed by the surface of the embryo is 
+\begin{equation*}
+	M_s^* = \hat{\rho}^* V_s^*.
+\end{equation*}
+The masses of the tissue and inclusion are
+\begin{eqnarray}\label{dens4}
+	M_t^* = \rho_t^* V_t^* = (\gamma_t \hat{\rho}^* + (1 - \gamma_t) \rho_{med}^*) V_t^*, \non \\
+	M_i^* = \rho_i^* V_i^* = (\gamma_i \hat{\rho}^* + (1 - \gamma_i) \rho_{med}^*) V_i^*.
+\end{eqnarray}
+The actual average density of the embryo is
+\begin{equation}\label{dens5}
+	\hat{\rho}_s^* = \frac{\rho_t^* V_t^* + \rho_i^* V_i^*}{V_s^*} = \frac{\rho_t^* + (\beta-1)\rho_i^*}{\beta}
+\end{equation}
+and the actual excess density is
+\begin{equation}\label{dens6}
+	\Delta \rho_s^* = \frac{\Delta \rho_t^* V_t^* + \Delta \rho_i^* V_i^*}{V_s^*} = \frac{\Delta \rho_t^* + (\beta-1)\Delta \rho_i^*}{\beta}
+\end{equation}
+
+
 \subsection{Implications of velocity scaling}
-In a survey of thirteen early stage larvae from diverse benthic marine invertebrate taxa, McDonold and Gr\"unbaum (2010) found that excess density scaled approximately as the inverse square of embryo length. 
+In a survey of thirteen early stage larvae from diverse benthic marine invertebrate taxa, McDonald and Gr\"unbaum (2010) found that excess density scaled approximately as the inverse square of embryo length. 
 Among the nine early stage trochozoans studied, upward swimming speed was approximately constant with length (speed decreased with length for the four echinoderms, which included the three largest embryos in the study).
 McDonald and Gr\"unbaum hypothesized an ecological requirement for a ``standard'' swimming speed common to many early stage larvae, below which swimming fails to fulfill important roles in predator avoidance, habitat selection or other functions.
 
 In this context, it is worth noting that the scaling of velocity, Equation \ref{uscale}, can be expressed using Equation \ref{tau_def} as
 \begin{equation}\label{key}
-	u^* = \frac{\Delta \rho^* ~ g ~ {l^*}^2}{\mu^*} u 
+	u^* = \frac{\Delta \rho^* ~ g^* ~ {l^*}^2}{\mu^*} u 
 \end{equation}
 This expression implies that, for swimming velocity to remain constant across variations in size, excess density (expressed as $\Delta \rho$) must vary as the inverse square of length $l$, in agreement with the observations.
 
 \subsection{The nondimensionalization timescale, in context}
-It is worth a brief consideration of interpretations of $\tau$ as defined in Equation \ref{tau_def}.
+It is worth a brief consideration of interpretations of $\tau^*$ as defined in Equation \ref{tau_def}.
 Two timescales suggest themselves as being intrinsically relevant to the physics of embryo swimming:
 \begin{itemize}
 	\item the timescale over which an embryo sinks a distance equal to its own size; and,
@@ -396,12 +462,12 @@ We can get a sense for the magnitudes of these timescales, without introducing u
 \subsubsection{Sinking movement of a sphere}\label{SinkSect}
 A sphere of diameter $D_{sph}^*$ sinking in Stokes flow falls at speed
  \begin{equation}\label{sink1}
- 	u_{sink}^* = \frac{1}{18} ~ \frac{\Delta \rho^* ~ g}{\mu^*}  ~ {D_{sph}^*}^2,
+ 	u_{sink}^* = \frac{1}{18} ~ \frac{\Delta \rho^* ~ g^*}{\mu^*}  ~ {D_{sph}^*}^2,
  \end{equation}
 where $\Delta \rho^*$ is the density difference between the sphere and the surrounding fluid.
-Defining a timescale $\tau_{sink}$ as the time needed for the sphere to sink a distance equal to the length scale, $l$,
+Defining a timescale $\tau^*_{sink}$ as the time needed for the sphere to sink a distance equal to the length scale, $l^*$,
 \begin{equation}\label{sink2}
-	\tau^*_{sink} = \frac{l}{u_{sink}^*} = 18 \sqrt[\uproot{5}3]{\frac{\pi^2}{36}} ~ \frac{\mu^*}{\Delta \rho^* ~ g ~ l} 
+	\tau^*_{sink} = \frac{l^*}{u_{sink}^*} = 18 \sqrt[\uproot{5}3]{\frac{\pi^2}{36}} ~ \frac{\mu^*}{\Delta \rho^* ~ g^* ~ l^*} 
 	              = 11.69 ~ \tau^*
 \end{equation}
 Equation \ref{sink2} shows that the sinking timescale scales in the same way as the timescale inferred in Equation \ref{tau_def} from the nondimensionalization of the Stokes equations, and is larger by an order of magnitude (that is, by a constant factor of 11.69).
@@ -427,50 +493,25 @@ As an order-of-magnitude estimate of the moment arm, we can consider a sphere di
 	A^* = \frac{3}{16} D_{sph}^*
 \end{equation}
 The buoyancy force is the product of the density difference and the hemisphere volume,
-%A density difference, $\Delta \rho^*$, that is likely to be characteristic of many swimming embryo scenarios is indicated by the nominal densities of tissue, $\rho_{tissue} = 1070 ~ \mathrm{\frac{kg}{m^3}}$, and of lipid, $\rho_{lipid} = 900 ~ \mathrm{\frac{kg}{m^3}}$, in comparison to seawater, $\rho_{seawater} = 1030 ~ \mathrm{\frac{kg}{m^3}}$.
-%Expressing the density difference in terms of $\rho_{seawater}$,
-%\begin{equation}\label{dens}
-%	\Delta \rho^* = \gamma ~ \rho_{med},
-%	%\Delta \rho^* = \rho_{tissue} - \rho_{lipid}
-%\end{equation}
-%where the coefficient $\gamma$ is of $\mathcal{O}(10^{-1})$ so that $\Delta \rho^* \approx 10^2$.
-%%Taking $\rho_{tissue} = 1070 ~ \mathrm{\frac{kg}{m^3}}$ and $\rho_{lipid} = 900 ~ \mathrm{\frac{kg}{m^3}}$ as nominal values gives a value for the characteristic density difference driving embryo rotation as
-%%\begin{equation}\label{dens2}
-%%	\Delta \rho^* = 130 ~ \mathrm{\frac{kg}{m^3}}
-%%\end{equation}
-%
-%Using the volume from the equivalent hemisphere, 
 \begin{equation}\label{charF}
-	F_{sph}^* = \frac{\Delta \rho^* ~ g ~ V_{sph}^*}{2}.  %= \frac{\pi}{6} ~ \rho_{med}^* ~ g ~ {D_{sph}^*}^3,
+	F_{sph}^* = \frac{\Delta \rho^* ~ g^* ~ V_{sph}^*}{2}.  %= \frac{\pi}{6} ~ \rho_{med}^* ~ g ~ {D_{sph}^*}^3,
 \end{equation} 
 Combining these estimates,
 \begin{equation}\label{charT}
-	T^* \equiv F^* ~ A^* = \frac{3}{32} ~ \Delta \rho^* ~ g ~ D_{sph}^* V_{sph}^* 
-	% = \frac{3 \pi}{192} ~ \Delta \rho^* ~ g ~ {D_{sph}^*}^4
+	T^* \equiv F^* ~ A^* = \frac{3}{32} ~ \Delta \rho^* ~ g^* ~ D_{sph}^* V_{sph}^* 
 \end{equation}
 is a characteristic buoyancy-driven torque for many relevant embryo morphologies.
-% 
-%\begin{equation}\label{charT}
-%	T^* \equiv F^* ~ A^* = \frac{\Delta \rho^* ~ g ~ V_{sph}^*}{2} ~ \frac{3 ~ D_{sph}^*}{16} =  %D_{sph}^* F_{sph}^* = \frac{\pi}{6} ~ \rho_{med}^* ~ g ~ {D_{sph}^*}^4 =  \rho_{med}^* ~ g ~ D_{sph}^* V_{sph}^*,
-%\end{equation} 
-%
-%\begin{eqnarray}\label{charT2}
-%	T^* & = & \frac{3}{32} ~ \Delta \rho^* ~ g D_{sph}^* V_{sph}^* \non \\
-%	    & = & \frac{3}{32} ~ \Delta \rho^* ~ g D_{sph}^* \frac{\pi}{6} {D_{sph}^*}^3 \non \\
-%	    & = & \frac{3 \pi}{192} ~ \Delta \rho^* ~ g ~ {D_{sph}^*}^4
-%	%D_{sph}^* F_{sph}^* = \frac{\pi}{6} ~ \rho_{med}^* ~ g ~ {D_{sph}^*}^4 =  \rho_{med}^* ~ g ~ D_{sph}^* V_{sph}^*,
-%\end{eqnarray} 
 
 Substituting this value into Equation \ref{tau1}, substituting with \ref{equvol4} and simplifying gives
 \begin{equation}\label{tau2}
-	\tau^*_{rot} = \frac{64 ~ \mu^*}{\Delta \rho^* ~ g ~ D_{sph}} 
+	\tau^*_{rot} = \frac{64 ~ \mu^*}{\Delta \rho^* ~ g^* ~ D_{sph}} 
 	=  64\sqrt[\uproot{5}3]{\frac{\pi}{6}} ~ \tau^*
 %=  64\sqrt[\uproot{5}3]{\frac{\pi}{6}} \frac{\mu^*}{\Delta \rho^* ~ g ~ l}
 \end{equation}
 Equation \ref{tau2} shows that the rotation timescale scales in the same way as the timescale inferred in Equation \ref{tau_def} from the nondimensionalization of the Stokes equations, and is larger by about two orders of magnitude (that is, by a constant factor of 51.58).
 
 The consistency in scaling of Equations \ref{sink2} and \ref{tau2} with Equation \ref{tau_def} shows that very similar nondimensionalizations (differing only by constant factors) are obtained by these three distinct approaches to determining relevant timescales for the embryo swimming problem.
-The relative magnitudes, in which sinking and rotation timescales are 1-2 orders larger than the nominal timescale $\tau^*$, suggests that simulations of embryo swimming must have minimum durations of roughly 3 orders of magnitude larger than $\tau$ to reflect the effects of environment on orientation and water column position.
+The relative magnitudes, in which sinking and rotation timescales are 1-2 orders larger than the nominal timescale $\tau^*$, suggests that simulations of embryo swimming must have minimum durations of roughly 3 orders of magnitude larger than $\tau^*$ to reflect the effects of environment on orientation and water column position.
 
 \subsubsection{Implications of timescales for swimming in oceanic turbulence}\label{turb}
 \begin{figure}[t] 
@@ -559,7 +600,10 @@ Note that these estimates depend solely on dimensional arguments.
 The timescale $\tau_K$ therefore reflects both estimates of the \textit{duration} and of the \textit{velocity gradients} (shear and vorticity) of the smallest eddies, because both of these have units of time.
 
 A plausible hypothesis is that, to maintain oriented swimming, the rotation timescale $\tau_{rot}$ of an embryo must be ``small'' compared to the time and shear scales of the fluid in which it is immersed. 
-Because the timescales associated with embryo swimming lengthen as size decreases, it follows from this hypothesis that a given rate of turbulent dissipation implies a minimum embryo size.
+For example, if a larva that reorients rapidly (e.g., in time $\tau^*_{rot} \approx 1 s$) is immersed in turbulence that overturns slowly (e.g., $\tau^*_K \approx 10 s$) it is likely the larva can maintain its orientation.
+Conversely, if a larva that reorients slowly (e.g., in time $\tau^*_{rot} \approx 10 s$) is immersed in turbulence that overturns rapidly (e.g., $\tau^*_K \approx 1 s$) it is likely the larva will lose stability.
+
+Because the timescales associated with embryo swimming lengthen as size decreases, it follows from this hypothesis that a given rate of turbulent dissipation implies a minimum embryo size for maintaining orientation.
 This hypothetical constraint can be expressed in mathematical terms as
 \begin{equation}\label{K4}
 	\tau_{rot}^* < C ~ \tau_K^*
@@ -589,8 +633,7 @@ The hypothesis implies that larvae with length scales below the black line are a
 The hypothesis predicts that the smallest larvae may be frequently disoriented in all but the most quiescent environments.
 Larger larvae are predicted to maintain stability in moderate environments, but to be at the limit of their stability in near-surface turbulence.
 In sum, stability requirements (according to this simplistic analysis) impose minimum size constraints such that tiny larvae are viable swimmers only in very quiescent environments (e.g. the deep sea), while the largest larvae are viable swimmers in quiescent and moderate environments but approach the limits of their stability in near surface environments. 
-
-
+A test of this hypothesis would be to assess whether, across a diversity of taxa and environments, larvae fall predominantly above the black line (or a nearby parallel line) in Figure \ref{fig:Kol}.
 
 
 \section{Parameterization of the non-dimensional embryo swimming problem}\label{NDparsSect}
@@ -602,8 +645,12 @@ The basic strategy is to derive the \textit{shape parameters},
 \begin{eqnarray}\label{shapars}
 	\alpha_s, \eta_s, \alpha_{i}, \eta_{i}, \beta, \xi
 \end{eqnarray}
+and \textit{material parameters}
+\begin{eqnarray}\label{matpars}
+	\gamma_t, \gamma_t
+\end{eqnarray}
 from the experimentally observed embryo dimensions.
-These shape parameters, together with three \textit{scale parameters} -- tissue volume $\Vts$ and the fluid medium viscosity $\mu^*$ and density $\rho_{med}^*$ -- are then sufficient to reconstruct:
+These shape and material parameters, together with three \textit{scale parameters} -- tissue volume $\Vts$ and the fluid medium viscosity $\mu^*$ and density $\rho_{med}^*$ -- are then sufficient to reconstruct:
 \begin{itemize}
 	\item the original observed geometry and swimming scenario;
 	\item the corresponding nondimensional geometry and swimming scenario;
@@ -637,6 +684,7 @@ Densities are often estimated from equilibrium positions in water columns with d
 The Euler angles, $\phi$, $\theta$ and $\psi$,  have units of radians, and are not changed in the nondimensionalization.
 Relevant ranges for the shears are inferred from \textit{in situ} observations of turbulence or estimates of turbulent intensity in different marine habitats.
 
+
 From these parameters, the steps to obtain the corresponding nondimensional parameter set are:
 \begin{enumerate}
 	\item Calculate the volumes:
@@ -659,14 +707,22 @@ From these parameters, the steps to obtain the corresponding nondimensional para
 	\item Calculate the characteristic length and timescale:
 	\begin{eqnarray}\label{d2ndpars3}
 		\l = \sqrt[\uproot{5}3]{V_t^*} \non \\
-		%D_{sph}^* = \sqrt[\uproot{5}3]{\frac{6}{\pi} V_t^*} \non \\
-		%\l = \sqrt[\uproot{5}3]{\frac{\pi}{6}} D_{sph}^* \non \\
-		%\tau^* = \frac{6  \mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*}
-		\Delta \rho^* = \gamma \rho_{med}^*, ~ \gamma = 0.1 \non \\
+		%%D_{sph}^* = \sqrt[\uproot{5}3]{\frac{6}{\pi} V_t^*} \non \\
+		%%\l = \sqrt[\uproot{5}3]{\frac{\pi}{6}} D_{sph}^* \non \\
+		%%\tau^* = \frac{6  \mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*}
+		%\Delta \rho^* = \gamma \rho_{med}^*, ~ \gamma = 0.1 \non \\
 		\tau^* = \frac{\mu^*}{\Delta \rho^* ~ g ~ l}
 	\end{eqnarray}
-	Here, a ``typical'' density difference equal to $\gamma \rho_{med}^*$ is assumed in determining the timescale, to streamline comparisons of nondimensional swimming performance across variations in embryo density.
-	The value $\gamma = 0.1$ reflects the order of magnitude of density differences of embryo tissue, lipid, freshwater etc.
+	\color{red}
+	Note that the choice of characteristic value for the excess density, $\Delta \rho^*$, is somewhat arbitrary as long as it within the same order of magnitude as observations.
+	For simplicity, in this analysis we adopt
+	\begin{equation}
+		\Delta \rho^* = 10 \frac{\mathrm{kg}}{\mathrm{m^3}}
+	\end{equation}
+	unless otherwise stated.
+	\color{black}
+	%Here, a ``typical'' density difference equal to $\gamma \rho_{med}^*$ is assumed in determining the timescale, to streamline comparisons of nondimensional swimming performance across variations in embryo density.
+	%The value $\gamma = 0.1$ reflects the order of magnitude of density differences of embryo tissue, lipid, freshwater etc.
 	\item Calculate the nondimensionalized geometrical parameters:
 	\begin{eqnarray}\label{d2ndpars4a}
 		D_t = \sqrt[\uproot{5}3]{\frac{6}{\pi \alpha_s}} \non \\
@@ -688,8 +744,12 @@ From these parameters, the steps to obtain the corresponding nondimensional para
 	\end{eqnarray}
 	\item Calculate the nondimensionalized tissue and inclusion densities:
 	\begin{eqnarray}\label{d2ndpars5}
-		\rho_t = \frac{\rho_t^*}{\Delta \rho^*} \non \\
-		\rho_i = \frac{\rho_i^*}{\Delta \rho^*}
+		\Delta \rho_t^* = \rho_t^* - \rho^*_{med} \non \\
+		\Delta \rho_i^* = \rho_i^* - \rho^*_{med} \non \\
+		\gamma_t = \frac{\Delta \rho_t^*}{\Delta \rho^*} \non \\
+		\gamma_i = \frac{\Delta \rho_i^*}{\Delta \rho^*}
+		%\rho_t = \frac{\rho_t^*}{\Delta \rho^*} \non \\
+		%\rho_i = \frac{\rho_i^*}{\Delta \rho^*}
 	\end{eqnarray}
 	\item Calculate the nondimensionalized ciliary velocity, shear and simulation end time:
 	\begin{eqnarray}\label{d2ndpars6}
@@ -718,15 +778,16 @@ These must be derived from the following sets of parameters:
 		\end{eqnarray}
 	\item The nondimensional tissue and inclusion densities, and ciliary velocity:
 		\begin{eqnarray}\label{nd2dpars1a}
-			v_{cil}, \rho_t, \rho_i, \frac{\p w}{\p x}, \frac{\p u}{\p z}, t_{end}
+			v_{cil}, \gamma_t, \gamma_i, \frac{\p w}{\p x}, \frac{\p u}{\p z}, t_{end}
+			%v_{cil}, \rho_t, \rho_i, \frac{\p w}{\p x}, \frac{\p u}{\p z}, t_{end}
 		\end{eqnarray}
-	\item The ciliary velocity, shears and simulation end time:
+	\item The nondimensional shears and simulation end time:
 		\begin{eqnarray}\label{nd2dpars1b}
-			v_{cil}, \frac{\p w}{\p x}, \frac{\p u}{\p z}, t_{end}
+			\frac{\p w}{\p x}, \frac{\p u}{\p z}, t_{end}
 		\end{eqnarray}
 	\item The initial Euler angles and position
 		\begin{eqnarray}\label{nd2dpars2a}
-			\phi, \theta, \psi, x_0, y_0, z_0
+			\phi_0, \theta_0, \psi_0, x_0, y_0, z_0
 		\end{eqnarray}	 	
 \end{itemize}
 %\begin{eqnarray}\label{nd2dpars1}
@@ -735,26 +796,32 @@ These must be derived from the following sets of parameters:
 %\end{eqnarray}
 The shape parameters and the initial Euler angles apply equally to both dimensional and nondimensional scenarios.
 
+\color{red}
+Note that to be consistent we must use the same (somewhat arbitrary) value for the ``characteristic'' excess density as used to obtain the nondimensional parameters,
+\begin{equation}
+	\Delta \rho^* = 10 \frac{\mathrm{kg}}{\mathrm{m^3}}.
+\end{equation}
+\color{black}
+
 
 \begin{enumerate}
 	\item From these, calculate tissue and surface volumes, tissue and inclusion densities, the equivalent sphere diameter and the rotation timescale :
 \begin{eqnarray}\label{nd2dpars3}
-	\Delta \rho^* = \gamma ~ \rho_{med}^*, ~ \gamma = 0.1 \non \\
-	\rho^*_t = \Delta \rho^* ~ \rho_t \non \\
-	\rho^*_i = \Delta \rho^* ~ \rho_i \non \\
+	%\Delta \rho^* = \gamma ~ \rho_{med}^*, ~ \gamma = 0.1 \non \\
+	\hat{\rho}^* = \Delta \rho^* + \rho^*_{med} \non \\
+	\rho^*_t = \gamma_t \hat{\rho}^* + (1-\gamma_t) \rho^*_{med} \non \\
+	\rho^*_t = \gamma_i \hat{\rho}^* + (1-\gamma_i) \rho^*_{med} \non \\
 	V_s^* = \beta V_t^* \non \\
 	V_i^* = (\beta-1) V_t^* \non \\
-	\l = \sqrt[\uproot{5}3]{V_t^*} \non \\
-	%D_{sph}^* = \sqrt[\uproot{5}3]{\frac{6}{\pi}} \l \non \\
-	%\tau^* = \frac{6 \mu^*}{\rho^*_{med} ~ g ~ D_{sph}^*} \\
-	\tau^* = \frac{\mu^*}{\Delta \rho^* ~ g ~ l}
+	l^* = \sqrt[\uproot{5}3]{V_t^*} \non \\
+	\tau^* = \frac{\mu^*}{\Delta \rho^* ~ g^* ~ l^*}
 \end{eqnarray}
 \item Calculate dimensions of the surface and inclusions in physical units:
 \begin{eqnarray}\label{nd2dpars4}
 	%D_t^* = \sqrt[\uproot{5}3]{\frac{6}{\pi \alpha_s}} \l \non \\
-	D_s^* = \sqrt[\uproot{5}3]{\frac{6 \beta}{\pi \alpha_s}} \l \non \\
+	D_s^* = \sqrt[\uproot{5}3]{\frac{6 \beta}{\pi \alpha_s}} l^* \non \\
 	%D_s^* = \sqrt[\uproot{5}3]{\beta} D_t^* \non \\
-	D^*_i = \sqrt[\uproot{5}3]{\frac{6 (\beta-1)}{\pi \alpha_i}} \l \non \\
+	D^*_i = \sqrt[\uproot{5}3]{\frac{6 (\beta-1)}{\pi \alpha_i}} l^* \non \\
 	L^*_{s_0} = \alpha_s D^*_s \non \\
 	L^*_{s_2} = \eta_s L^*_{s_0} \non \\
 	L^*_{s_1} = (1-\eta_s) L^*_{s_0} \non \\
